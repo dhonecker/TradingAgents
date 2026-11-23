@@ -1,0 +1,19 @@
+**Rating**: Hold
+
+**Executive Summary**: AAPL halten. Bestehende Positionen bleiben beim Zielgewicht (100 %). Bei ~351 nicht zukaufen und nicht allein wegen der Bewertung verkaufen. Wer über dem Zielgewicht liegt, reduziert auf das Zielgewicht. Aufgestockt wird nur auf 110 %, und zwar in zwei kleinen Tranchen. Auslöser ist entweder ein stabilisierter Rücksetzer in die Zone 335–342 oder zwei Schlusskurse über 360 bei Volumen und positivem MACD-Histogramm. Die Stufe 120 % kommt erst, wenn Q4-Guidance, Bewertung, Insider-Transaktionen und die Cook-Frage geprüft sind. Reduziert wird abgestuft: auf ~90 % bei einem Schluss unter ~335,6 mit erhöhtem Volumen, auf 70–75 % unter 331 oder bei negativer Guidance. Die Stückzahl ergibt sich aus dem Risikobudget. Der Zeithorizon liegt bei 1–3 Monaten.
+
+**Investment Thesis**: Alle drei Risikoanalysten kommen auf Hold, aber mit unterschiedlicher Begründung. Diese Unterschiede sind der eigentliche Gehalt der Debatte.
+
+Für das Halten spricht: Der Umsatz wächst seit drei Quartalen um rund 16 %, das EPS um 20–29 %. Die Bruttomarge ist von 46,5 % auf 50,1 % gestiegen, der FCF liegt in neun Monaten bei 110 Mrd. USD. Der Trend ist intakt (Kurs 350,9 > 10-EMA 349,5 > 50-SMA 341,9 > 200-SMA 303,2). Die Rücksetzer im Juni und Juli wurden vollständig aufgeholt. Einen Verkaufsauslöser gibt es nicht.
+
+Gegen einen Zukauf spricht: Nach der korrigierten Rechnung des Neutralen liegt das KGV bei etwa 37–39. Q4 ist bei Apple das September-Quartal und nicht das saisonal stärkste. Das KGV ist bei über 20 % EPS-Wachstum erklärbar, aber voll. Der Kurs liegt über dem Konsensziel. Der Ausbruch am 13.11. bei 360,8 ist gescheitert. Bis 356 bleiben nur ~1,5 % Aufwärtspotenzial, bei einem ATR von 8,31.
+
+Der Konservative hat zwei Punkte zu Recht korrigiert. Erstens ist der Stop bei 334,5, gemessen vom Entry 342, kleiner als ein ATR. Zweitens zeigt der Gap vom 31.07. (−7 %), dass ein Stop keine Ausführung zum Stopp-Preis garantiert. Deshalb wird die Positionsgröße aus dem Risikobudget abgeleitet und nicht über den Stop schöngerechnet. Die Rechnung des Aggressiven mit 2,4:1 bzw. 7:1 bis zum unbelegten Modellziel von 400 ist zu optimistisch. Auch das Short-Squeeze-Szenario ist zu dünn belegt, um eine Aufstockung zu tragen.
+
+Der Neutrale hat überzeugend gezeigt, dass der Abwärtsauslöser des Konservativen am 50-SMA in die Kaufzone fällt und einen Whipsaw provozieren würde. Daher gilt eine abgestufte Reduktion: unter dem 50-SMA nur Wachmodus, unter ~335,6 auf ~90 %, unter 331 auf 70–75 %. Wichtig ist auch sein Hinweis, dass der Sprung vom 03./04.11. (331,6 → 349,2, ~90 Mio. Stück) vermutlich schon die Reaktion auf die Q4-Zahlen war. Die fehlenden Daten (Q4-Guidance, Bewertung, Form 4, Cook als „ehemaliger CEO“) sind also eher eine Lücke in den Tools als ein künftiges Ereignis und sollten umgehend geprüft werden. Bis das geschehen ist, bleibt die Aufstockung auf 110 % begrenzt, mit zwei Tagesschlüssen über 360 statt einem.
+
+Die Belege sind ausgeglichen, deshalb Hold. Die Fundamentaldaten und der Trend sprechen gegen einen Verkauf, Bewertung, Timing und Datenlücken gegen ein Overweight. Was die Einschätzung ändern würde: Ein Upgrade auf Overweight käme in Frage, wenn die Prüfung eine positive Guidance zeigt, keine belegte Revisionswelle läuft, die Cook-Frage widerlegt ist und dazu ein bestätigter Ausbruch über 360 oder eine Stabilisierung in der Zone 335–342 kommt. Ein Downgrade auf Underweight käme bei einem Schluss unter 331 mit Volumen, bei einer bestätigten rückläufigen Marge bzw. Guidance, bei einem bestätigten CEO-Wechsel mit negativen Implikationen oder wenn sich der Aufbau des Umlaufvermögens um ~24 Mrd. als Vorrats- oder Forderungsproblem erweist.
+
+**Price Target**: not provided
+
+**Time Horizon**: 1-3 Monate

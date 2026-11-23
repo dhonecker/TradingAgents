@@ -1,0 +1,10 @@
+Equity 100,000.00 $, Slot je Ticker 16,666.67 $, Markt offen: True
+
+NVDA   Underweight  Kurs    166.79  Bestand      0  Ziel      0  Order +0
+AAPL   Hold         Kurs    348.67  Bestand      0  Ziel      0  Order +0
+MSFT   Hold         Kurs    499.47  Bestand      0  Ziel      0  Order +0
+GOOGL  Underweight  Kurs    282.32  Bestand      0  Ziel      0  Order +0
+AMZN   Hold         Kurs    257.36  Bestand      0  Ziel      0  Order +0
+SPY    Hold         Kurs    724.33  Bestand      0  Ziel      0  Order +0
+
+Keine Orders gesendet.

@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<title>AMZN 2026-11-23 Hold: TradingAgents report</title>
+<style>
+:root {
+  --paper: #fbfbfa; --ink: #1c2126; --muted: #5d6670; --rule: #e2e5e8; --wash: #f2f4f5;
+  --accent: #087a59; --up: #087a59; --down: #b4372f; --level: #5d6670; --edge: #d3d8dc; --mark: #878f97;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131a1f; --ink: #e4e8eb; --muted: #9aa6af; --rule: #263239; --wash: #1a242a;
+    --accent: #14c290; --up: #14c290; --down: #ef6f63; --level: #9aa6af; --edge: #3d4c55; --mark: #66737c;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .masthead .logo [stroke="#363636"] { stroke: var(--muted); }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 17px/1.62 var(--serif); font-kerning: normal;
+}
+.page { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+main h2, main h3 { scroll-margin-top: 1rem; }
+a { color: var(--accent); text-underline-offset: 0.15em; }
+h1, h2, h3, h4 { text-wrap: balance; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.masthead { padding-bottom: 1.75rem; border-bottom: 1px solid var(--rule); }
+/* The logo leads at the top left, where readers look for it, 24px tall (the usual
+   on-screen floor for a wordmark) with at least its height clear below. */
+.masthead .logo { display: block; width: fit-content; margin: 0 0 2.25rem; }
+.masthead .logo svg { display: block; height: 1.5rem; width: auto; }
+.masthead h1 {
+  margin: 0; font: 600 2.6rem/1.1 var(--sans); letter-spacing: -0.02em;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2em 0.5em;
+}
+.masthead .rating { font-weight: 500; }
+.rating.up { color: var(--up); } .rating.down { color: var(--down); } .rating.level { color: var(--level); }
+.rating.review { color: var(--muted); font-style: italic; }
+.masthead .date { margin: 0.55rem 0 1.5rem; font: 1rem/1.4 var(--sans); color: var(--muted); }
+.run { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.45rem 1.25rem;
+  font: 0.85rem/1.5 var(--sans); }
+.run > div { display: contents; }
+.run dt { color: var(--muted); }
+.run dd { margin: 0; overflow-wrap: anywhere; }
+.run .note dd { color: var(--down); }
+.field { display: inline-block; margin: 0 0.15rem 0.15rem 0; padding: 0 0.4rem; border: 1px solid var(--edge);
+  border-radius: 4px; background: var(--wash); font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.run .group { display: inline-block; margin-right: 0.9rem; white-space: nowrap; }
+.run .group > .name { color: var(--muted); margin-right: 0.3rem; }
+.run .then { color: var(--muted); margin: 0 0.2rem; }
+
+/* The sections: listed under the header on narrow screens. On wide ones, a
+   quiet rail centred on the left edge (numerals for the sections, short bars
+   for their agents) that opens into the full list when pointed at or focused. */
+.contents { margin: 2.25rem 0 0; font: 0.9rem/1.45 var(--sans); }
+.contents ul { margin: 0; padding: 0; list-style: none; }
+.contents > ul > li { margin: 0 0 0.75rem; }
+.contents ul ul { margin-top: 0.2rem; padding-left: 1.6rem; font-size: 0.85rem; }
+.contents ul ul li { margin: 0.1rem 0; }
+.contents a { display: flex; align-items: center; gap: 0.6rem; color: var(--muted); text-decoration: none; }
+.contents > ul > li > a { color: var(--ink); }
+.contents .num { min-width: 1.6rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.contents .bar { display: none; }
+.contents a:hover .label, .contents a:focus-visible .label { color: var(--accent); text-decoration: underline; }
+.to-top { position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom));
+  padding: 0.25rem 0.6rem; border: 1px solid var(--edge); border-radius: 4px; background: var(--paper);
+  color: var(--muted); font: 0.8rem/1.4 var(--sans); text-decoration: none; }
+
+@media (min-width: 60rem) {
+  .contents { position: fixed; left: 1rem; top: 50%; transform: translateY(-50%); z-index: 1;
+    max-height: 86vh; overflow-y: auto; overscroll-behavior: contain; margin: 0;
+    padding: 0.7rem 0.9rem; border: 1px solid transparent; border-radius: 6px;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s; }
+  .contents > ul > li { margin: 0 0 0.35rem; }
+  .contents ul ul { margin-top: 0; padding-left: 0; }
+  .contents ul ul li { margin: 0; }
+  /* Marks reach 3:1 contrast and rows 24px, the WCAG 2.2 floors for a control's
+     visual cue and its pointer target. */
+  .contents a { min-height: 1.5rem; }
+  .contents .num { min-width: 1.4rem; }
+  .contents .bar { display: block; flex: none; width: 1.25rem; height: 2px; margin-left: 0.2rem;
+    border-radius: 1px; background: var(--mark); }
+  .contents .label { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+    transition: opacity 0.15s, max-width 0.2s; }
+  .contents:hover, .contents:focus-within { background: var(--paper); border-color: var(--rule);
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.08); }
+  .contents:hover .label, .contents:focus-within .label { max-width: 18rem; opacity: 1; }
+  .contents a:hover .bar, .contents a:focus-visible .bar { background: var(--accent); }
+  .to-top { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contents, .contents .label { transition: none; }
+}
+
+/* The maker's credit: one quiet line at the foot. */
+.credit { margin-top: 4.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font: 0.8rem/1.4 var(--sans); }
+.credit a { color: inherit; text-decoration: none; }
+.credit a.brand { color: var(--accent); }
+.credit a:hover, .credit a:focus-visible { text-decoration: underline; }
+
+/* Three levels of separation: the five groups, the agents within a group, and
+   breaks an agent draws inside its own text. */
+main h2 {
+  margin: 4.5rem 0 0.25rem; padding-top: 1.5rem; border-top: 2px solid var(--ink);
+  font: 600 1.45rem/1.3 var(--sans); letter-spacing: -0.01em;
+}
+main section:first-child h2 { margin-top: 3rem; }
+main h3 { margin: 2.75rem 0 0.75rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font: 600 1.15rem/1.35 var(--sans); color: var(--accent); }
+main h2 + h3 { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
+main h4, main h5, main h6 { margin: 1.75rem 0 0.5rem; font: 600 1rem/1.4 var(--sans); }
+main h5, main h6 { color: var(--muted); }
+main p, main ul, main ol { margin: 0 0 1rem; }
+main li { margin: 0.25rem 0; }
+main strong { font-weight: 650; }
+main blockquote { margin: 1.25rem 0; padding: 0.1rem 0 0.1rem 1rem; border-left: 3px solid var(--rule);
+  color: var(--muted); }
+main code { font: 0.88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--wash); padding: 0.1em 0.3em; border-radius: 3px; }
+main pre { background: var(--wash); padding: 0.9rem 1rem; border-radius: 4px; overflow-x: auto; }
+main pre code { background: none; padding: 0; }
+main hr { width: 3rem; margin: 2rem auto; border: 0; border-top: 1px solid var(--rule); }
+
+.table { overflow-x: auto; margin: 0 0 1.25rem; }
+table { border-collapse: collapse; width: 100%; font: 0.86rem/1.45 var(--sans);
+  font-variant-numeric: tabular-nums; }
+th, td { padding: 0.45rem 0.7rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; border-bottom-color: var(--muted); }
+tbody tr:last-child td { border-bottom: 0; }
+
+@media (max-width: 34rem) {
+  body { font-size: 16px; }
+  .page { padding: 2rem 1rem 3rem; }
+  .masthead h1 { font-size: 2rem; }
+  .masthead .logo svg { height: 1.25rem; }
+  .run { grid-template-columns: 1fr; gap: 0 0; }
+  .run dd { margin-bottom: 0.45rem; }
+  .run .group { white-space: normal; }
+}
+@media print {
+  :root { --paper: #fff; --ink: #000; --muted: #444; --rule: #bbb; --accent: #000; --wash: #f2f2f2;
+    --edge: #bbb; --up: #087a59; --down: #b4372f; --level: #444; }
+  body { font-size: 11pt; }
+  .table { overflow: visible; }
+  .page { max-width: none; padding: 0; }
+  .contents, .to-top { display: none; }
+  main h2 { break-before: page; border-top: 0; margin-top: 0; }
+  main section:first-child h2 { break-before: auto; }
+  main h3, main h4 { break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+  table { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+<header class="masthead">
+<a class="logo" href="https://tauric.ai" rel="noopener" aria-label="Tauric Research"><svg width="993" height="115" viewBox="0 0 993 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M189.86 95.0459V37.9779H165.924V29.9259H223.74V37.9779H199.804V95.0459H189.86ZM251.026 46.4259C256.071 46.4259 260.178 47.0272 263.345 48.2299C266.514 49.4032 268.89 51.3686 270.474 54.1259C272.058 56.8832 272.85 60.6379 272.85 65.3899V95.0459H264.666L263.961 89.8979H263.434C261.644 91.7752 259.386 93.2419 256.657 94.2979C253.929 95.3246 251.025 95.8379 247.946 95.8379C244.426 95.8379 241.419 95.2952 238.925 94.2099C236.432 93.0952 234.54 91.5406 233.249 89.5459C231.959 87.5512 231.313 85.2046 231.313 82.5059C231.313 78.2526 232.897 74.9672 236.065 72.6499C239.263 70.3032 244.337 68.8219 251.29 68.2059L263.258 67.0179V64.7299C263.258 61.9139 262.774 59.7139 261.806 58.1299C260.838 56.5459 259.371 55.4312 257.406 54.7859C255.47 54.1406 252.888 53.8179 249.662 53.8179C247.432 53.8179 245.012 54.0086 242.401 54.3899C239.82 54.7712 237.341 55.3432 234.965 56.1059V48.8019C237.312 48.0392 239.908 47.4526 242.754 47.0419C245.628 46.6312 248.386 46.4259 251.026 46.4259ZM250.541 89.0619C252.888 89.0619 255.162 88.6512 257.362 87.8299C259.562 86.9792 261.527 85.7179 263.258 84.0459V72.8259L252.038 73.9259C248.136 74.3659 245.35 75.2166 243.678 76.4779C242.005 77.7099 241.169 79.4699 241.169 81.7579C241.169 84.0752 241.947 85.8792 243.501 87.1699C245.056 88.4312 247.403 89.0619 250.541 89.0619ZM313.339 95.8379C307.59 95.8379 303.087 94.2979 299.831 91.2179C296.575 88.1086 294.947 83.2686 294.947 76.6979V47.1739H304.715V76.1699C304.715 80.1886 305.624 83.0779 307.443 84.8379C309.291 86.5979 311.916 87.4779 315.319 87.4779C317.871 87.4779 320.379 86.9939 322.843 86.0259C325.336 85.0286 327.492 83.5766 329.311 81.6699V47.1739H339.079V95.0459H330.983L330.367 89.9419H329.883C327.624 91.8486 325.072 93.3152 322.227 94.3419C319.382 95.3392 316.419 95.8379 313.339 95.8379ZM362.371 47.1739H370.423L371.171 53.2899H371.743C373.474 51.2072 375.703 49.5792 378.431 48.4059C381.188 47.2326 384.063 46.6459 387.055 46.6459C388.756 46.6459 390.355 46.7926 391.851 47.0859V55.8419C390.414 55.5779 388.654 55.4459 386.571 55.4459C383.99 55.4459 381.364 55.9446 378.695 56.9419C376.026 57.9392 373.84 59.4206 372.139 61.3859V95.0459H362.371V47.1739ZM409.069 95.0459V47.1739H418.837V95.0459H409.069ZM413.953 37.8459C411.871 37.8459 410.287 37.3912 409.201 36.4819C408.145 35.5726 407.617 34.2672 407.617 32.5659C407.617 30.8352 408.145 29.5152 409.201 28.6059C410.287 27.6672 411.871 27.1979 413.953 27.1979C416.036 27.1979 417.605 27.6672 418.661 28.6059C419.747 29.5152 420.289 30.8352 420.289 32.5659C420.289 34.2672 419.747 35.5726 418.661 36.4819C417.605 37.3912 416.036 37.8459 413.953 37.8459ZM464.85 95.9259C456.607 95.9259 450.315 93.8432 445.974 89.6779C441.662 85.5126 439.506 79.3526 439.506 71.1979C439.506 63.0139 441.779 56.8392 446.326 52.6739C450.902 48.5086 457.575 46.4259 466.346 46.4259C470.716 46.4259 474.735 46.9246 478.402 47.9219V55.7099C476.378 55.2406 474.486 54.8886 472.726 54.6539C470.966 54.4192 469.118 54.3019 467.182 54.3019C461.168 54.3019 456.71 55.6512 453.806 58.3499C450.931 61.0486 449.494 65.2872 449.494 71.0659C449.494 76.8739 450.858 81.1566 453.586 83.9139C456.343 86.6712 460.42 88.0499 465.818 88.0499C467.695 88.0499 469.616 87.8886 471.582 87.5659C473.547 87.2139 475.82 86.6712 478.402 85.9379V93.7259C474.236 95.1926 469.719 95.9259 464.85 95.9259ZM574.428 95.0459L553.704 69.0859C553.176 69.1152 552.37 69.1299 551.284 69.1299C548.38 69.1299 544.978 68.9832 541.076 68.6899V95.0459H531.308V31.4659C537.967 29.9699 544.846 29.2219 551.944 29.2219C561.595 29.2219 568.752 30.8059 573.416 33.9739C578.08 37.1126 580.412 42.1286 580.412 49.0219C580.412 54.0086 579.004 58.0859 576.188 61.2539C573.402 64.4219 569.266 66.6366 563.78 67.8979L585.648 95.0459H574.428ZM541.076 61.2099C543.071 61.4152 544.816 61.5619 546.312 61.6499C547.838 61.7379 549.627 61.7819 551.68 61.7819C558.427 61.7819 563.34 60.7699 566.42 58.7459C569.5 56.6926 571.04 53.4952 571.04 49.1539C571.04 46.0739 570.395 43.6099 569.104 41.7619C567.843 39.9139 565.863 38.5792 563.164 37.7579C560.495 36.9366 556.975 36.5259 552.604 36.5259C550.404 36.5259 548.424 36.6139 546.664 36.7899C544.904 36.9659 543.042 37.2299 541.076 37.5819V61.2099ZM642.947 74.0139H608.231C608.407 77.4752 609.155 80.2766 610.475 82.4179C611.795 84.5299 613.775 86.0846 616.415 87.0819C619.055 88.0792 622.443 88.5779 626.579 88.5779C630.686 88.5779 635.233 87.9472 640.219 86.6859V93.9459C635.027 95.2659 630.026 95.9259 625.215 95.9259C616.298 95.9259 609.61 93.9166 605.151 89.8979C600.722 85.8499 598.507 79.6166 598.507 71.1979C598.507 65.9179 599.402 61.4299 601.191 57.7339C602.981 54.0379 605.562 51.2366 608.935 49.3299C612.338 47.3939 616.43 46.4259 621.211 46.4259C628.251 46.4259 633.634 48.5819 637.359 52.8939C641.085 57.1766 642.947 63.3659 642.947 71.4619V74.0139ZM621.079 52.8939C616.973 52.8939 613.834 54.1406 611.663 56.6339C609.493 59.0979 608.334 62.9259 608.187 68.1179H633.751C633.634 62.9259 632.519 59.0979 630.407 56.6339C628.295 54.1406 625.186 52.8939 621.079 52.8939ZM677.365 95.9259C671.352 95.9259 665.896 95.2219 660.997 93.8139V86.7299C666.248 88.1966 671.718 88.9299 677.409 88.9299C681.809 88.9299 684.977 88.3432 686.913 87.1699C688.849 85.9672 689.817 84.2219 689.817 81.9339C689.817 80.7019 689.597 79.6899 689.157 78.8979C688.717 78.0766 687.969 77.4019 686.913 76.8739C685.857 76.3166 684.405 75.8912 682.557 75.5979L674.065 74.2779C669.137 73.4859 665.573 71.9899 663.373 69.7899C661.202 67.5899 660.117 64.6419 660.117 60.9459C660.117 56.4579 661.965 52.9232 665.661 50.3419C669.386 47.7312 675.062 46.4259 682.689 46.4259C685.094 46.4259 687.485 46.5872 689.861 46.9099C692.266 47.2032 694.481 47.6432 696.505 48.2299V55.2699C692.046 54.0379 687.456 53.4219 682.733 53.4219C677.893 53.4219 674.476 54.0526 672.481 55.3139C670.486 56.5752 669.489 58.3206 669.489 60.5499C669.489 62.2219 670.002 63.5859 671.029 64.6419C672.056 65.6686 673.889 66.4166 676.529 66.8859L685.021 68.2059C689.92 68.9686 693.513 70.3766 695.801 72.4299C698.089 74.4832 699.233 77.4606 699.233 81.3619C699.233 84.3832 698.412 86.9792 696.769 89.1499C695.156 91.3206 692.706 92.9926 689.421 94.1659C686.165 95.3392 682.146 95.9259 677.365 95.9259ZM760.579 74.0139H725.863C726.039 77.4752 726.787 80.2766 728.107 82.4179C729.427 84.5299 731.407 86.0846 734.047 87.0819C736.687 88.0792 740.075 88.5779 744.211 88.5779C748.317 88.5779 752.864 87.9472 757.851 86.6859V93.9459C752.659 95.2659 747.657 95.9259 742.847 95.9259C733.929 95.9259 727.241 93.9166 722.783 89.8979C718.353 85.8499 716.139 79.6166 716.139 71.1979C716.139 65.9179 717.033 61.4299 718.823 57.7339C720.612 54.0379 723.193 51.2366 726.567 49.3299C729.969 47.3939 734.061 46.4259 738.843 46.4259C745.883 46.4259 751.265 48.5819 754.991 52.8939C758.716 57.1766 760.579 63.3659 760.579 71.4619V74.0139ZM738.711 52.8939C734.604 52.8939 731.465 54.1406 729.295 56.6339C727.124 59.0979 725.965 62.9259 725.819 68.1179H751.383C751.265 62.9259 750.151 59.0979 748.039 56.6339C745.927 54.1406 742.817 52.8939 738.711 52.8939ZM796.986 46.4259C802.032 46.4259 806.138 47.0272 809.306 48.2299C812.474 49.4032 814.85 51.3686 816.434 54.1259C818.018 56.8832 818.81 60.6379 818.81 65.3899V95.0459H810.626L809.922 89.8979H809.394C807.605 91.7752 805.346 93.2419 802.618 94.2979C799.89 95.3246 796.986 95.8379 793.906 95.8379C790.386 95.8379 787.38 95.2952 784.886 94.2099C782.393 93.0952 780.501 91.5406 779.21 89.5459C777.92 87.5512 777.274 85.2046 777.274 82.5059C777.274 78.2526 778.858 74.9672 782.026 72.6499C785.224 70.3032 790.298 68.8219 797.25 68.2059L809.218 67.0179V64.7299C809.218 61.9139 808.734 59.7139 807.766 58.1299C806.798 56.5459 805.332 55.4312 803.366 54.7859C801.43 54.1406 798.849 53.8179 795.622 53.8179C793.393 53.8179 790.973 54.0086 788.362 54.3899C785.781 54.7712 783.302 55.3432 780.926 56.1059V48.8019C783.273 48.0392 785.869 47.4526 788.714 47.0419C791.589 46.6312 794.346 46.4259 796.986 46.4259ZM796.502 89.0619C798.849 89.0619 801.122 88.6512 803.322 87.8299C805.522 86.9792 807.488 85.7179 809.218 84.0459V72.8259L797.998 73.9259C794.097 74.3659 791.31 75.2166 789.638 76.4779C787.966 77.7099 787.13 79.4699 787.13 81.7579C787.13 84.0752 787.908 85.8792 789.462 87.1699C791.017 88.4312 793.364 89.0619 796.502 89.0619ZM841.524 47.1739H849.576L850.324 53.2899H850.896C852.627 51.2072 854.856 49.5792 857.584 48.4059C860.341 47.2326 863.216 46.6459 866.208 46.6459C867.909 46.6459 869.508 46.7926 871.004 47.0859V55.8419C869.567 55.5779 867.807 55.4459 865.724 55.4459C863.143 55.4459 860.517 55.9446 857.848 56.9419C855.179 57.9392 852.993 59.4206 851.292 61.3859V95.0459H841.524V47.1739ZM909.164 95.9259C900.921 95.9259 894.629 93.8432 890.288 89.6779C885.976 85.5126 883.82 79.3526 883.82 71.1979C883.82 63.0139 886.093 56.8392 890.64 52.6739C895.216 48.5086 901.889 46.4259 910.66 46.4259C915.03 46.4259 919.049 46.9246 922.716 47.9219V55.7099C920.692 55.2406 918.8 54.8886 917.04 54.6539C915.28 54.4192 913.432 54.3019 911.496 54.3019C905.482 54.3019 901.024 55.6512 898.12 58.3499C895.245 61.0486 893.808 65.2872 893.808 71.0659C893.808 76.8739 895.172 81.1566 897.9 83.9139C900.657 86.6712 904.734 88.0499 910.132 88.0499C912.009 88.0499 913.93 87.8886 915.896 87.5659C917.861 87.2139 920.134 86.6712 922.716 85.9379V93.7259C918.55 95.1926 914.033 95.9259 909.164 95.9259ZM941.796 23.9419H951.564V52.2779H952.048C954.248 50.3712 956.756 48.9192 959.572 47.9219C962.417 46.9246 965.395 46.4259 968.504 46.4259C974.019 46.4259 978.375 47.9952 981.572 51.1339C984.769 54.2432 986.368 59.0686 986.368 65.6099V95.0459H976.6V66.0939C976.6 62.0459 975.661 59.1566 973.784 57.4259C971.936 55.6952 969.237 54.8299 965.688 54.8299C963.048 54.8299 960.481 55.3286 957.988 56.3259C955.524 57.2939 953.383 58.7312 951.564 60.6379V95.0459H941.796V23.9419Z" fill="#14C290"/>
+<rect x="0.205322" y="14.873" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="14.679" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="14.679" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="86.6055" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="86.6055" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="101.284" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="58.7158" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="58.7158" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="87.1592" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="87.1592" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="73.0205" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="73.0205" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="87.3262" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="87.3262" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="101.631" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="101.631" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="101.284" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="15.0187" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.2668" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.2668" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.445" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.7506" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="100.716" y="14.873" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+</svg></a>
+<h1><span class="ticker">AMZN</span> <span class="rating level">Hold</span></h1>
+<p class="date">Analysis of 2026-11-23</p>
+<dl class="run"><div class="detail"><dt>Generated</dt><dd>2026-11-23 16:11</dd></div><div class="detail"><dt>Deep model</dt><dd><span class="field">anthropic</span> <span class="field">claude-opus-5-5</span></dd></div><div class="detail"><dt>Quick model</dt><dd><span class="field">anthropic</span> <span class="field">claude-sonnet-5-5</span></dd></div><div class="detail"><dt>Analysts</dt><dd><span class="field">market</span> <span class="field">sentiment</span> <span class="field">news</span> <span class="field">fundamentals</span></dd></div><div class="detail"><dt>Debate rounds</dt><dd><span class="group"><span class="name">research</span><span class="field">1</span></span> <span class="group"><span class="name">risk</span><span class="field">1</span></span></dd></div><div class="detail"><dt>Data vendors</dt><dd><span class="group"><span class="name">Prices</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Indicators</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Fundamentals</span><span class="field">sec_edgar</span> <span class="then">→</span> <span class="field">yfinance</span></span> <span class="group"><span class="name">News</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Macro</span><span class="field">fred</span></span> <span class="group"><span class="name">Prediction markets</span><span class="field">polymarket</span></span></dd></div><div class="detail"><dt>Version</dt><dd>TradingAgents 0.7.1</dd></div></dl>
+</header>
+<nav class="contents" aria-label="Sections"><ul><li><a href="#s1"><span class="num">I</span> <span class="label">Analyst Team Reports</span></a><ul><li><a href="#s1-1"><span class="bar"></span> <span class="label">Market Analyst</span></a></li><li><a href="#s1-2"><span class="bar"></span> <span class="label">Sentiment Analyst</span></a></li><li><a href="#s1-3"><span class="bar"></span> <span class="label">News Analyst</span></a></li><li><a href="#s1-4"><span class="bar"></span> <span class="label">Fundamentals Analyst</span></a></li></ul></li><li><a href="#s2"><span class="num">II</span> <span class="label">Research Team Decision</span></a><ul><li><a href="#s2-1"><span class="bar"></span> <span class="label">Bull Researcher</span></a></li><li><a href="#s2-2"><span class="bar"></span> <span class="label">Bear Researcher</span></a></li><li><a href="#s2-3"><span class="bar"></span> <span class="label">Research Manager</span></a></li></ul></li><li><a href="#s3"><span class="num">III</span> <span class="label">Trading Team Plan</span></a><ul><li><a href="#s3-1"><span class="bar"></span> <span class="label">Trader</span></a></li></ul></li><li><a href="#s4"><span class="num">IV</span> <span class="label">Risk Management Team Decision</span></a><ul><li><a href="#s4-1"><span class="bar"></span> <span class="label">Aggressive Analyst</span></a></li><li><a href="#s4-2"><span class="bar"></span> <span class="label">Conservative Analyst</span></a></li><li><a href="#s4-3"><span class="bar"></span> <span class="label">Neutral Analyst</span></a></li></ul></li><li><a href="#s5"><span class="num">V</span> <span class="label">Portfolio Manager Decision</span></a><ul><li><a href="#s5-1"><span class="bar"></span> <span class="label">Portfolio Manager</span></a></li></ul></li></ul></nav>
+<main>
+<section id="s1"><h2>I. Analyst Team Reports</h2><h3 id="s1-1">Market Analyst</h3>
+<h4>AMZN (Amazon.com, Inc.): technischer Bericht zum 23.11.2026</h4>
+<h5>1. Datengrundlage und Hinweis zur Datenqualität</h5>
+<ul>
+<li>Ich habe die Kursdaten von 2026-01-01 bis 2026-11-23 abgerufen (225 Handelstage) und acht Indikatoren geladen. Die exakten Werte stammen aus dem verifizierten Snapshot.</li>
+<li><strong>Abweichung zwischen den Quellen:</strong> Der Snapshot meldet für den 23.11.2026 einen Schlusskurs von 257,005 und ein Volumen von 20.372.846. Die Kursreihe zeigt 256,97 und 20.360.652. Die Differenz ist klein. Sie deutet darauf hin, dass der Balken vom 23.11. noch nicht abgeschlossen ist, denn das Volumen von rund 20 Mio. liegt weit unter dem üblichen Tagesvolumen von 30–50 Mio. Ich nehme keine Angleichung vor und verwende den Snapshot. Alle Aussagen zum 23.11. sind vorläufig.</li>
+</ul>
+<h5>2. Gewählte Indikatoren und Begründung</h5>
+<p>Ich habe acht Indikatoren gewählt, die sich ergänzen:</p>
+<ol>
+<li><strong>close_200_sma</strong> zeigt den langfristigen Trend.</li>
+<li><strong>close_50_sma</strong> zeigt den mittelfristigen Trend und dient als dynamische Referenz.</li>
+<li><strong>close_10_ema</strong> zeigt das kurzfristige Momentum.</li>
+<li><strong>macd</strong> bzw. <strong>macdh</strong> zeigen Trendwechsel und Momentumstärke. Das Signal (macds) liegt im Snapshot vor.</li>
+<li><strong>rsi</strong> zeigt überkaufte oder überverkaufte Zustände.</li>
+<li><strong>boll_ub</strong> und <strong>boll_lb</strong> zeigen die Volatilitätsgrenzen und das Kanalverhalten.</li>
+<li><strong>atr</strong> dient dem Risikomanagement, also Stop-Abständen und Positionsgröße.</li>
+</ol>
+<p>Auf VWMA habe ich verzichtet. Die Tagesvolumina schwanken stark, und einzelne Spitzen würden den Durchschnitt verzerren. Das Volumen betrachte ich stattdessen direkt in den Rohdaten.</p>
+<h5>3. Verifizierte Kennzahlen (Snapshot, 2026-11-23)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Kennzahl</th>
+<th style="text-align:right">Wert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schlusskurs (vorläufig)</td>
+<td style="text-align:right">257,005</td>
+</tr>
+<tr>
+<td>Tageshoch / Tagestief</td>
+<td style="text-align:right">262,48 / 251,25</td>
+</tr>
+<tr>
+<td>10-EMA</td>
+<td style="text-align:right">258,475</td>
+</tr>
+<tr>
+<td>50-SMA</td>
+<td style="text-align:right">255,101</td>
+</tr>
+<tr>
+<td>200-SMA</td>
+<td style="text-align:right">245,384</td>
+</tr>
+<tr>
+<td>RSI</td>
+<td style="text-align:right">49,45</td>
+</tr>
+<tr>
+<td>Bollinger Mitte / oberes / unteres Band</td>
+<td style="text-align:right">257,817 / 275,272 / 240,362</td>
+</tr>
+<tr>
+<td>MACD / Signal / Histogramm</td>
+<td style="text-align:right">0,720 / 1,733 / -1,013</td>
+</tr>
+<tr>
+<td>ATR</td>
+<td style="text-align:right">10,376</td>
+</tr>
+</tbody>
+</table></div>
+<h5>4. Trendanalyse</h5>
+<h6>Langfristiger und mittelfristiger Trend: konstruktiv, aber flach</h6>
+<ul>
+<li>Der Kurs liegt mit 257,0 über dem 50-SMA (255,10) und über dem 200-SMA (245,38). Der 50-SMA liegt über dem 200-SMA, die Struktur ist also formal bullisch.</li>
+<li>Der Abstand zum 50-SMA beträgt nur etwa 1,9 Punkte. Der 50-SMA hat sich im Beobachtungsfenster kaum bewegt: Er lag zwischen 253,79 (03.11.) und 255,38 (26.10.). Das passt zu einer Seitwärtsphase und nicht zu einem dynamischen Trend.</li>
+<li>Der 200-SMA steigt langsam, von 243,31 am 26.10. auf 245,38. Das ist eine leichte Aufwärtsneigung.</li>
+<li>Der Kurs bewegt sich seit etwa Mitte August in einer breiten Handelsspanne. Die Schlusskurse liegen meist zwischen etwa 240 und 271, die Ausreißer waren der 30.10. (240,35) und der 10.11. (270,87).</li>
+</ul>
+<h6>Kurzfristiger Trend und Momentum: nachlassend</h6>
+<ul>
+<li>Der Kurs (257,0) liegt knapp unter dem 10-EMA (258,47). Der 10-EMA ist seit dem 13.11. (262,84) gefallen. Das Kurzfristmomentum hat sich also abgekühlt.</li>
+<li><strong>MACD:</strong> Die Linie lag am 13.11. bei 3,50 und ist auf 0,72 gefallen. Am 20.11. wechselte das Histogramm von 0,003 (19.11.) auf -1,04 und liegt am 23.11. bei -1,01. Das ist ein bärisches Signal-Crossover, die MACD-Linie liegt unter ihrem Signal (1,73). Da sie noch über null liegt, ist es eine Abschwächung und noch kein klarer Abwärtstrend.</li>
+<li><strong>RSI:</strong> Der RSI liegt bei 49,45, also neutral. Er schwankte im Fenster zwischen 38,3 (30.10.) und 61,6 (10.11.) und war nie überkauft oder überverkauft. Der RSI liefert daher kein Extremsignal. Für eine Richtungsentscheidung fehlt eine Bestätigung.</li>
+</ul>
+<h6>Volatilität</h6>
+<ul>
+<li>Die Bollinger-Bänder liegen bei 240,36 und 275,27, also ungefähr 34,9 Punkte auseinander. Der Kurs steht fast in der Bandmitte (257,82). Es gibt weder ein Überkauft- noch ein Überverkauft-Signal.</li>
+<li>Das obere Band war zuletzt bei etwa 275 praktisch flach, das untere bei etwa 240. Die Bänder haben sich seit Ende Oktober deutlich geweitet: Das untere Band fiel von 245,29 (28.10.), das obere stieg von 265,06 auf 275,27.</li>
+<li>Der <strong>ATR</strong> stieg von 6,19 (28.10.) auf 10,38. Das ist ein Plus von rund zwei Dritteln. Die Volatilität ist also deutlich höher als noch vor vier Wochen.</li>
+</ul>
+<h5>5. Preisaktion der letzten Wochen</h5>
+<p>Die Rohdaten zeigen mehrere große Tagesbewegungen mit hohem Volumen:</p>
+<ul>
+<li><strong>29.–30.10.:</strong> Der Kurs fiel von 254,60 auf 243,79 und dann auf 240,35. Das Volumen lag bei 85,2 Mio. und 104,9 Mio.</li>
+<li><strong>04.11.:</strong> Der Kurs sprang von 250,69 auf 266,03 (Schluss), das Volumen betrug 93,2 Mio. Die Eröffnung lag bei 264,82, es war also eine Lücke nach oben.</li>
+<li><strong>16.–20.11.:</strong> Es folgte ein sehr unruhiger Verlauf: 257,75, 257,89, 267,74, 257,37 und 246,82. Am 19.11. eröffnete der Kurs bei 272,56 und schloss bei 257,37. Am 20.11. schloss er bei 246,82 mit 74,1 Mio. Volumen. Am 23.11. liegt der Schlusskurs (vorläufig) wieder bei 257,0, nach einem Tagestief von 251,25.</li>
+<li>Die Daten belegen die Muster, nicht ihre Ursachen. Die Tool-Ausgaben enthalten keine Nachrichten oder Ereignisse. Die Spitzen am 30.10. und 04.11. fallen zeitlich zusammen mit dem Quartalsberichtszeitraum, das ist aber eine Vermutung und kein Beleg.</li>
+<li>Der Verlauf zeigt eine hohe Intraday-Volatilität und mehrfach gescheiterte Ausbrüche über 267–270. Auf der Unterseite wurde der Bereich um 240 zuletzt am 30.10. getestet.</li>
+</ul>
+<h5>6. Handlungsrelevante Beobachtungen</h5>
+<p>Ich gebe keine Entscheidung vor, sondern ordne ein, was die Daten stützen.</p>
+<p><strong>Szenarien</strong></p>
+<ul>
+<li><strong>Bullisch:</strong> Ein Schlusskurs über dem 10-EMA (258,5) und dann über der oberen Handelsspanne bei etwa 267–271 würde ein neues Aufwärtssignal liefern. Dafür sollten das MACD-Histogramm wieder positiv werden und der RSI über etwa 55–60 steigen. Das obere Bollinger-Band (275,3) wäre die nächste Marke.</li>
+<li><strong>Bärisch:</strong> Ein Schlusskurs unter dem 50-SMA (255,1) mit negativem MACD-Histogramm wäre ein erstes Schwächesignal. Danach wären der 200-SMA (245,4) und das untere Band (240,4) die nächsten Referenzen. Der 20.11. mit einem Schluss bei 246,82 hat die Zone um den 200-SMA bereits berührt.</li>
+<li><strong>Aktuell neutral bis leicht abwartend:</strong> Die Indikatoren sind gemischt. Der Trend ist positiv, aber das kurzfristige Momentum hat nachgelassen.</li>
+</ul>
+<p><strong>Risikomanagement</strong></p>
+<ul>
+<li>Bei einem ATR von 10,38 entspricht ein Stop im Abstand von 1,5 × ATR etwa 15,6 Punkten (rund 6 % vom Kurs). Das ist eine rechnerische Orientierung und keine Empfehlung.</li>
+<li>Die Volatilität ist gegenüber Oktober deutlich höher. Wer Positionen steuert, sollte die Größe entsprechend anpassen.</li>
+<li>Da der Balken vom 23.11. noch nicht abgeschlossen ist, sollte man den Schlusskurs abwarten, bevor man Signale daraus ableitet.</li>
+</ul>
+<p><strong>Einschränkungen</strong></p>
+<ul>
+<li>Ich habe keine Support- oder Widerstands-Bounces historisch geprüft. Die genannten Zonen (240, 255, 267–271) stammen aus den oben genannten Kursen und Indikatoren und sind keine statistisch validierten Marken.</li>
+<li>Es liegen keine Fundamentaldaten oder Nachrichten vor.</li>
+</ul>
+<h5>7. Zusammenfassende Tabelle</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Beobachtung</th>
+<th>Wert / Datum</th>
+<th>Einordnung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Langfristtrend</td>
+<td>Kurs über 200-SMA</td>
+<td>257,0 vs. 245,38</td>
+<td>Leicht bullisch</td>
+</tr>
+<tr>
+<td>Mitteltrend</td>
+<td>Kurs über 50-SMA, SMA flach</td>
+<td>257,0 vs. 255,10</td>
+<td>Neutral bis leicht bullisch</td>
+</tr>
+<tr>
+<td>Kurzfristtrend</td>
+<td>Kurs unter 10-EMA</td>
+<td>257,0 vs. 258,47</td>
+<td>Leicht schwächer</td>
+</tr>
+<tr>
+<td>MACD</td>
+<td>Signal-Crossover nach unten (20.11.)</td>
+<td>0,72 vs. 1,73; Hist. -1,01</td>
+<td>Nachlassendes Momentum</td>
+</tr>
+<tr>
+<td>RSI</td>
+<td>Neutral</td>
+<td>49,45</td>
+<td>Kein Extremsignal</td>
+</tr>
+<tr>
+<td>Bollinger</td>
+<td>Kurs nahe Mitte, Bänder weit</td>
+<td>240,36 / 257,82 / 275,27</td>
+<td>Neutral, hohe Spanne</td>
+</tr>
+<tr>
+<td>ATR</td>
+<td>Volatilität gestiegen</td>
+<td>10,38 (28.10.: 6,19)</td>
+<td>Größere Stops nötig</td>
+</tr>
+<tr>
+<td>Volumen</td>
+<td>Spitzen an Ereignistagen</td>
+<td>30.10.: 104,9 Mio.; 04.11.: 93,2 Mio.</td>
+<td>Starke Marktreaktionen</td>
+</tr>
+<tr>
+<td>Datenhinweis</td>
+<td>Snapshot und Kursreihe weichen minimal ab</td>
+<td>257,005 vs. 256,97</td>
+<td>Balken vom 23.11. vorläufig</td>
+</tr>
+<tr>
+<td>Gesamtbild</td>
+<td>Seitwärts mit leichtem positivem Bias, Momentum schwächer</td>
+<td>–</td>
+<td>Abwarten, Bestätigung nötig</td>
+</tr>
+</tbody>
+</table></div>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s1-2">Sentiment Analyst</h3>
+<p><strong>Overall Sentiment:</strong> <strong>Mildly Bullish</strong> (Score: 5.8/10)
+<strong>Confidence:</strong> Low</p>
+<h5>Sentimentbericht AMZN (Amazon.com, Inc.) – Zeitraum 16.11.2026 bis 23.11.2026</h5>
+<p><strong>Datenlage vorab:</strong> Nachrichten (19 Schlagzeilen) und StockTwits (30 Nachrichten) liegen vor. Reddit (r/wallstreetbets, r/stocks, r/investing) war nicht verfügbar (Abruffehler). Das bedeutet nicht, dass es dort keine Diskussion gab. Über Reddit kann ich keine Aussage treffen. Die Stichprobe bei StockTwits ist klein und überwiegend unmarkiert. Deshalb ist das Vertrauen niedrig.</p>
+<h6>1. Quellenweise Aufschlüsselung</h6>
+<p><strong>Nachrichten (Yahoo Finance &amp; Partner):</strong></p>
+<ul>
+<li>Der einzige direkt AMZN-spezifische Katalysator ist die berichtete Übernahme von Technologie und Team des KI-Startups Decart für rund 7,5 Mrd. USD. Die Meldung geht auf Bloomberg zurück und wurde von Investing.com und InvestorsHub aufgegriffen. Ziel sind Optimierungssoftware und eine bessere kommerzielle Verwertbarkeit der hauseigenen Trainium-Chips. Die Quellen beschreiben das strategisch positiv, als Stärkung der KI-Compute-Position. Es ist ein „reported“-Deal, also nicht von Amazon bestätigt. Auf StockTwits wird erwähnt, dass noch eine behördliche Genehmigung aussteht.</li>
+<li>24/7 Wall St.: Seth Klarman hält 18 % seines Portfolios von rund 5 Mrd. USD in Amazon. Es ist seine größte Position, und er hat nicht nachgekauft. Der Artikel erwähnt Amazons Investitionsprogramm von rund 220 Mrd. USD. Das ist ein moderat positives Signal (Value-Investor hält die Position), zugleich wird die hohe Kapitalintensität thematisiert.</li>
+<li>Ein Großteil der übrigen Schlagzeilen betrifft Nvidia (Trefis-Serie zu einer gemeldeten SEC-Untersuchung und Kursrisiko bis 92 USD, „Neocloud“-Exposure von 115 Mrd. USD und Rückkehr von Jensen Huang). Außerdem geht es um Anthropic (Kursrutsch) und Alphabet (Kapitalausgaben, verfehlte Gewinne, Kursschwäche). Diese betreffen AMZN indirekt über das KI-Infrastruktur-Thema und über Amazons Anthropic-Beteiligung. Die Beteiligung wird in den Daten nicht ausdrücklich erwähnt, ich nenne sie als Kontext.</li>
+<li>Eine nicht benannte Hyperscaler-Vorauszahlung an Fermi (200 Mio. USD, 600 MW) taucht ebenfalls auf. Der Name Amazon wird nicht genannt, auf StockTwits wird der Titel mit $AMZN getaggt. Es gibt keinen Beleg dafür, dass AMZN der Hyperscaler ist.</li>
+<li>Randthemen: Thanksgiving-Lebensmittelangebote (Walmart, Target, Amazon), FedEx-Artikel mit Verweis auf Amazons Logistik-Vorstoß als Wettbewerbsdruck, ein Verbraucherartikel zu Abos.</li>
+<li>Gesamteindruck der Nachrichten: leicht positiv für AMZN (Decart, Klarman), im Umfeld eines nervösen KI-Sektors (Nvidia-SEC-Meldung, Anthropic-Schwäche, Alphabet-Kritik an Ausgaben).</li>
+</ul>
+<p><strong>StockTwits (30 Nachrichten):</strong></p>
+<ul>
+<li>Markierte Stimmung: 6 bullisch (20 %), 4 bärisch (13 %), 20 ohne Label. Unter den 10 markierten Beiträgen sind das 60/40 bullisch. Das ist eine sehr kleine Basis und nur schwach aussagekräftig.</li>
+<li>Bullische Beiträge: „über 300 USD bis Jahresende“, die Decart-Logik (mehr Leistung aus den eigenen KI-Chips zu geringeren Kosten, ein weiterer Grund für AWS-Kunden, Trainium zu wählen), „Black Friday all time highs“. Zwei bullische Labels stammen von Beiträgen, die kaum AMZN-bezogen sind (Cega zu RZLV, ElmagoMagico steigt aus dem Markt aus).</li>
+<li>Bärische Beiträge: eine kleine Short-Position bei 258 USD, „SLAM THIS JUNK“ (Sammel-Tag auf mehrere Titel) und zwei Beiträge zu Jeff Bezos’ Hecke, die nichts mit dem Kurs zu tun haben. Der bärische Anteil ist also zum Teil Rauschen.</li>
+<li>Optionsfluss (GTA_Terminal): Rund zwei Drittel von 1,4 Mio. USD Prämie entfielen auf Calls, etwa 2.600 Kontrakte (bullisch). Der Kurs lag bei etwa 253 USD (+2,6 %). Das Dark-Pool-Volumen vom Freitag (20.11.) lag beim 1,3-Fachen eines normalen Tages (bärisch). Einzelne Tagesoptionen (260C, 265C mit 0,04–0,70 USD) sind spekulativ und verraten kaum etwas über die Richtung.</li>
+<li>Gemischte Kursbeobachtungen: „Why is this moving so weakly compared to everything else“, „Why is this falling“, „about to go red?“. Das passt nicht zum +2,6 % im Optionsbericht. Intraday gab es offenbar Schwankungen und relative Schwäche.</li>
+<li>Weitere Themen: Sammelklagen zu Ring (Gesichtserkennung) und Fire TV (Datenerfassung) im Frühstadium. Ein Beitrag meldet, dass Amazon einen KI-Agenten sperrt, während Walmart ihn zulässt (Agent Gateway ab Black Friday). Das ist ein kleines Wettbewerbs- und Werbe-Schutz-Thema.</li>
+<li>Auffällig: Mehrere Beiträge verbinden AMZN mit Anthropic („ANT“, der Titel scheint börsennotiert und fällt). Eine Börsenschwäche bei Anthropic wird als Risiko für den KI-Handel insgesamt gesehen.</li>
+</ul>
+<p><strong>Reddit:</strong> nicht verfügbar. Es fehlt jede Aussage zu längerfristig orientierten Anlegern oder zu WSB.</p>
+<h6>2. Divergenzen und Übereinstimmungen</h6>
+<ul>
+<li>Übereinstimmung: Nachrichten und Retail sehen Decart als sinnvollen strategischen Schritt (Effizienz, Trainium). Der Optionsfluss ist call-lastig.</li>
+<li>Divergenz: Der KI-Sektorkontext (Nvidia-SEC-Bericht, Anthropic-Abverkauf, Alphabet-Ausgabenkritik) ist eher belastend, während die AMZN-spezifischen Schlagzeilen positiv sind. Einzelne Retail-Nutzer fragen, warum AMZN relativ schwach läuft. Das könnte auf Sorgen über KI-Kapitalausgaben (rund 220 Mrd. USD) hinweisen.</li>
+<li>Die Dark-Pool-Aktivität ist leicht bärisch, der Calls-Fluss bullisch. Das Gesamtbild ist uneinheitlich.</li>
+</ul>
+<h6>3. Dominante Narrative</h6>
+<ol>
+<li>Decart-Deal / Trainium-Strategie: AMZN als Vollstack-KI-Anbieter (Chips + Software).</li>
+<li>KI-Handel unter Druck: Nvidia (SEC), Anthropic, Alphabet-Ausgaben, Neocloud-Finanzierung. Fokus auf „Wo sitzt das Risiko?“.</li>
+<li>Hohe Kapitalintensität (220 Mrd. USD), von Value-Investor Klarman aber gehalten.</li>
+<li>Saisonal: Black Friday / Weihnachtsgeschäft, Thanksgiving-Angebote.</li>
+<li>Nebenthemen: Datenschutzklagen, Agent-Handel (Walmart vs. Amazon), FedEx-Wettbewerb in der Logistik.</li>
+</ol>
+<h6>4. Katalysatoren und Risiken</h6>
+<ul>
+<li>Katalysatoren: Bestätigung und Abschluss des Decart-Deals, Black Friday und Cyber Monday, Trainium-Adoption bei AWS-Kunden, Stabilisierung des KI-Sektors.</li>
+<li>Risiken: Deal nicht bestätigt und genehmigungspflichtig (behördliche Prüfung), KI-Sektor-Abverkauf (Nvidia-SEC, Anthropic), Sorgen über die Investitionshöhe, Rechtsstreitigkeiten (Ring, Fire TV), Wettbewerb bei Agent-Commerce und Logistik, relative Schwäche im Tagesverlauf.</li>
+<li>Fehlend: Keine Kursdaten, Analystenaktionen oder Zahlen im Prompt außer den Kursangaben in Social-Posts (ca. 253 USD, Short bei 258 USD). Reddit fehlt.</li>
+</ul>
+<h6>5. Zusammenfassung</h6>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Richtung</th>
+<th>Quelle</th>
+<th>Beleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decart-Übernahme (~7,5 Mrd. USD)</td>
+<td>Leicht bullisch</td>
+<td>News, StockTwits</td>
+<td>Bloomberg-Bericht, Trainium-/Effizienzlogik; unbestätigt, Genehmigung nötig</td>
+</tr>
+<tr>
+<td>Klarman: 18 % Portfolioanteil</td>
+<td>Leicht bullisch</td>
+<td>News</td>
+<td>24/7 Wall St.; kein Zukauf, aber größte Position</td>
+</tr>
+<tr>
+<td>StockTwits-Labels</td>
+<td>Leicht bullisch (schwache Basis)</td>
+<td>StockTwits</td>
+<td>6 bullisch / 4 bärisch / 20 ohne Label; Rauschen in beiden Lagern</td>
+</tr>
+<tr>
+<td>Call-Optionsfluss</td>
+<td>Bullisch</td>
+<td>StockTwits (GTA_Terminal)</td>
+<td>~2/3 von 1,4 Mio. USD Prämie in Calls, ~2.600 Kontrakte, +2,6 %</td>
+</tr>
+<tr>
+<td>Dark Pool 20.11.</td>
+<td>Leicht bärisch</td>
+<td>StockTwits</td>
+<td>1,3-faches Normalvolumen</td>
+</tr>
+<tr>
+<td>KI-Sektor-Nervosität</td>
+<td>Bärisch (indirekt)</td>
+<td>News</td>
+<td>Nvidia-SEC-Bericht, Anthropic schwach, Alphabet-Ausgabenkritik</td>
+</tr>
+<tr>
+<td>Relative Schwäche intraday</td>
+<td>Leicht bärisch</td>
+<td>StockTwits</td>
+<td>„moving so weakly“, „Why is this falling“</td>
+</tr>
+<tr>
+<td>Rechtsstreitigkeiten (Ring, Fire TV)</td>
+<td>Leicht bärisch</td>
+<td>StockTwits</td>
+<td>Sammelklagen im Frühstadium</td>
+</tr>
+<tr>
+<td>Reddit</td>
+<td>Keine Aussage</td>
+<td>–</td>
+<td>Abruf fehlgeschlagen</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Fazit:</strong> Insgesamt leicht bullisch (5,8/10), getragen von Decart-Nachrichten und call-lastigem Optionsfluss. Der KI-Sektorkontext bremst, und die Datenbasis ist dünn (kleine StockTwits-Stichprobe, Reddit fehlt). Das ist ein Stimmungssignal und keine Kursprognose. Der Händler sollte es zusammen mit Fundamentaldaten und Technik gewichten.</p>
+<h3 id="s1-3">News Analyst</h3>
+<h4>AMZN (Amazon.com, Inc.): Nachrichten- und Makrobericht, 16.–23. November 2026</h4>
+<h5>1. Kurzfassung</h5>
+<ul>
+<li><strong>Unternehmensnews:</strong> Das wichtigste AMZN-Ereignis der Woche ist die gemeldete Übernahme von Technologie und Team des KI-Startups <strong>Decart</strong> für rund <strong>7,5 Mrd. USD</strong>. Bloomberg berichtet darüber unter Berufung auf eine informierte Person. Eine offizielle Bestätigung habe ich nicht gesehen. Ziel ist, die eigenen <strong>Trainium</strong>-Chips und die Optimierungssoftware zu stärken.</li>
+<li><strong>Marktumfeld:</strong> Der Gesamtmarkt gilt als „angeschlagen“. Yahoo Finance titelt: „A battered stock market looks for the bottom“. Der KI-Handel steht unter Druck: Nvidia wird mit einer gemeldeten SEC-Untersuchung in Verbindung gebracht, und Anthropic rutscht ab. Alphabet hat laut 24/7 Wall St. die Gewinnerwartungen verfehlt und viel Cash verbrannt.</li>
+<li><strong>Makro:</strong> Die FRED-Daten (Leitzins, 10-jährige Rendite, CPI, Arbeitslosenquote, VIX) waren nicht abrufbar, weil der API-Schlüssel fehlt. Ich nenne dazu keine Zahlen. Die Prognosemärkte liefern aber ein klares Bild: Die Fed senkt im Dezember so gut wie sicher nicht, und eine US-Rezession bis Jahresende gilt als unwahrscheinlich.</li>
+</ul>
+<h5>2. Amazon-spezifische Nachrichten</h5>
+<p><strong>a) Decart-Deal (ca. 7,5 Mrd. USD)</strong></p>
+<ul>
+<li>Amazon soll Kerntechnologie und das Gründerteam von Decart übernehmen. Das ist ein Technologie- und Talentkauf, keine klassische Komplettübernahme.</li>
+<li>Strategisch zielt der Deal auf die <strong>Vermarktung der Trainium-Chips</strong> und auf eine bessere Inferenz- und Recheneffizienz. Das passt zu Amazons Strategie, die Abhängigkeit von Nvidia zu senken und die AWS-Margen zu stützen.</li>
+<li>Risiken: Der Preis ist hoch, wenn man ihn mit der aktuellen Skepsis gegenüber KI-Ausgaben vergleicht. Außerdem ist der Deal bisher nur über Medienberichte belegt. Mögliche Regulierungsfragen sind offen.</li>
+</ul>
+<p><strong>b) Kapitalintensität und Anlegersicht</strong></p>
+<ul>
+<li>24/7 Wall St. nennt einen „220-Mrd.-USD-Ausgabenrausch“ (Capex). Gemeint ist offenbar Amazons KI- und Infrastrukturprogramm.</li>
+<li>Seth Klarman hält 18 % seines Portfolios von rund 5 Mrd. USD in AMZN. Das ist seine größte Position, ohne dass er zugekauft hat. Das ist ein Qualitäts- und Überzeugungssignal, kein Handelssignal.</li>
+</ul>
+<p><strong>c) Weitere Punkte</strong></p>
+<ul>
+<li>Amazon ist an den Thanksgiving-Lebensmittelrabatten beteiligt (Walmart, Target). Das spricht für intensiven Preiswettbewerb vor dem Weihnachtsgeschäft. Die Rabatte dürften laut MarketWatch nicht von Dauer sein.</li>
+<li>FedEx nennt Amazons Logistikausbau als Wettbewerbsfaktor.</li>
+<li>Ein Hyperscaler (nicht genannt) hat mit Fermi einen 200-Mio.-USD-Vorschuss für 600 MW Strom vereinbart. Das zeigt, dass die Nachfrage nach Rechenzentrumskapazität anhält. Ob Amazon der Käufer ist, bleibt offen.</li>
+<li>Apple, Nvidia und Tesla lehnen die Teilnahme an der tokenisierten Aktienplattform von ICE/OKX ab. Für AMZN ist das nicht direkt relevant.</li>
+</ul>
+<h5>3. Branchen- und Marktumfeld</h5>
+<ul>
+<li><strong>KI-Stimmung:</strong> Nvidia (um 125 USD) steht wegen der gemeldeten SEC-Untersuchung und seiner rund 115 Mrd. USD „Neocloud“-Exposure unter Beobachtung. Die Rückkehr von Jensen Huang löste zwar eine Erholung aus. Analysten warnen aber, dass ausgewaschene Stimmung noch keinen fundamentalen Boden bedeutet.</li>
+<li><strong>Gegenseite zu Anthropic:</strong> Amazon ist ein großer Anthropic-Investor. Die Bewertungsspanne von 50 bis 250 USD in der Diskussion zeigt, wie unsicher die Werte sind. Die Schwäche bei Anthropic ist daher ein indirektes Bewertungsrisiko für AMZN.</li>
+<li><strong>Hyperscaler-Vergleich:</strong> Alphabet wurde nach hohen Ausgaben und einem Gewinnverfehlen abgestraft. Der Markt belohnt Capex derzeit nicht automatisch. Er achtet darauf, ob Cloud-Wachstum und Auftragsbestand die Ausgaben rechtfertigen.</li>
+<li><strong>Konsum:</strong> Der Konsumsektor war vor Handelsbeginn am Montag gemischt. Das Weihnachtsgeschäft (Black Friday, Cyber Monday) steht bevor.</li>
+<li><strong>Nebenthema:</strong> Die Einführung von GTA VI (3,79 Mrd. USD am ersten Tag) bindet Konsumentenausgaben und Retail-Aufmerksamkeit. Für AMZN ist das nur marginal relevant.</li>
+</ul>
+<h5>4. Makro und Prognosemärkte (Polymarket)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Ereignis</th>
+<th>Wahrscheinlichkeit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fed-Zinssenkung bis Dezember-Sitzung 2026</td>
+<td>0,8 %</td>
+</tr>
+<tr>
+<td>Zinssenkung bis Januar 2027</td>
+<td>3 %</td>
+</tr>
+<tr>
+<td>Zinssenkung bis März 2027</td>
+<td>13 %</td>
+</tr>
+<tr>
+<td>Zinssenkung bis April 2027</td>
+<td>26 %</td>
+</tr>
+<tr>
+<td>Zinssenkung bis Juli 2027</td>
+<td>50 % (sehr geringes Volumen)</td>
+</tr>
+<tr>
+<td>US-Rezession bis Ende 2026</td>
+<td>2 % (hohes Volumen, 2,5 Mio. USD)</td>
+</tr>
+<tr>
+<td>Japan-Rezession 2026</td>
+<td>16 % (+10 Pp. in einer Woche, geringes Volumen)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Deutung:</strong> Der Markt rechnet mit einer längeren Zinspause. Hohe Zinsen belasten langfristige Wachstumsbewerter und kapitalintensive Geschäftsmodelle wie AMZN. Eine Rezession gilt als nahezu ausgeschlossen. Das stützt die Konsum- und Werbenachfrage.</li>
+<li>Die Märkte für 2027 haben kaum Volumen und sind wenig belastbar.</li>
+<li><strong>Datenlücke:</strong> Ohne FRED-Daten fehlen mir aktuelle Zahlen zu Inflation, Arbeitsmarkt, Renditen und Volatilität. Das sollte ein anderer Analyst oder Kanal nachholen.</li>
+</ul>
+<h5>5. Handelsrelevante Schlussfolgerungen</h5>
+<ol>
+<li><strong>Positiv:</strong> Der Decart-Deal stärkt die Chip-Strategie. Die Nachfrage nach KI-Infrastruktur bleibt hoch. Die Rezessionsgefahr ist gering. Institutionelle Anleger wie Klarman halten an AMZN fest.</li>
+<li><strong>Negativ:</strong> Der Markt ist angeschlagen, und der KI-Sektor steht unter Druck. Dazu kommen Nvidia-SEC-Gerüchte, die Anthropic-Schwäche und die Alphabet-Reaktion auf Capex. Es gibt keine Zinssenkungsunterstützung. Capex von etwa 220 Mrd. USD erhöht das Free-Cashflow-Risiko.</li>
+<li><strong>Kurzfristige Katalysatoren:</strong> Thanksgiving, Black Friday und Cyber Monday liefern Konsumdaten. Weitere Nachrichten zu Nvidia und Anthropic und eine mögliche Bestätigung des Decart-Deals sind ebenfalls wichtig. Die Dezember-Fed-Sitzung bringt voraussichtlich keine Überraschung.</li>
+<li><strong>Einordnung:</strong> Die Nachrichtenlage ist gemischt. Fundamental bleibt die Geschichte intakt, das Sentiment-Risiko im KI-Sektor ist aber hoch. Preis- und technische Daten lagen mir nicht vor. Einstiege sollten gestaffelt erfolgen, mit Blick auf Nvidia- und KI-Sektor-Nachrichten.</li>
+</ol>
+<h5>6. Übersichtstabelle</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Thema</th>
+<th>Kernaussage</th>
+<th>Wirkung auf AMZN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decart-Deal (~7,5 Mrd. USD)</td>
+<td>Technologie- und Teamkauf für Trainium (Bloomberg-Bericht, unbestätigt)</td>
+<td>Mittelfristig positiv, kurzfristig Kostenfrage</td>
+</tr>
+<tr>
+<td>Capex (~220 Mrd. USD)</td>
+<td>Hohe Investitionen, FCF-Druck</td>
+<td>Gemischt</td>
+</tr>
+<tr>
+<td>Alphabet-Reaktion</td>
+<td>Capex plus Gewinnverfehlen führen zu Abverkauf</td>
+<td>Negativ für Sektorstimmung</td>
+</tr>
+<tr>
+<td>Nvidia / SEC-Probe</td>
+<td>Gerüchte, Neocloud-Exposure, volatile Erholung</td>
+<td>Negativ für KI-Sentiment</td>
+</tr>
+<tr>
+<td>Anthropic-Schwäche</td>
+<td>Bewertungsunsicherheit (50–250 USD Spanne)</td>
+<td>Indirektes Risiko (Beteiligung)</td>
+</tr>
+<tr>
+<td>Gesamtmarkt</td>
+<td>„Battered“, Bodensuche</td>
+<td>Erhöhte Volatilität</td>
+</tr>
+<tr>
+<td>Fed (Polymarket)</td>
+<td>Dezember-Senkung 0,8 %, Juli 2027 ca. 50 %</td>
+<td>Kein Zinsrückenwind</td>
+</tr>
+<tr>
+<td>Rezession USA 2026</td>
+<td>2 %</td>
+<td>Stützt Konsum und Werbung</td>
+</tr>
+<tr>
+<td>Konsum / Weihnachtsgeschäft</td>
+<td>Rabattwettbewerb, Thanksgiving, Black Friday</td>
+<td>Neutral bis positiv, abhängig von Zahlen</td>
+</tr>
+<tr>
+<td>Klarman-Position</td>
+<td>18 % des Portfolios</td>
+<td>Qualitätssignal, kein Timing</td>
+</tr>
+<tr>
+<td>FRED-Makrodaten</td>
+<td>Nicht verfügbar (API-Schlüssel fehlt)</td>
+<td>Datenlücke</td>
+</tr>
+</tbody>
+</table></div>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s1-4">Fundamentals Analyst</h3>
+<h4>AMZN (Amazon.com, Inc.) – Fundamentalanalyse, Stand 23.11.2026</h4>
+<h5>1. Zusammenfassung</h5>
+<ul>
+<li><strong>Wachstum:</strong> AMZN wächst weiter zweistellig, aber das Wachstum hat sich zuletzt abgeschwächt. Der Umsatz im Q3 2026 lag bei 201,9 Mrd. USD (+12,1 % ggü. Vorjahr). Im Q2 waren es +19,6 % und im Q1 +16,6 %.</li>
+<li><strong>Operative Profitabilität:</strong> Sie verbessert sich deutlich. Das operative Ergebnis stieg von 17,4 Mrd. USD (Q3 2025) auf 28,1 Mrd. USD (+61 %). Die operative Marge liegt bei 13,9 %.</li>
+<li><strong>Gewinnqualität:</strong> Der Nettogewinn wird von nicht-operativen Effekten verzerrt. Der Q2 2026 enthält 62,6 Mrd. USD Nettogewinn bei nur 27,5 Mrd. USD operativem Ergebnis. Die Daten nennen die Ursache nicht. Wahrscheinlich sind es Bewertungsgewinne auf Beteiligungen, das ist aber meine Vermutung. Das TTM-KGV von 20,8 wirkt dadurch zu günstig. Das Forward-EPS (10,93 USD) liegt unter dem TTM-EPS (12,37 USD).</li>
+<li><strong>Investitionen:</strong> Der Kapex ist explodiert. Er lag im Q3 2026 bei 77,3 Mrd. USD (Vorjahr: 35,1 Mrd. USD, +120 %). Der freie Cashflow ist negativ (TTM ca. –34,7 Mrd. USD), und das Wachstum wird zunehmend über Fremdkapital und Eigenkapitalzuflüsse finanziert.</li>
+<li><strong>Insider:</strong> Es gibt keine Insiderkäufe am offenen Markt. Verkäufe sind laufend und größtenteils planmäßig. Bezos hat im August 2026 rund 346 Mio. USD verkauft.</li>
+</ul>
+<h5>2. Bewertung und Marktdaten (get_fundamentals)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Kennzahl</th>
+<th>Wert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marktkapitalisierung</td>
+<td>ca. 2,78 Bio. USD</td>
+</tr>
+<tr>
+<td>KGV (TTM) / Forward-KGV</td>
+<td>20,8 / 23,5</td>
+</tr>
+<tr>
+<td>PEG</td>
+<td>1,15</td>
+</tr>
+<tr>
+<td>Kurs-Buchwert</td>
+<td>4,53 (Buchwert/Aktie 56,76 USD)</td>
+</tr>
+<tr>
+<td>EPS (TTM) / Forward-EPS</td>
+<td>12,37 / 10,93 USD</td>
+</tr>
+<tr>
+<td>Umsatz (TTM)</td>
+<td>ca. 797,5 Mrd. USD</td>
+</tr>
+<tr>
+<td>Bruttogewinn / EBITDA</td>
+<td>409,7 Mrd. / 183,7 Mrd. USD</td>
+</tr>
+<tr>
+<td>Nettogewinn (TTM)</td>
+<td>134,8 Mrd. USD</td>
+</tr>
+<tr>
+<td>Nettomarge / operative Marge</td>
+<td>16,9 % / 13,1 %</td>
+</tr>
+<tr>
+<td>ROE / ROA</td>
+<td>27,4 % / 6,6 %</td>
+</tr>
+<tr>
+<td>Verschuldungsgrad (Debt/Equity)</td>
+<td>49,7 % (0,50x)</td>
+</tr>
+<tr>
+<td>Current Ratio</td>
+<td>0,99</td>
+</tr>
+<tr>
+<td>Freier Cashflow (TTM)</td>
+<td>ca. –34,7 Mrd. USD</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>1,50</td>
+</tr>
+<tr>
+<td>52-Wochen-Spanne</td>
+<td>196,0 – 287,2 USD</td>
+</tr>
+<tr>
+<td>50-/200-Tage-Durchschnitt</td>
+<td>255,0 / 245,2 USD</td>
+</tr>
+<tr>
+<td>Dividendenrendite</td>
+<td>0 %</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Einordnung:</strong></p>
+<ul>
+<li>Der Kurs lag zuletzt laut Insiderdaten bei etwa 259–262 USD. Das ist leicht über dem 50- und 200-Tage-Schnitt und etwa 9 % unter dem 52-Wochen-Hoch.</li>
+<li>Das Forward-KGV von 23,5 ist aussagekräftiger als das TTM-KGV, weil das TTM-EPS durch Einmalgewinne aufgebläht ist.</li>
+<li>Das Beta von 1,5 bedeutet überdurchschnittliche Schwankung.</li>
+</ul>
+<h5>3. Gewinn- und Verlustrechnung (Quartale, Mio. USD)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Quartal</th>
+<th>Umsatz</th>
+<th>Bruttogewinn*</th>
+<th>Operatives Ergebnis</th>
+<th>Nettogewinn</th>
+<th>EPS (verwässert)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1 2025</td>
+<td>155.667</td>
+<td>78.691</td>
+<td>18.405</td>
+<td>17.127</td>
+<td>1,59</td>
+</tr>
+<tr>
+<td>Q2 2025</td>
+<td>167.702</td>
+<td>86.893</td>
+<td>19.171</td>
+<td>18.164</td>
+<td>1,68</td>
+</tr>
+<tr>
+<td>Q3 2025</td>
+<td>180.169</td>
+<td>91.499</td>
+<td>17.422</td>
+<td>21.187</td>
+<td>1,95</td>
+</tr>
+<tr>
+<td>Q1 2026</td>
+<td>181.519</td>
+<td>94.056</td>
+<td>23.852</td>
+<td>30.255</td>
+<td>2,78</td>
+</tr>
+<tr>
+<td>Q2 2026</td>
+<td>200.606</td>
+<td>104.828</td>
+<td>27.461</td>
+<td>62.647</td>
+<td>5,75</td>
+</tr>
+<tr>
+<td>Q3 2026</td>
+<td>201.944</td>
+<td>107.371</td>
+<td>28.076</td>
+<td>20.685</td>
+<td>1,89</td>
+</tr>
+</tbody>
+</table></div>
+<p>*Bruttogewinn = Umsatz minus Umsatzkosten, von mir berechnet. Das Q4 2025 fehlt in den gelieferten Daten.</p>
+<p><strong>Beobachtungen:</strong></p>
+<ul>
+<li><strong>Wachstum:</strong> Das Umsatzwachstum lag im Q1 2026 bei 16,6 %, im Q2 bei 19,6 % und im Q3 bei 12,1 %.</li>
+<li><strong>Bruttomarge:</strong> Sie liegt stabil bei etwa 53 %. Die Kostenquote bleibt bei ca. 47 %.</li>
+<li><strong>Operative Marge:</strong> Sie stieg von 11,2 % (Q3 2025) auf 13,9 % (Q3 2026). Q3 2025 war durch Sonderbelastungen gedrückt, das Vorjahr ist daher eine leichte Vergleichsbasis.</li>
+<li><strong>Nettogewinn Q3 2026:</strong> Er lag mit 20,7 Mrd. USD leicht unter dem Vorjahr (21,2 Mrd. USD), obwohl das operative Ergebnis um 61 % stieg. Beide Quartale enthalten nicht-operative Positionen.</li>
+<li><strong>Fazit:</strong> Die Gewinne sind schwer vergleichbar. Das operative Ergebnis ist die verlässlichere Basis.</li>
+</ul>
+<h5>4. Bilanz (Mio. USD)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Stichtag</th>
+<th>Bilanzsumme</th>
+<th>Umlaufvermögen</th>
+<th>Liquide Mittel</th>
+<th>Kurzfr. Verbindlichkeiten</th>
+<th>Eigenkapital</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30.09.2025</td>
+<td>727.921</td>
+<td>196.866</td>
+<td>66.922</td>
+<td>195.196</td>
+<td>369.631</td>
+</tr>
+<tr>
+<td>31.03.2026</td>
+<td>916.630</td>
+<td>255.155</td>
+<td>101.816</td>
+<td>216.756</td>
+<td>441.914</td>
+</tr>
+<tr>
+<td>30.06.2026</td>
+<td>1.095.689</td>
+<td>249.264</td>
+<td>78.213</td>
+<td>241.274</td>
+<td>551.620</td>
+</tr>
+<tr>
+<td>30.09.2026</td>
+<td>1.243.390</td>
+<td>255.100</td>
+<td>55.783</td>
+<td>257.982</td>
+<td>613.601</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Beobachtungen:</strong></p>
+<ul>
+<li><strong>Bilanzsumme:</strong> Sie wuchs binnen eines Jahres um ca. 71 % auf 1,24 Bio. USD. Das spiegelt den Infrastruktur-Ausbau (Rechenzentren, KI) und wohl auch Beteiligungsbewertungen.</li>
+<li><strong>Liquidität:</strong> Die liquiden Mittel sanken von 101,8 Mrd. USD (Q1) auf 55,8 Mrd. USD. Das ist der niedrigste Stand seit Ende 2024 und ein Minus von 45 % in zwei Quartalen.</li>
+<li><strong>Current Ratio:</strong> Sie liegt bei 0,99. Das ist für AMZN typisch, aber das Polster sinkt.</li>
+<li><strong>Eigenkapital:</strong> Es stieg um ca. 62 Mrd. USD im Q3, bei nur 20,7 Mrd. USD Nettogewinn. Im Q2 waren es ca. 110 Mrd. USD bei 62,6 Mrd. USD Gewinn. Der Rest könnte aus Aktienausgabe, aktienbasierter Vergütung oder Bewertungseffekten stammen. Die Daten schlüsseln das nicht auf.</li>
+<li><strong>Gesamtverbindlichkeiten:</strong> Sie sind nicht getaggt. Bilanzsumme minus Eigenkapital ergibt grob 630 Mrd. USD. Darin stecken auch Leasingverpflichtungen und sonstige Posten.</li>
+<li><strong>Verschuldung:</strong> Die Kennzahl Debt/Equity von 49,7 % stammt aus den Fundamentaldaten. Sie berücksichtigt möglicherweise nicht den jüngsten Schuldenanstieg.</li>
+</ul>
+<h5>5. Cashflow (Mio. USD)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Quartal</th>
+<th>Operativer CF</th>
+<th>Investitions-CF</th>
+<th>Finanzierungs-CF</th>
+<th>Kapex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q3 2025</td>
+<td>35.525</td>
+<td>–26.073</td>
+<td>–44</td>
+<td>35.095</td>
+</tr>
+<tr>
+<td>Q1 2026</td>
+<td>26.032</td>
+<td>–64.212</td>
+<td>+52.767</td>
+<td>44.203</td>
+</tr>
+<tr>
+<td>Q2 2026</td>
+<td>45.387</td>
+<td>–79.245</td>
+<td>+10.146</td>
+<td>54.208</td>
+</tr>
+<tr>
+<td>Q3 2026</td>
+<td>42.422</td>
+<td>–113.642</td>
+<td>+48.935</td>
+<td>77.259</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Beobachtungen:</strong></p>
+<ul>
+<li><strong>Operativer Cashflow:</strong> Er lag im Q3 2026 bei 42,4 Mrd. USD (+19 % ggü. Vorjahr) und wächst damit viel langsamer als der Kapex (+120 %).</li>
+<li><strong>Freier Cashflow Q3 2026:</strong> Operativer CF minus Kapex ergibt ca. –34,8 Mrd. USD. Das ist das dritte Quartal in Folge mit hohen Mittelabflüssen: Q1 –18,2 Mrd., Q2 –8,8 Mrd.</li>
+<li><strong>Investitionen insgesamt:</strong> Der Investitions-CF von –113,6 Mrd. USD im Q3 übersteigt den Kapex deutlich. Es fließt also auch Geld in Beteiligungen oder Wertpapiere.</li>
+<li><strong>Finanzierung:</strong> Der positive Finanzierungs-CF (+48,9 Mrd. USD im Q3) deutet auf Kapitalaufnahme hin, also Anleihen oder Aktien. Die Daten zeigen die genaue Form nicht.</li>
+<li><strong>Zentrale Frage:</strong> Wann und in welchem Umfang schlagen sich die Investitionen in höheren Umsätzen und Margen nieder?</li>
+</ul>
+<h5>6. Insider-Transaktionen</h5>
+<p><strong>Käufe:</strong> Es gibt keine Käufe am offenen Markt im ausgewiesenen Zeitraum (ab Mai 2025).</p>
+<p><strong>Wichtigste Verkäufe:</strong></p>
+<ul>
+<li><strong>Jeff Bezos:</strong>
+<ul>
+<li>Am 03.08.2026 verkaufte er 1,21 Mio. Aktien zu 286,41 USD (ca. 346 Mio. USD). Das war nahe dem 52-Wochen-Hoch.</li>
+<li>Von Juni bis Juli 2025 verkaufte er ca. 25 Mio. Aktien (ca. 5,6 Mrd. USD) bei 220–230 USD.</li>
+<li>Er verschenkt regelmäßig große Aktienpakete, zuletzt 771.492 Stück am 13.11.2026, 415.580 am 26.08.2026 und 1,25 Mio. am 04.05.2026. Das sind Schenkungen ohne Erlös, keine Marktverkäufe.</li>
+</ul>
+</li>
+<li><strong>Andy Jassy (CEO):</strong>
+<ul>
+<li>Er verkauft regelmäßig 20.000 Aktien pro Quartal (zuletzt 21.08.2026 zu ca. 259 USD, ca. 5,2 Mio. USD). Das entspricht einem Muster, wie es bei Verkaufsplänen üblich ist.</li>
+<li>Hinzu kamen größere Verkäufe am 17.04.2026 (31.000 Stück zu 255 USD) und am 04.05.2026 (31.352 Stück zu 275 USD, ca. 8,6 Mio. USD).</li>
+</ul>
+</li>
+<li><strong>Douglas Herrington (Officer):</strong>
+<ul>
+<li>Er verkauft monatlich 1.000 Aktien und zusätzlich quartalsweise größere Pakete.</li>
+<li>Am 04.05.2026 verkaufte er 28.500 Stück (ca. 7,8 Mio. USD) und am 14.04.2026 20.500 Stück (ca. 5,0 Mio. USD).</li>
+<li>Zuletzt verkaufte er am 16.11.2026 3.741 Stück zu ca. 260–262 USD.</li>
+</ul>
+</li>
+<li><strong>Weitere Verkäufer:</strong> CFO Olsavsky, Garman, Zapolsky und Reynolds verkauften zuletzt im August 2026 Pakete von 2–15 Tsd. Aktien (jeweils ca. 0,6–4,0 Mio. USD).</li>
+<li><strong>Direktoren:</strong> Rubinstein verkaufte Ende April 2026 ca. 2,0 Mio. USD, Huttenlocher am 18.11.2026 783 Aktien.</li>
+</ul>
+<p><strong>Bewertung:</strong> Die Verkäufe folgen weitgehend wiederkehrenden Mustern (Vesting-Termine im Februar, Mai, August und November, monatliche Pläne). Sie sind daher nur schwach als Signal zu werten. Auffällig ist das Fehlen jeglicher Insiderkäufe. Die Verkäufe sind außerdem mengenmäßig recht groß.</p>
+<h5>7. Chancen und Risiken</h5>
+<p><strong>Chancen:</strong></p>
+<ul>
+<li>Der operative Hebel ist spürbar (operatives Ergebnis +61 % bei Umsatz +12 %).</li>
+<li>Die Bruttomarge ist stabil bei ca. 53 %, und der ROE ist hoch (27 %).</li>
+<li>Das Forward-KGV von 23,5 ist für einen Konzern dieser Größe und Wachstumsrate nicht extrem.</li>
+<li>Der operative Cashflow wächst weiter zweistellig.</li>
+</ul>
+<p><strong>Risiken:</strong></p>
+<ul>
+<li>Das Umsatzwachstum hat sich im Q3 auf 12 % verlangsamt, während der Kapex mehr als verdoppelt wurde.</li>
+<li>Der FCF ist negativ, die liquiden Mittel sinken, und die Finanzierung läuft zunehmend extern.</li>
+<li>Die Gewinnqualität ist schwach: Nettogewinn und EPS enthalten große nicht-operative Gewinne, die nicht wiederkehren müssen.</li>
+<li>Das Beta von 1,5 und die Nähe zum 52-Wochen-Hoch erhöhen das Rückschlagrisiko bei enttäuschenden Quartalszahlen.</li>
+<li>Es gibt keine Insiderkäufe und laufende Verkäufe durch das Top-Management.</li>
+<li>Die Lücke zwischen Kapex und operativem Cashflow lässt wenig Spielraum, falls die Nachfrage nach Cloud- und KI-Kapazität nachlässt.</li>
+</ul>
+<h5>8. Handelsrelevante Schlussfolgerungen</h5>
+<ul>
+<li>Die Fundamentaldaten sind gemischt: Operativ stark, aber der Kapitalbedarf steigt schnell und der FCF ist negativ.</li>
+<li>Für Trader sind die nächsten Quartalszahlen entscheidend. Zu beobachten sind Umsatzwachstum (hält es über 12 %?), operative Marge, Kapex-Prognose und Finanzierungsmix.</li>
+<li>Als Orientierung dienen der 50-Tage-Schnitt (ca. 255 USD) und der 200-Tage-Schnitt (ca. 245 USD) als Unterstützung sowie das 52-Wochen-Hoch bei 287 USD als Widerstand.</li>
+<li>Die Bewertung ist nicht billig. Das niedrige TTM-KGV sollte nicht als Kaufargument dienen.</li>
+</ul>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h5>9. Übersichtstabelle</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Kernaussage</th>
+<th>Einschätzung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Umsatz</td>
+<td>Q3 2026: 201,9 Mrd. USD (+12,1 %); Q2: +19,6 %</td>
+<td>Wachstum verlangsamt sich</td>
+</tr>
+<tr>
+<td>Operatives Ergebnis</td>
+<td>28,1 Mrd. USD (+61 %), Marge 13,9 %</td>
+<td>Positiv</td>
+</tr>
+<tr>
+<td>Nettogewinn / EPS</td>
+<td>Q3: 20,7 Mrd. / 1,89 USD; Q2: 62,6 Mrd. (Einmaleffekte)</td>
+<td>Gewinnqualität schwach</td>
+</tr>
+<tr>
+<td>Bewertung</td>
+<td>KGV TTM 20,8; Forward-KGV 23,5; PEG 1,15; KBV 4,5</td>
+<td>Fair bis leicht hoch</td>
+</tr>
+<tr>
+<td>Kapex</td>
+<td>Q3: 77,3 Mrd. USD (+120 %)</td>
+<td>Hohes Risiko, hohes Potenzial</td>
+</tr>
+<tr>
+<td>Freier Cashflow</td>
+<td>TTM ca. –34,7 Mrd. USD; Q3 ca. –34,8 Mrd.</td>
+<td>Negativ</td>
+</tr>
+<tr>
+<td>Liquidität</td>
+<td>Cash 55,8 Mrd. (Q1: 101,8 Mrd.); Current Ratio 0,99</td>
+<td>Sinkend</td>
+</tr>
+<tr>
+<td>Bilanz</td>
+<td>Bilanzsumme 1,24 Bio. USD (+71 %); Eigenkapital 613,6 Mrd.</td>
+<td>Starke Expansion, externe Finanzierung</td>
+</tr>
+<tr>
+<td>Insider</td>
+<td>Keine Käufe; Bezos-Verkauf 346 Mio. USD (08/2026); regelmäßige Verkäufe von Jassy u. a.</td>
+<td>Neutral bis leicht negativ</td>
+</tr>
+<tr>
+<td>Kurs/Technik</td>
+<td>52-Wochen-Spanne 196–287 USD; 50-Tage-Schnitt 255; Beta 1,5</td>
+<td>Volatil</td>
+</tr>
+<tr>
+<td>Empfehlung</td>
+<td>Abwarten auf Quartalszahlen und Kapex-Klarheit</td>
+<td>HOLD</td>
+</tr>
+</tbody>
+</table></div>
+</section><section id="s2"><h2>II. Research Team Decision</h2><h3 id="s2-1">Bull Researcher</h3>
+<p>Bull Analyst: # Bull-Case für AMZN: Warum die Investitionsphase die Chance ist</p>
+<p>Da der Bär noch nicht gesprochen hat, nehme ich seine wahrscheinlichsten Argumente gleich vorweg und beantworte sie.</p>
+<h5>1. Das Kerngeschäft wird profitabler</h5>
+<p>Der Bär wird auf das Umsatzwachstum von 12,1 % im Q3 zeigen. Entscheidend ist aber, was unterhalb der Umsatzlinie passiert:</p>
+<ul>
+<li><strong>Das operative Ergebnis stieg auf 28,1 Mrd. USD (Q3 2025: 17,4 Mrd.).</strong></li>
+<li><strong>Die operative Marge steigt jedes Quartal:</strong> 13,1 % im Q1 2026, 13,7 % im Q2 und 13,9 % im Q3. Das ist ein Trend, kein Basiseffekt. Das Vorjahresquartal war zwar durch Sonderbelastungen gedrückt, das gebe ich zu. Aber die Abfolge Q1 bis Q3 2026 braucht diese Vergleichsbasis nicht.</li>
+<li><strong>Die Bruttomarge bleibt stabil bei etwa 53 %.</strong> Amazon kauft sich Wachstum also nicht über Preisnachlässe.</li>
+<li><strong>Der operative Cashflow wuchs im Q3 um 19 % auf 42,4 Mrd. USD.</strong> Die Maschine erzeugt Cash, und zwar in großem Umfang.</li>
+<li><strong>Der ROE liegt bei 27 %.</strong> Das ist kein Unternehmen, das Kapital vernichtet.</li>
+</ul>
+<p>Ein TTM-Umsatz von rund 797,5 Mrd. USD bei zweistelligem Wachstum und steigender Marge ist in dieser Größenordnung außergewöhnlich.</p>
+<h5>2. Die Bewertung ist vernünftig</h5>
+<p>Wir bewerten AMZN ehrlich auf Forward-Basis. Das TTM-KGV von 20,8 sieht wegen der nicht-operativen Gewinne zu günstig aus, das räume ich ein. Aber auch das Forward-KGV von <strong>23,5</strong> und ein <strong>PEG von 1,15</strong> sind für diese Marktstellung und diesen Margenpfad nicht anspruchsvoll. Der Kurs liegt bei rund 257 USD, etwa 10 % unter dem 52-Wochen-Hoch von 287 USD. Wir zahlen keinen Höchstpreis.</p>
+<h5>3. Der Capex ist ein Hebel, kein Leck</h5>
+<p>Der Bär wird den freien Cashflow von etwa –34,7 Mrd. USD (TTM) und den Capex von 77,3 Mrd. USD im Q3 (+120 %) ins Zentrum stellen. Dazu drei Punkte:</p>
+<ol>
+<li><strong>Die Bilanz trägt das.</strong> Das Eigenkapital liegt bei 613,6 Mrd. USD, das Debt/Equity-Verhältnis bei 0,50. Wer ein Rechenzentrums-Programm dieser Größe finanziert, tut das von einer starken Basis aus. Eine Current Ratio von 0,99 ist bei Amazon seit jeher normal und kein Alarmsignal.</li>
+<li><strong>Das Geld fließt in Kapazität, für die Nachfrage besteht.</strong> Der berichtete Fermi-Vorschuss eines Hyperscalers (200 Mio. USD für 600 MW) zeigt, dass Rechenleistung knapp ist. Ob Amazon der Käufer ist, ist offen. Als Branchensignal zählt es trotzdem.</li>
+<li><strong>Amazon baut die Wertschöpfungskette selbst.</strong> Die berichtete Decart-Transaktion (rund 7,5 Mrd. USD, Bloomberg, noch unbestätigt) zielt auf Trainium und Optimierungssoftware. Gelingt es, mehr Leistung pro Dollar aus eigenen Chips zu holen, sinkt die Abhängigkeit von Nvidia, und die AWS-Margen werden gestützt. Genau das ist der Grund, warum die steigende operative Marge und der hohe Capex zusammenpassen.</li>
+</ol>
+<p>Ich gebe offen zu, dass die Daten keinen Auftragsbestand und keine AWS-Wachstumsraten enthalten. Der Beweis, dass der Capex Rendite bringt, steht also noch aus. Aber die operative Marge zeigt, dass die Investitionen bislang nicht auf die Profitabilität drücken.</p>
+<h5>4. Gegen den Vorwurf der schwachen Gewinnqualität</h5>
+<p>Ja, die Nettogewinne schwanken. Im Q2 standen 62,6 Mrd. USD Nettogewinn nur 27,5 Mrd. USD operativem Ergebnis gegenüber. Die Daten nennen die Ursache nicht, vermutlich sind es Beteiligungsbewertungen. Deshalb argumentiere ich ausschließlich mit dem operativen Ergebnis und dem operativen Cashflow, und beide zeigen nach oben. Wer das Q2 als Einmaleffekt abzieht, verliert nichts am Investment-Case.</p>
+<h5>5. Insider-Verkäufe sind Routine</h5>
+<p>Die Verkäufe folgen festen Mustern: Vesting-Termine im Februar, Mai, August und November sowie monatliche Pläne. Jassy verkauft regelmäßig 20.000 Aktien pro Quartal. Bezos' größere Bewegungen sind überwiegend Schenkungen ohne Erlös. Sein Verkauf vom August 2026 (rund 346 Mio. USD) macht etwa 0,01 % der Marktkapitalisierung von 2,78 Bio. USD aus. Wer darin ein Signal sieht, überinterpretiert Rauschen. Dass es keine Insiderkäufe gibt, ist bei einem Management mit aktienbasierter Vergütung ebenfalls normal.</p>
+<h5>6. Der Chart zeigt eine Basis, keinen Bruch</h5>
+<ul>
+<li>Der Kurs liegt <strong>über dem 50-SMA (255,1) und über dem steigenden 200-SMA (245,4)</strong>, und der 50-SMA liegt über dem 200-SMA.</li>
+<li>Der <strong>RSI von 49,5</strong> ist neutral. Es gibt keine Überhitzung, die erst abgebaut werden müsste.</li>
+<li>Am <strong>20.11. schloss der Kurs bei 246,82</strong>, also an der Zone des 200-SMA, und am 23.11. liegt er vorläufig wieder bei 257. Das ist eine Erholung von rund 4 % innerhalb eines Handelstages. Dort sind Käufer eingestiegen.</li>
+<li>Am <strong>04.11. sprang der Kurs von 250,69 auf 266,03</strong> bei 93 Mio. Stück Volumen. Der Markt reagiert auf gute Nachrichten kräftig.</li>
+</ul>
+<p>Das MACD-Histogramm ist kurzfristig negativ (–1,01). Das ist eine Abkühlung innerhalb einer Seitwärtsspanne, die MACD-Linie liegt weiter über null. Wer eine Spanne von 240 bis 270 mit einem Beta von 1,5 handelt, bekommt zwangsläufig solche Schwankungen. Der Schlusskurs vom 23.11. ist außerdem noch vorläufig.</p>
+<h5>7. Das Umfeld ist besser als die Schlagzeilen</h5>
+<ul>
+<li><strong>Rezessionsrisiko:</strong> Die Prognosemärkte sehen die Wahrscheinlichkeit einer US-Rezession bis Jahresende bei nur 2 % (hohes Volumen). Das stützt Konsum und Werbung, also die Basis des Handelsgeschäfts, gerade vor Black Friday und Cyber Monday.</li>
+<li><strong>Zinsen:</strong> Eine Senkung im Dezember gilt als praktisch ausgeschlossen. Das ist längst eingepreist, und der Markt wird davon nicht mehr überrascht.</li>
+<li><strong>Sentiment:</strong> Rund zwei Drittel von 1,4 Mio. USD Optionsprämie entfielen auf Calls. Seth Klarman hält AMZN mit 18 % seines Portfolios als größte Position. Ein Value-Investor, der kein Wachstum um jeden Preis kauft, bleibt investiert. Die Stichprobe der Social-Media-Daten ist dünn, und Reddit fehlt. Ich werte das nur als Begleitindiz.</li>
+</ul>
+<h5>8. Zu den KI-Sorgen</h5>
+<p>Die Nervosität im Sektor (Nvidia-SEC-Meldung, Anthropic-Schwäche, Alphabet-Gewinnverfehlung) ist real. Aber sie ist ein Sektorthema, kein Amazon-Thema. Alphabet wurde abgestraft, weil die Ausgaben nicht von Gewinnen gedeckt waren. Amazon dagegen liefert steigendes operatives Ergebnis, steigende Marge und wachsenden operativen Cashflow. Die Anthropic-Beteiligung ist ein Bewertungsrisiko, aber gemessen an einer Marktkapitalisierung von 2,78 Bio. USD und einem Kerngeschäft mit 28 Mrd. USD operativem Quartalsgewinn ein Randthema. Und die Chip-Strategie stärkt Amazon unabhängig davon, wie sich einzelne KI-Start-ups bewerten lassen.</p>
+<h5>Was ich dem Bären zugestehe</h5>
+<ul>
+<li>Der freie Cashflow ist negativ, die liquiden Mittel sind auf 55,8 Mrd. USD gesunken, und die Finanzierung läuft zunehmend extern.</li>
+<li>Das Umsatzwachstum hat sich im Q3 verlangsamt, und der Umsatz stieg gegenüber dem Q2 kaum (200,6 auf 201,9 Mrd. USD). Das müssen die nächsten Zahlen widerlegen.</li>
+<li>Der Decart-Deal ist unbestätigt und könnte regulatorisch geprüft werden.</li>
+</ul>
+<p>Das sind aber Fragen der Ausführung, keine Schwächen der Substanz. Mein Fazit lautet: Amazon verbindet eine steigende operative Marge, einen wachsenden operativen Cashflow und eine moderate Forward-Bewertung (KGV 23,5) mit einem klar erkennbaren strategischen Plan, nämlich eigene Chips, Software und Kapazität. Der Kurs steht nach der jüngsten Korrektur auf einer intakten Trendstruktur. Für Anleger mit Geduld liegt das Chance-Risiko-Verhältnis klar auf der Seite der Käufer. Einstiege lassen sich gestaffelt vornehmen, etwa mit Blick auf den 50-SMA und die Zone um 245 bis 255 USD, mit einem Stop nach ATR (rund 1,5 × 10,4 Punkte).</p>
+<p>Bär, ich bin gespannt: Was ist dein stärkstes Argument dafür, dass die operative Marge den Capex nicht tragen kann?</p>
+<h3 id="s2-2">Bear Researcher</h3>
+<p>Bear Analyst: # Bear-Case für AMZN: Die Frage ist nicht, ob Amazon gut ist, sondern was der aktuelle Preis schon verlangt</p>
+<p>Bull, du hast mir eine direkte Frage gestellt, also bekommst du eine direkte Antwort. Danach gehe ich deine Punkte der Reihe nach durch.</p>
+<h5>1. Deine Frage: Warum die operative Marge den Capex nicht trägt</h5>
+<p>Die Zahlen aus dem Q3 2026:</p>
+<ul>
+<li><strong>Operatives Ergebnis:</strong> 28,1 Mrd. USD</li>
+<li><strong>Operativer Cashflow:</strong> 42,4 Mrd. USD</li>
+<li><strong>Capex:</strong> 77,3 Mrd. USD</li>
+</ul>
+<p>In einem einzigen Quartal investiert Amazon fast das Dreifache des operativen Ergebnisses und fast das Doppelte des operativen Cashflows. Über die ersten drei Quartale 2026 summiert sich der Capex auf rund 175,7 Mrd. USD (44,2 + 54,2 + 77,3). Der freie Cashflow lag bei –18,2, –8,8 und –34,8 Mrd. USD, zusammen also rund –62 Mrd. USD in neun Monaten. Der Trend verschlechtert sich, er stabilisiert sich nicht. Der TTM-Wert von –34,7 Mrd. USD wirkt nur deshalb milder, weil das nicht gelieferte Q4 2025 offenbar noch deutlich positiv war.</p>
+<p>Der entscheidende Punkt ist die Abschreibung. Die Marge von 13,9 % spiegelt nur einen kleinen Teil dieser Investitionen. Ein Rechenbeispiel mit einer Annahme, die ich nicht aus den Daten habe: Bei einer durchschnittlichen Nutzungsdauer von etwa fünf Jahren erzeugen 100 Mrd. USD Capex rund 5 Mrd. USD zusätzliche Abschreibung pro Quartal. Das sind knapp 18 % des aktuellen Quartals-EBIT. Bei 175,7 Mrd. USD wären es rund 9 Mrd. USD pro Quartal, also etwa ein Drittel. Nicht alles davon ist schon in Betrieb, und nicht alles sind Server. Aber die Größenordnung zeigt: Die Kosten dieses Programms kommen erst noch in die Gewinn- und Verlustrechnung. Dass die Bruttomarge bei 53 % stabil bleibt, ist deshalb kein Beweis für Disziplin. Es ist ein Zeitverzug.</p>
+<h5>2. Der Margentrend ist schon flach geworden</h5>
+<p>Du nennst 13,1 %, 13,7 % und 13,9 % als Trend. Schau dir die Steigung an: Von Q2 auf Q3 stieg die Marge um 0,2 Prozentpunkte. Das operative Ergebnis wuchs sequenziell um nur etwa 2 % (27,5 auf 28,1 Mrd. USD). Der Umsatz legte gegenüber dem Q2 nur um 0,7 % zu (200,6 auf 201,9 Mrd. USD). Im Vorjahr lag das sequenzielle Plus von Q2 auf Q3 bei etwa 7 % (167,7 auf 180,2 Mrd. USD). Das hast du selbst als offenen Punkt eingeräumt, aber unterschätzt: Das Wachstum von +19,6 % im Q2 auf +12,1 % im Q3 ist ein Einbruch der Dynamik, und das ausgerechnet in dem Quartal, in dem der Capex um 120 % explodiert. Mehr Kapital, weniger Wachstum, das ist die falsche Richtung.</p>
+<p>Auch der „Gewinn&quot; von +61 % im operativen Ergebnis ist zum Teil Basiseffekt. Du gibst zu, dass Q3 2025 durch Sonderbelastungen gedrückt war. Gegenüber Q1 2025 (18,4 Mrd. USD) und Q2 2025 (19,2 Mrd. USD) lag das Plus bei etwa 30 % beziehungsweise 43 %. Das ist gut, aber weniger spektakulär als die Schlagzeile.</p>
+<p>Beim operativen Cashflow sagst du „wächst um 19 %&quot;. Sequenziell fiel er aber von 45,4 auf 42,4 Mrd. USD. Der Cash-Motor beschleunigt nicht, er stottert, während der Capex nach oben schießt.</p>
+<h5>3. Du widersprichst dir bei der Gewinnqualität</h5>
+<p>Du sagst, du argumentierst ausschließlich mit operativen Größen. Zwei Absätze später zitierst du aber den <strong>ROE von 27 %</strong> als Beleg, dass Amazon kein Kapital vernichtet. Dieser ROE basiert auf einem TTM-Nettogewinn von 134,8 Mrd. USD, der klar über dem operativen Ergebnis liegt (Nettomarge 16,9 % gegenüber operativer Marge 13,1 %). Ein Konzern, dessen Nettomarge die operative Marge übertrifft, verdient nicht-operativ. Das ist keine Qualität, das ist Bewertungsrauschen. Dasselbe gilt für das TTM-KGV von 20,8, und das Forward-EPS von 10,93 liegt rund 12 % unter dem TTM-EPS von 12,37 USD.</p>
+<p>Die Ursache der Q2-Zahl nennen die Daten nicht. Ich gehe wie du von Beteiligungsbewertungen aus, das ist aber eine Vermutung. Wenn es so ist, hängt ein Teil des Gewinns und des Eigenkapitals an Marktwerten wie dem von Anthropic. Die Nachrichtenlage nennt dort eine Bewertungsspanne von 50 bis 250 USD und einen Kursrutsch. Solche Gewinne können sich umkehren. Du nennst das ein „Randthema&quot;. Bei einem Eigenkapitalzuwachs von rund 62 Mrd. USD im Q3 bei nur 20,7 Mrd. USD Nettogewinn und rund 110 Mrd. USD im Q2 bei 62,6 Mrd. USD Gewinn ist es das nicht.</p>
+<h5>4. Die Bilanz ist weniger solide, als das Debt/Equity von 0,50 suggeriert</h5>
+<p>Du verweist auf Eigenkapital von 613,6 Mrd. USD und Debt/Equity von 0,50. Die Fundamentaldaten selbst sagen, dass diese Kennzahl den jüngsten Schuldenanstieg möglicherweise nicht abbildet. Rechnen wir selbst: Bilanzsumme minus Eigenkapital ergibt rund 630 Mrd. USD Gesamtverbindlichkeiten, also etwa das 1,0-Fache des Eigenkapitals. Vor einem Jahr waren es rund 358 Mrd. USD (727,9 minus 369,6). Die Verbindlichkeiten sind in zwölf Monaten um etwa 75 % gewachsen. Darin stecken auch Leasing und Sonstiges, aber die Richtung ist eindeutig. Gleichzeitig ist das Eigenkapital durch Posten aufgebläht, die die Daten nicht aufschlüsseln: Aktienausgabe, Vergütung oder Bewertungseffekte.</p>
+<p>Das Finanzierungsbild passt dazu:</p>
+<ul>
+<li><strong>Finanzierungs-Cashflow:</strong> +52,8, +10,1 und +48,9 Mrd. USD in drei Quartalen, zusammen rund 112 Mrd. USD frisches Kapital.</li>
+<li><strong>Liquide Mittel:</strong> minus 45 % seit dem Q1, von 101,8 auf 55,8 Mrd. USD, und das trotz dieser Kapitalaufnahme.</li>
+<li><strong>Kurzfristige Verbindlichkeiten:</strong> von 195,2 auf 258,0 Mrd. USD (+32 %) in einem Jahr. Die Current Ratio von 0,99 bei Amazon ist historisch „normal&quot;. Aber vor einem Jahr stand dahinter mehr Cash (66,9 Mrd. USD), und die absoluten Beträge sind jetzt deutlich größer.</li>
+<li><strong>Investitions-Cashflow im Q3:</strong> –113,6 Mrd. USD, etwa 36 Mrd. USD mehr als der Capex. Wohin dieses Geld fließt, zeigen die Daten nicht, vermutlich in Beteiligungen oder Wertpapiere. Das ist zusätzliches Bewertungsrisiko.</li>
+</ul>
+<p>Ein Unternehmen, das 112 Mrd. USD Kapital aufnimmt, dabei Cash verbrennt und im Hochzinsumfeld finanziert, ist nicht mehr der Selbstfinanzierer, den die Bullen-These voraussetzt.</p>
+<h5>5. Die Bewertung: „vernünftig&quot; nur, wenn man die Lücken ignoriert</h5>
+<p>Forward-KGV 23,5 auf ein Forward-EPS, das <strong>unter</strong> dem TTM-EPS liegt. Das ist kein Wachstumspreis, sondern ein Preis für Gewinne, die laut Konsens schrumpfen. Das Kurs-Buchwert-Verhältnis von 4,5 steht auf einem Buchwert, der durch die oben genannten Posten aufgebläht sein könnte. Der PEG von 1,15 braucht ein Wachstum, das gerade von 19,6 % auf 12,1 % gefallen ist. Und auf Free-Cashflow-Basis ist das Papier gar nicht bewertbar, weil der FCF negativ ist. Du sagst, wir zahlen „keinen Höchstpreis&quot;. Ohne FCF und mit Beta 1,5 ist „10 % unter dem Hoch&quot; keine Sicherheitsmarge.</p>
+<p>Dein eigener Einstiegsvorschlag verrät dich übrigens: gestaffelt kaufen in der Zone <strong>245 bis 255 USD</strong>. Der Kurs steht bei rund 257 USD. Du räumst damit selbst ein, dass der aktuelle Preis nicht der attraktive ist.</p>
+<h5>6. Der Chart: Aus „Käufer sind eingestiegen&quot; wird ein Muster gescheiterter Ausbrüche</h5>
+<ul>
+<li><strong>Seitwärtsspanne seit August:</strong> Der 50-SMA hat sich im Beobachtungsfenster nur zwischen 253,8 und 255,4 bewegt. Das ist kein Trend, das ist Stillstand. Kurs und 50-SMA liegen praktisch aufeinander (257,0 gegenüber 255,1).</li>
+<li><strong>19.11.:</strong> Eröffnung bei 272,56, Schluss bei 257,37. Das ist ein Ausbruchsversuch über 267–270, der innerhalb eines Tages komplett abverkauft wurde, ein klassisches Umkehrmuster. Der Ausbruch scheiterte nicht zum ersten Mal.</li>
+<li><strong>20.11.:</strong> Schluss bei 246,82 bei 74,1 Mio. Stück Volumen. Das ist hohes Verkaufsvolumen genau an der 200-SMA-Zone.</li>
+<li><strong>Deine „4 %-Erholung&quot; am 23.11.:</strong> Der Balken ist unvollständig (rund 20 Mio. Stück statt der üblichen 30–50 Mio.). Außerdem war die Spanne an dem Tag 251,25 bis 262,48. Bei einem ATR von 10,4 ist das normales Rauschen, kein Käufersignal. Der Schlusskurs liegt zudem unter dem 10-EMA (258,5).</li>
+<li><strong>MACD:</strong> Signal-Crossover nach unten am 20.11., Histogramm bei –1,01, MACD-Linie von 3,50 auf 0,72 gefallen. Das ist kein „Abkühlen&quot;, das ist ein verlorenes Momentum, das sich mit nur etwas mehr Schwäche ins Negative dreht.</li>
+<li><strong>Volatilität:</strong> Der ATR stieg von 6,19 auf 10,38 (+68 %). Die Bänder (240,4 bis 275,3) weiten sich. Bei steigender Volatilität und fallendem Momentum ist das typische Verhalten die Verteilung, nicht die Akkumulation.</li>
+</ul>
+<p>Zum Chance-Risiko-Verhältnis: Fällt der Kurs unter 240, gibt es auf den gelieferten Daten keine nahe Unterstützung mehr. Die nächste Referenz wäre das 52-Wochen-Tief bei 196 USD, also rund 24 % unter dem aktuellen Kurs. Nach oben liegen 287 USD (52-Wochen-Hoch) rund 12 % entfernt, und dazwischen warten die gescheiterten Ausbruchszonen. Das ist kein asymmetrisches Verhältnis zugunsten der Käufer.</p>
+<h5>7. Das Umfeld ist schlechter, als du es darstellst</h5>
+<ul>
+<li><strong>Zinsen:</strong> Du sagst, die Dezember-Pause sei eingepreist. Das Problem ist nicht der Dezember, sondern der Horizont: 13 % für eine Senkung bis März 2027, 26 % bis April und erst bei Juli 2027 etwa 50 %, bei sehr dünnem Volumen. Ein Konzern, der rund 112 Mrd. USD in drei Quartalen extern aufnimmt, finanziert bei anhaltend hohen Zinsen, und das mit einem Beta von 1,5.</li>
+<li><strong>Rezession 2 %:</strong> Das ist der Konsens, und was alle für fast sicher halten, ist als Positiv nur eingepreist. Es schützt vor dem Absturz, liefert aber keinen Auftrieb.</li>
+<li><strong>KI-Sektor:</strong> Du nennst es ein „Sektorthema&quot;. Aber Alphabet wurde für hohen Capex plus Gewinnverfehlung abgestraft, und die Nachrichtenlage sagt, der Markt belohne Capex nicht mehr automatisch, sondern verlange Belege durch Cloud-Wachstum und Auftragsbestand. Du selbst räumst ein, dass die Daten <strong>weder Auftragsbestand noch AWS-Wachstumsraten</strong> enthalten. Damit ruht deine ganze These auf dem Beweis, der fehlt. Die Beweislast liegt bei dir, nicht bei mir.</li>
+<li><strong>Fermi-Vorschuss:</strong> Du nutzt ihn als Nachfragesignal, räumst aber ein, dass unklar ist, ob Amazon der Käufer ist. Das ist keine Evidenz, das ist ein Stimmungsbild.</li>
+<li><strong>Decart:</strong> 7,5 Mrd. USD für Technologie und Team, unbestätigt (Bloomberg, anonyme Quelle), mit offener behördlicher Prüfung. Selbst im Erfolgsfall ist es ein weiterer Mittelabfluss in einer Phase, in der der Markt Ausgabendisziplin sehen will. Dass Trainium bei AWS-Kunden die Margen stützt, ist eine Hoffnung, kein Datenpunkt.</li>
+<li><strong>Wettbewerb am Rand:</strong> Walmart lässt KI-Agenten zu (Agent Gateway ab Black Friday), Amazon sperrt sie aus. Wenn Agent-Commerce der nächste Einkaufskanal wird, kann das Aussperren zum Risiko werden. Dazu kommen Preiskampf bei Lebensmitteln (die Rabatte sind laut MarketWatch nicht von Dauer), FedEx, das Amazons Logistik als Wettbewerber nennt, und Sammelklagen zu Ring und Fire TV im Frühstadium. Jedes davon ist klein, zusammen kosten sie Marge und Aufmerksamkeit.</li>
+</ul>
+<h5>8. Insider und Sentiment: kein Alarm, aber auch keine Rückendeckung</h5>
+<p>Ich bin hier fair. Die Verkäufe folgen großteils Plänen, und Bezos' Verkauf von 346 Mio. USD ist gemessen an 2,78 Bio. USD Marktkapitalisierung winzig. Aber das Argument war nie die Größe. Es geht um <strong>Überzeugung</strong>: Es gibt im gesamten Zeitraum seit Mai 2025 <strong>keinen einzigen Kauf am offenen Markt</strong>, während Bezos nahe dem 52-Wochen-Hoch bei 286,41 USD verkaufte und das Management gerade ein 220-Mrd.-USD-Programm vom Markt finanzieren lässt. Wer so viel Kapital einsetzt und glaubt, es sei zu diesen Preisen unterbewertet, könnte auch selbst kaufen.</p>
+<p>Auch Klarman trägt die Last nicht, die du ihm gibst. Er hat bei 18 % Portfolioanteil <strong>nicht zugekauft</strong>. Das ist ein Halten, kein Votum. Und der Optionsfluss von 1,4 Mio. USD Prämie, davon zwei Drittel Calls, ist bei einem Handelsvolumen dieser Größenordnung Rauschen. Dem steht ein Dark-Pool-Volumen von 1,3-fachem Normalwert am 20.11. gegenüber. Die StockTwits-Basis (10 markierte Beiträge, Reddit fehlt) taugt weder für die eine noch die andere Seite.</p>
+<h5>Was ich dir zugestehe</h5>
+<ul>
+<li>Das operative Ergebnis wächst, und die Bruttomarge von etwa 53 % hält. Das Kerngeschäft ist profitabel und stark.</li>
+<li>Der operative Cashflow von 42,4 Mrd. USD pro Quartal ist riesig, und das Rezessionsrisiko ist gering.</li>
+<li>Amazon kann den Capex-Zyklus wegen seiner Größe vermutlich finanzieren. Die Frage ist, <strong>zu welchem Preis für den Aktionär</strong>.</li>
+</ul>
+<h5>Fazit</h5>
+<p>Mein Argument ist nicht, dass Amazon ein schlechtes Unternehmen ist. Mein Argument ist, dass der Kurs von rund 257 USD eine Erfolgsgeschichte einpreist, die die Daten noch nicht belegen:</p>
+<ol>
+<li><strong>Capex +120 % bei Umsatzwachstum von 19,6 % auf 12,1 %</strong>: Die Kapitalrendite des Programms ist unbewiesen, und die Abschreibungswelle kommt noch.</li>
+<li><strong>Negativer und sich verschlechternder FCF</strong>, sinkende Liquidität (–45 % in zwei Quartalen), rund 112 Mrd. USD externes Kapital in drei Quartalen und Verbindlichkeiten, die in einem Jahr um rund 75 % gewachsen sind.</li>
+<li><strong>Gewinnqualität</strong>: Nettogewinn und ROE hängen an nicht-operativen Posten und möglicherweise an KI-Beteiligungen, deren Bewertung gerade wackelt.</li>
+<li><strong>Bewertung</strong> von 23,5 auf ein schrumpfendes Forward-EPS, ohne FCF-Unterstützung, bei Beta 1,5 und ohne Zinsrückenwind bis mindestens Mitte 2027.</li>
+<li><strong>Technik</strong>: Mehrfach gescheiterte Ausbrüche bei 267–272, bearisches MACD-Signal, Kurs unter dem 10-EMA, steigende Volatilität, und der nächste harte Boden liegt weit unten.</li>
+<li><strong>Management und große Investoren</strong>: Es gibt keine Insiderkäufe und keine neue Zukäufe von Klarman. Es fehlt jede Rückendeckung durch Menschen mit Insiderwissen.</li>
+</ol>
+<p>Wer jetzt kauft, wettet darauf, dass die nächsten Quartalszahlen ein Umsatzwachstum über 12 %, eine weiter steigende Marge, einen plausiblen Capex-Pfad und Belege für Auftragsbestand und Trainium-Adoption liefern. Das ist möglich. Aber dann gibt es keine Eile, vor diesen Zahlen zu kaufen. Eine Enttäuschung trifft einen Titel mit Beta 1,5, dessen Abwärtsrisiko (bis 240 und darunter) größer und weniger abgesichert ist als sein Aufwärtspotenzial. Meine Haltung: nicht kaufen, bevor Capex-Rendite, FCF-Trend und Gewinnqualität belegt sind.</p>
+<p>Bull, meine Gegenfrage: Welche Zahl in den nächsten Quartalsergebnissen müsste dich überzeugen, dass du falsch liegst, und wenn es keine gibt, ist das dann noch eine Analyse oder schon eine Überzeugung?</p>
+<h3 id="s2-3">Research Manager</h3>
+<p><strong>Recommendation</strong>: Hold</p>
+<p><strong>Rationale</strong>: Unterm Strich hat der Bär die Debatte knapp gewonnen. Für Underweight oder Sell reicht sein Vorsprung aber nicht, weil seine Kernthese lautet: „noch nicht bewiesen“. Er sagt nicht „falsch“.</p>
+<p>Für den Bären spricht: Im Q3 investierte Amazon 77,3 Mrd. USD Capex, dem standen 42,4 Mrd. USD operativer Cashflow und 28,1 Mrd. USD operatives Ergebnis gegenüber. Der freie Cashflow verschlechtert sich (–18,2, –8,8 und –34,8 Mrd. USD, zusammen rund –62 Mrd. USD in neun Monaten). Das Umsatzwachstum fiel von 19,6 % auf 12,1 %, sequenziell nur +0,7 %, und das im Quartal mit +120 % Capex. In drei Quartalen kamen rund 112 Mrd. USD externe Finanzierung, trotzdem sanken die liquiden Mittel um 45 %. Die Abschreibungswelle wird die stabile Marge später belasten. Der Bulle widerspricht sich, wenn er nur mit operativen Größen argumentieren will und dann ROE und TTM-KGV nennt, die an nicht-operativen Gewinnen hängen. Die Daten enthalten weder AWS-Wachstum noch Auftragsbestand, und der Markt verlangt diesen Beweis gerade (siehe Alphabet). Im Chart scheiterte am 19.11. ein Ausbruch, der MACD zeigt einen bärischen Crossover und der ATR ist um 68 % gestiegen.</p>
+<p>Gegen Underweight spricht: Die operative Marge steigt (13,1 %, 13,7 %, 13,9 %), die Bruttomarge hält sich bei etwa 53 %, der operative Cashflow wuchs im Jahresvergleich um 19 %. Das Forward-KGV von 23,5 und der PEG von 1,15 sind moderat. Der Kurs liegt über dem 50-SMA und dem steigenden 200-SMA. Das Rezessionsrisiko liegt bei 2 %, und das Weihnachtsgeschäft steht bevor. Dass das Forward-EPS unter dem TTM-EPS liegt, ist zum Teil verzerrt, weil das TTM-EPS nicht-operative Gewinne enthält, ein echter Gewinnrückgang ist das also nicht. Insider und Sentiment sind Rauschen.</p>
+<p>Ergebnis: Das Geschäft ist stark, aber der Preis für Neukäufe ist nicht zwingend, und das kurzfristige Chance-Risiko-Verhältnis ist neutral. Entscheidend ist der fehlende Beleg, dass sich der Capex auszahlt. Deshalb halten, aber oberhalb von 255 USD nicht aufstocken.</p>
+<p><strong>Strategic Actions</strong>: 1) Bestehende Positionen auf Standardgewicht (100 %) halten. Oberhalb von etwa 255 USD nicht aktiv aufstocken.
+2) Wer untergewichtet ist, kauft höchstens bis zu 25 % einer Standardposition nach. Voraussetzung: Der Kurs hält in der Zone 245 bis 250 USD (Bereich des 200-SMA) und schließt danach wieder über dem 10-EMA (etwa 258,5 USD).
+3) Risikogrenze: Bei zwei Schlusskursen unter 240 USD auf etwa 70 % des Standardgewichts reduzieren. Darunter liefern die Daten keine nahe Unterstützung, das nächste Bezugsniveau ist das 52-Wochen-Tief bei 196 USD. Stops bei Neueinstiegen bei etwa 1,5 × ATR (≈15,6 USD).
+4) Upgrade auf Overweight bei mindestens zwei der folgenden Punkte in den nächsten Zahlen: Umsatzwachstum über 12 % mit sequenzieller Wiederbeschleunigung; operative Marge über 14 % trotz steigender Abschreibungen; offengelegtes beschleunigtes AWS-Wachstum oder wachsender Auftragsbestand; flacherer Capex-Ausblick bei sich verbessernder FCF-Tendenz. Alternativ ein bestätigter Tagesschluss über 272 USD bei hohem Volumen.
+5) Downgrade auf Underweight bei: Umsatzwachstum unter 10 %, sinkender operativer Marge, weiter steigendem Capex bei einem FCF schlechter als –35 Mrd. USD pro Quartal oder deutlichen Abwertungen von KI-Beteiligungen (z. B. Anthropic).
+6) Beobachten: Bestätigung des Decart-Deals und regulatorische Prüfung, Black Friday und Cyber Monday, Walmart-Agent-Gateway, Zinspfad bis Mitte 2027, Entwicklung von Liquidität und Schulden. Ohne AWS- und Auftragsbestandsdaten bleibt die Überzeugung bewusst neutral.</p>
+</section><section id="s3"><h2>III. Trading Team Plan</h2><h3 id="s3-1">Trader</h3>
+<p><strong>Action</strong>: Hold</p>
+<p><strong>Reasoning</strong>: Der Research-Plan empfiehlt Hold. Die Fundamentaldaten sind gemischt: Die operative Marge steigt, aber Capex von 77,3 Mrd. USD, ein negativer freier Cashflow und ein langsameres Umsatzwachstum belasten. Der Chart bestätigt das neutrale Bild. Der Kurs liegt bei 257,0 zwischen 50-SMA (255,1) und 10-EMA (258,5). Der MACD hat nach unten gekreuzt, der RSI liegt bei 49,45, und Ausbrüche über 267–272 sind mehrfach gescheitert. Der 200-SMA (245,4) und das untere Bollinger-Band (240,4) bilden Unterstützung. Es gibt kein klares Chance-Risiko-Verhältnis für einen Neukauf oder Verkauf, und der Balken vom 23.11. ist noch vorläufig. Bestehende Positionen werden gehalten. Neukäufe kommen nur in Frage, wenn der Kurs an der Zone 245–250 hält und danach wieder über 258,5 schließt. Der Stop-Loss bezieht sich auf solche Neueinstiege und liegt bei 1,5 × ATR (ca. 15,6 USD) unter dem Einstieg.</p>
+<p><strong>Entry Price</strong>: 248.0</p>
+<p><strong>Stop Loss</strong>: 238.5</p>
+<p><strong>Position Sizing</strong>: Bestehende Positionen auf Standardgewicht (100 %) halten und über ca. 255 USD nicht aufstocken. Untergewichtete Anleger kaufen höchstens 25 % einer Standardposition nach, und nur bei Halt der Zone 245–250 USD plus Schluss über dem 10-EMA (ca. 258,5). Bei zwei Schlusskursen unter 240 USD auf ca. 70 % des Standardgewichts reduzieren. Wegen des ATR von 10,38 (28.10.: 6,19) die Positionsgröße eher klein wählen.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+</section><section id="s4"><h2>IV. Risk Management Team Decision</h2><h3 id="s4-1">Aggressive Analyst</h3>
+<p>Aggressive Analyst: Ich eröffne die Runde, weil ich vermute, dass die Vorsichtigen gleich &quot;Verkaufen&quot; oder &quot;lieber ganz klein bleiben&quot; rufen werden. Mein Standpunkt: Hold ist bei AMZN keine müde Verlegenheitslösung. Es ist die aggressivste Position, die die Daten derzeit hergeben, weil sie das Kapital für den Moment aufspart, in dem das Chance-Risiko-Verhältnis wirklich kippt.</p>
+<p>Zuerst zum Kurs. Bei 257 ist das Verhältnis tatsächlich schlecht. Mit dem Stopp bei 238,5 riskiere ich rund 18,5 Punkte, nach oben liegt der Deckel bei 267–272, wo mehrere Ausbrüche gescheitert sind, also etwa 10 bis 15 Punkte. Das ist kein Trade, den ein Aggressiver nimmt. Bei 248 sieht es anders aus. Das Risiko bis 238,5 beträgt 9,5 Punkte, der Weg bis 271 gut 23 Punkte, also etwa 2,4 zu 1. Bis zum 52-Wochen-Hoch von 287 sind es fast 39 Punkte, also über 4 zu 1. Aggressiv heißt nicht, dauernd zu kaufen. Es heißt, schlechte Preise auszulassen und bei guten Preisen groß zu sein. Dass die Zone 245–250 mit dem 200-SMA bei 245,4 zusammenfällt und das untere Bollinger-Band bei 240,4 knapp darunter liegt, ist genau die Konfluenz, auf die man warten will. Der 20.11. hat diese Zone mit einem Schluss bei 246,82 schon berührt, und zwei Handelstage später steht der Kurs wieder bei 257. Der Markt zeigt also, dass dort Käufer sitzen.</p>
+<p>Jetzt zu dem, was die Konservativen gleich vortragen werden: negativer freier Cashflow, Capex von 77,3 Mrd. USD, sinkende Liquidität. Das stimmt, und ich bestreite es nicht. Aber schauen wir auf die andere Seite derselben Medaille. Das operative Ergebnis ist um 61 % auf 28,1 Mrd. USD gestiegen, die operative Marge liegt bei 13,9 %, die Bruttomarge ist stabil bei rund 53 %, und der operative Cashflow wächst mit 19 % weiter zweistellig. Ein Unternehmen, das seine Margen ausweitet, während es Kapazität für KI und Cloud aufbaut, verbrennt kein Geld aus Not. Es kauft sich Marktanteil in der wichtigsten Infrastrukturwelle des Jahrzehnts. Das Forward-KGV von 23,5 und ein PEG von 1,15 sind für diese Größenordnung keine Blasenbewertung. Alphabet wurde laut Nachrichtenlage für verfehlte Gewinne bestraft. Bei Amazon steigt das operative Ergebnis kräftig. Das sind zwei verschiedene Geschichten, und wer sie in einen Topf wirft, verwechselt Sektorstimmung mit Unternehmensqualität.</p>
+<p>Das Argument, das Umsatzwachstum sei auf 12,1 % gefallen, nehme ich ernst, aber ich würde es einordnen. Q2 mit 19,6 % war ein Ausreißer nach oben, und 12 % auf einer Basis von fast 800 Mrd. USD TTM sind absolut gesehen enorm. Der entscheidende Test ist, ob das Wachstum bei den nächsten Zahlen über 12 % hält. Dort entscheidet sich die These, nicht bei einem Wochenchart.</p>
+<p>Zu den Insidern: Keine Käufe sind kein Beweis für Pessimismus. Die Verkäufe von Jassy, Herrington und anderen folgen Vesting-Terminen und festen Plänen, und die Bezos-Schenkungen bringen gar keinen Erlös. Das ist Rauschen. Die Information steckt woanders. Klarman hält 18 % seines Portfolios in AMZN, seine größte Position, und das in einem Umfeld, in dem alle über die 220-Mrd.-Capex streiten.</p>
+<p>Beim Sentiment sollte man ehrlich bleiben. Die Datenbasis ist dünn, Reddit fehlt, nur 10 StockTwits-Beiträge sind markiert. Der Optionsfluss ist aber auffällig. Etwa zwei Drittel von 1,4 Mio. USD Prämie gingen in Calls, während der Markt als &quot;angeschlagen&quot; beschrieben wird. Dazu kommt der Decart-Deal. Er ist unbestätigt, und 7,5 Mrd. USD sind viel Geld, aber er passt zur Strategie, die Abhängigkeit von Nvidia zu senken und die AWS-Margen über Trainium zu stützen. Die Makrolage ist ebenfalls nicht schlecht. Polymarket sieht die US-Rezession bis Jahresende bei 2 %, und mit Black Friday und Cyber Monday stehen die stärksten Konsumtage des Jahres vor der Tür. Ein Zinsrückenwind fehlt, aber er ist auch längst eingepreist, denn eine Dezember-Senkung liegt bei 0,8 %. Das ist keine Überraschungsquelle mehr.</p>
+<p>Der Neutrale wird sagen, man müsse erst den Schluss über dem 10-EMA bei 258,5 sehen. Dazu zwei Punkte. Erstens lege ich den Plan so aus, dass die Bestätigung die Größe der Position bestimmt, nicht das Ob. Wer bei 248 eine erste Tranche kauft und bei einem Schluss über 258,5 aufstockt, nutzt beide Signale. Zweitens würde ich die Obergrenze von 25 % einer Standardposition für Untergewichtete eher als Untergrenze betrachten. Wenn die Zone hält und das Volumen mitspielt, wäre ich bereit, in zwei Schritten auf bis zu 50 % zu gehen, vorausgesetzt, die Gesamtrisikobudgets des Anlegers erlauben das. Mit einem Beta von 1,5 und einem ATR, der sich in vier Wochen von 6,19 auf 10,38 gesteigert hat, ist die Volatilität da. Wer von Volatilität leben will, muss sie auch mal halten können.</p>
+<p>Ein Punkt, bei dem ich selbst kritisch bin: Der Stopp bei 238,5 liegt nur 9,5 Punkte unter dem Einstieg, also eher bei knapp einem ATR als bei den genannten 1,5 ATR. Das ist enger, als die Rechnung hergibt. Ich halte das für vertretbar, weil 238,5 knapp unter dem unteren Bollinger-Band und unter dem Tief vom 30.10. (240,35) liegt. Fällt der Kurs dort durch, ist die Spanne seit August gebrochen. Aber man sollte wissen, dass bei diesem ATR ein Stopp-Out durch normales Rauschen möglich ist. Die Antwort darauf ist, die Tranche klein zu halten und nicht den Stopp zu weiten.</p>
+<p>Wer schon investiert ist, hält weiter, und zwar mit Überzeugung. Der Kurs steht über dem 50-SMA und dem 200-SMA, die Struktur ist formal bullisch, und gegen ein Verkaufssignal spricht, dass der RSI bei 49,45 neutral ist und nichts überverkauft oder überkauft ist. Wer hier verkauft, verkauft mitten in der Spanne, ohne Not und ohne Nachweis, dass die These bricht. Die Regel, bei zwei Schlusskursen unter 240 auf 70 % zu reduzieren, ist dafür die richtige Notbremse. Die Konservativen werden sie früher ziehen wollen, ich würde sie genau so lassen, weil früheres Aussteigen in einer Spanne mit ATR über 10 vor allem Gebühren und Whipsaws produziert.</p>
+<p>Meine Bilanz: Die Konservativen sehen den negativen Cashflow und blenden das Margenwachstum aus. Die Neutralen verlangen Bestätigung und bezahlen dafür mit schlechteren Preisen. Hold mit klar definierten Kaufpunkten bei 245–250 und Aufstockung über 258,5 ist die Position, die Optionalität nach oben behält, ohne dass man im Mittelfeld Kapital bindet.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s4-2">Conservative Analyst</h3>
+<p>Conservative Analyst: Ich fange bei dem Punkt an, den der Aggressive selbst als Schwachstelle benennt und dann wegwischt: dem Stopp. Der Plan nennt 1,5 × ATR, also rund 15,6 Punkte. Der tatsächliche Stopp bei 238,5 liegt aber nur 9,5 Punkte unter dem Einstieg bei 248, das sind knapp ein ATR. Die Antwort &quot;Tranche klein halten&quot; ist im Kern richtig, nur zieht der Aggressive daraus den falschen Schluss. Wenn ein Stopp im normalen Rauschen liegt, ist das Chance-Risiko-Verhältnis von 2,4 zu 1 kein belastbarer Wert. Es ist ein Rechenergebnis, das erst mal eine Serie von Stopp-Outs überstehen muss. Dazu kommen die Lücken: Am 04.11. sprang der Kurs von 250,69 auf 266,03, und am 29./30.10. fiel er mit über 100 Mio. Stück Volumen auf 240,35. Bei so einem Verlauf ist ein Stopp bei 238,5 keine Garantie, sondern ein Wunsch.</p>
+<p>Das Kursziel in seiner Rechnung ist ebenfalls fragil. Die 271 sind genau die Zone, an der Ausbrüche mehrfach gescheitert sind. Wer mit 2,4 zu 1 rechnet, setzt voraus, dass das Ziel erreicht wird, obwohl es sich als Deckel erwiesen hat. Ehrlich gewichtet sinkt das Verhältnis deutlich. Auch die Erzählung vom 20.11. gefällt mir nicht. Der Schlusskurs von 246,82 soll zeigen, dass dort Käufer sitzen. Ich lese denselben Verlauf anders: Am 19.11. eröffnete der Kurs bei 272,56 und schloss bei 257,37, eine Umkehr von 15 Punkten innerhalb eines Tages. Am 20.11. folgten 10,5 Punkte Verlust bei 74 Mio. Stück Volumen. Das ist Verkaufsdruck. Die Erholung auf 257 am 23.11. stammt aus einem noch unfertigen Balken mit nur 20 Mio. Volumen. Darauf eine These aufzubauen, nenne ich nicht Konfluenz, sondern Wunschdenken.</p>
+<p>Bei den Fundamentaldaten zeigt der Aggressive nur die gute Hälfte. Die operative Ergebnissteigerung von 61 % ist zu einem Teil eine leichte Vergleichsbasis, denn Q3 2025 war durch Sonderbelastungen gedrückt. Die Marge von 13,9 % ist gut, aber der Umsatz wuchs nur noch um 12,1 %, nach 19,6 % im Vorquartal. Gleichzeitig wuchs der operative Cashflow um 19 %, der Capex aber um 120 %. Der freie Cashflow ist das dritte Quartal in Folge negativ und lag zuletzt bei rund minus 34,8 Mrd. USD. Die liquiden Mittel sind in zwei Quartalen von 101,8 auf 55,8 Mrd. USD gefallen, die Current Ratio liegt bei 0,99, und der Finanzierungs-Cashflow von knapp 49 Mrd. USD zeigt, dass externes Kapital die Lücke schließt. Das ist keine Not, aber es ist Abhängigkeit von offenen Kapitalmärkten, in einem Umfeld, in dem ohnehin kein Zinsrückenwind zu erwarten ist. Das nehme ich dem Aggressiven nicht ab, wenn er sagt, das sei &quot;eingepreist&quot;. Eingepreist heißt nicht ungefährlich. Es bedeutet nur, dass keine positive Überraschung mehr kommt, während die Kosten der Refinanzierung hoch bleiben.</p>
+<p>Zur Bewertung: Das Forward-KGV von 23,5 stützt sich auf ein Forward-EPS von 10,93 USD, und das liegt unter dem TTM-EPS von 12,37 USD. Der Markt erwartet also sinkende Gewinne je Aktie. Das PEG von 1,15 hängt an einem Wachstum, das sich gerade verlangsamt. Die Gewinnqualität habe ich noch gar nicht erwähnt: 62,6 Mrd. USD Nettogewinn im Q2 bei nur 27,5 Mrd. USD operativem Ergebnis, und das Eigenkapital stieg im Q3 um rund 62 Mrd. USD bei 20,7 Mrd. USD Gewinn. Die Daten erklären das nicht. Wahrscheinlich spielen Bewertungsgewinne auf Beteiligungen mit, das ist meine Vermutung und kein Beleg. Wenn das stimmt und die Anthropic-Bewertung, laut Nachrichtenlage mit einer Spanne von 50 bis 250 USD, weiter unter Druck gerät, kann der Effekt in die andere Richtung laufen. Das ist ein indirektes Risiko, das im Chart nicht auftaucht.</p>
+<p>Die Insider-Argumente wischt er als Rauschen weg. Die Verkäufe sind größtenteils planmäßig, das stimmt. Trotzdem gibt es seit Mai 2025 keinen einzigen Kauf am offenen Markt, während das Management bei einem Kurs über 280 verkauft hat. Als Verkaufssignal taugt das nicht, als Bestätigung für Optimismus auch nicht. Dasselbe gilt für Klarman: Er hat die Position nicht aufgestockt, und 13F-Daten sind rückwärtsgewandt. Ein Halten ist kein Kaufsignal für uns.</p>
+<p>Beim Optionsfluss muss man die Größenordnung sehen. 1,4 Mio. USD Prämie bei einer Marktkapitalisierung von 2,78 Billionen sind statistisches Rauschen, und der Dark-Pool-Anteil von 1,3-fachem Normalvolumen am 20.11. zeigt in die andere Richtung. Der Decart-Deal ist unbestätigt, mit 7,5 Mrd. USD teuer und genehmigungspflichtig. Alphabet wurde für hohe Ausgaben abgestraft, und der Markt belohnt Capex gerade nicht automatisch. Dass Amazons operatives Ergebnis steigt, ist ein Unterschied, aber Amazons Capex ist mit 77 Mrd. USD pro Quartal deutlich größer als die Lücke bei Alphabet. Hinzu kommen Datenlücken: Reddit fehlt, die FRED-Daten fehlen, wir kennen weder VIX noch Renditen, und der Balken vom 23.11. ist vorläufig. Auf so dünner Basis eine Aufstockung auf 50 % zu erwägen, widerspricht dem Plan, der 25 % als Obergrenze nennt. Eine Obergrenze zur Untergrenze umzudeuten, ist keine Interpretation, sondern das Umgehen der Risikodisziplin.</p>
+<p>Mein Vorschlag, in Begriffen, die jeder auf die eigene Position anwenden kann: Halten ist vertretbar, aber nicht in unveränderter Form.</p>
+<p>Erstens sollte, wer mehr als Standardgewicht hält, auf 100 % zurückführen und nicht aufstocken. Die Spanne gibt keinen Vorteil für Übergewichte her, bei Beta 1,5 und einem Quartalsbericht in einigen Wochen mit Lückenrisiko in beide Richtungen.</p>
+<p>Zweitens sollte die Reduktionsregel früher greifen. Ein Schlusskurs unter dem 200-SMA bei etwa 245 sollte schon die erste Stufe sein, also Reduktion auf rund 80 %. Zwei Schlusskurse unter 240 sollten auf etwa 50 bis 60 % führen statt auf 70 %. Bei einem ATR von über 10 und mit möglichen Lücken liegt zwischen 245 und 238 bereits ein Verlust von fast 8 % vom aktuellen Kurs. Wer erst bei 240 handelt, handelt vielleicht erst bei 232.</p>
+<p>Drittens sollten Neukäufe kleiner und später erfolgen. Ich würde nicht 25 % einer Standardposition erlauben, sondern höchstens 10 bis 15 %, und nur nach Doppelbestätigung: Halt der Zone 245–250 und danach ein Schlusskurs über 258,5, nicht eines von beiden. Der Stopp muss zum ATR passen. Entweder gilt 1,5 × ATR, dann liegt er bei etwa 232 und die Position wird entsprechend kleiner, oder der Stopp bleibt bei 238,5 und die Position wird noch kleiner. Das Dollarrisiko je Trade bleibt dasselbe, nur die Stückzahl ändert sich.</p>
+<p>Viertens würde ich vor den Zahlen und Feiertagsdaten eine Absicherung prüfen, etwa Puts oder einen Collar, sofern die Kosten bei dieser Volatilität tragbar sind.</p>
+<p>Der Aggressive sagt, früheres Aussteigen produziere nur Gebühren und Whipsaws. Das stimmt in einer ruhigen Spanne. Hier ist die Spanne aber nicht ruhig: Der ATR ist um zwei Drittel gestiegen, die Bänder haben sich geweitet, und das Momentum kippt nach unten. Gebühren sind kalkulierbar, ein Drawdown von 15 % mit Lücke ist es nicht. Wer Kapital schützen soll, zahlt lieber den kleinen, sicheren Preis.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s4-3">Neutral Analyst</h3>
+<p>Neutral Analyst: Ich fange mit dem Punkt an, bei dem beide Seiten stillschweigend am selben Problem vorbeigehen: Der Plan ist in sich nicht konsistent. Der Entry steht bei 248, aber freigegeben werden Neukäufe erst nach einem Schluss über 258,5. Wer wirklich auf beide Signale wartet, kauft nicht bei 248, sondern bei etwa 259. Dann gilt die Rechnung des Aggressiven nicht mehr. Mit einem 1,5-ATR-Stopp bei etwa 243 und einem Ziel bei 271 stehen rund 16 Punkte Risiko gegen 12 Punkte Ertrag, also deutlich unter 1 zu 1. Der Aggressive will den günstigen Preis und die Bestätigung gleichzeitig, der Konservative bekommt durch seine Doppelbestätigung ein schlechtes Verhältnis. Beides geht nicht.</p>
+<p>Dem Aggressiven halte ich seine 2,4 zu 1 entgegen. Sie setzen den Stopp bei knapp einem ATR an und das Ziel genau dort, wo Ausbrüche mehrfach gescheitert sind. Rechnet man den Stopp ehrlich mit 1,5 ATR, also bei etwa 232, und nimmt ein realistisches Ziel bei 265 statt 271, bleiben etwa 1,1 zu 1. Das ist kein Trade, für den man Größe aufbaut. Auch die Geschichte vom 20.11. als Beweis für Käufer trägt nur halb. Ein Schluss bei 246,82 mit 74 Mio. Stück Volumen ist ebenso Verkaufsdruck, und die Erholung stammt aus einem noch unfertigen Balken. Die Aufstockung von 25 auf 50 % lehne ich ab. Der Plan nennt 25 % ausdrücklich als Obergrenze, und bei Beta 1,5, ATR über 10 und fehlenden Makrodaten gibt die Datenlage keinen Grund, sie zu verdoppeln. Seine Abgrenzung zu Alphabet ist ebenfalls zu bequem. Amazon hat zwar steigende operative Gewinne, aber auch einen TTM-Free-Cashflow von rund minus 35 Mrd. USD. Ob der Markt das bestraft, entscheidet sich an der Cloud-Rendite des Capex, nicht an der Marge allein. Die Call-Prämie von 1,4 Mio. USD ist bei 2,8 Billionen Marktkapitalisierung kaum ein Signal.</p>
+<p>Der Konservative überzieht an anderer Stelle. Er schließt aus dem Forward-EPS unter dem TTM-EPS, der Markt erwarte sinkende Gewinne, und erklärt zwei Absätze später selbst, das TTM-EPS sei durch Beteiligungsgewinne aufgebläht. Beides zusammen geht nicht. Der Rückgang ist größtenteils ein Basiseffekt und kein Gewinnrückgang. Die operative Linie ist ordentlich: 23,9, 27,5 und 28,1 Mrd. USD in den letzten drei Quartalen. Allerdings hat sich der sequenzielle Zuwachs auf etwa 2 % verlangsamt, und der Umsatz stieg gegenüber Q2 nur um rund 0,7 %. Das ist die berechtigte Sorge, aber sie ist kein Alarm. Der operative Cashflow von 42 Mrd. USD pro Quartal und eine Verschuldung von 0,5x Eigenkapital sind keine Notlage. Der Finanzierungsbedarf ist ein Risiko, aber keines, das in den nächsten Wochen zuschlägt. Zur Zeitachse: Er spricht von einem Quartalsbericht in einigen Wochen. Der letzte Bericht fiel nach dem Muster der Kursspitzen auf Ende Oktober und Anfang November. Der nächste liegt damit nach üblichem Rhythmus eher Ende Januar oder Anfang Februar. Das nahe Ereignisrisiko sind Black Friday, Cyber Monday, die Decart-Bestätigung und die Nachrichten zu Nvidia und Anthropic, und das ist weniger dramatisch als ein Gap-Risiko durch Zahlen. Eine Reduktion auf 80 % schon beim ersten Schluss unter 245 halte ich für zu eng. Der 200-SMA liegt bei 245,4 und der Kurs schloss am 20.11. bei 246,82, also gerade mal 1,4 Punkte darüber. Bei einem ATR von 10 löst normales Rauschen diese Regel aus, und man verkauft dann genau in der Spanne, vor der der Konservative warnt. Eine Reduktion auf 50 bis 60 % bei zwei Schlüssen unter 240 würde in einem möglichen Fehlausbruch den Großteil der Position kosten. Neukäufe von höchstens 10 bis 15 % sind bei diesem Risiko ein Rundungsfehler. Und Puts oder Collars kenne ich nur als Idee, denn zur impliziten Volatilität liegen keine Daten vor. Das ist eher etwas für stark konzentrierte Positionen als eine allgemeine Regel.</p>
+<p>Mein Vorschlag, den jeder auf die eigene Position übertragen kann: Bestehende Positionen werden gehalten. Wer deutlich über Standardgewicht liegt, führt sie schrittweise auf 100 % zurück. Wer darüber liegt, weil das so geplant war, muss nicht zwingend verkaufen. Bei Beta 1,5 und fehlender Spanne nach oben gibt es aber keinen Grund, noch mehr zu wollen.</p>
+<p>Für Neukäufe sollte man sich entscheiden, statt beide Bedingungen zu stapeln. Variante eins ist ein kleiner Einstieg in der Zone 245 bis 250 mit etwa 15 bis 20 % einer Standardposition. Wichtig ist, die Stückzahl am Dollarrisiko auszurichten und nicht am Stopp. Mit einem Stopp bei etwa 232, also 1,5 ATR, sind das rund 40 % weniger Stück als mit einem Stopp bei 238,5. Wer 238,5 behält, nimmt dafür eine höhere Chance auf einen Stopp durch Rauschen in Kauf und sollte die Tranche noch kleiner wählen. Eine zweite Tranche von höchstens 10 % kommt erst nach einem Schluss über 267 bis 272 mit positivem MACD-Histogramm. Der Schluss über 258,5 allein ist mitten in der Spanne zu wenig, denn er bestätigt nur, dass der Kurs wieder über dem 10-EMA liegt.</p>
+<p>Bei den Reduktionen würde ich eine gestaffelte Leiter nehmen. Zwei Schlusskurse unter 245 bringen etwa 90 %. Zwei Schlusskurse unter 240 bringen etwa 70 %, also die Regel des Plans. Ein Schluss unter etwa 232 bringt etwa 50 %. Damit hat man die frühere Vorsicht der Konservativen, ohne bei jedem Ausschlag um den 200-SMA zu handeln.</p>
+<p>Zwei Datenpunkte sollte man vorher prüfen, bevor man sich auf Zahlen verlässt. Der Balken vom 23.11. ist vorläufig, daher gelten alle Signale erst nach dem Schlusskurs. Und die genannten 220 Mrd. USD Capex passen nicht gut zu den knapp 176 Mrd. USD in neun Monaten bei steigendem Trend. Entweder ist die Zahl veraltet oder anders abgegrenzt. Beides ändert das Bild beim Free Cashflow.</p>
+<p>Hold ist also richtig, aber mit einem konsistenten Kaufplan, einer weniger hektischen Verkaufsleiter und einem Stopp, der zur Volatilität passt.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+</section><section id="s5"><h2>V. Portfolio Manager Decision</h2><h3 id="s5-1">Portfolio Manager</h3>
+<p><strong>Rating</strong>: Hold</p>
+<p><strong>Executive Summary</strong>: AMZN halten: Bestehende Positionen bleiben auf Standardgewicht (100 %). Wer übergewichtet ist, führt schrittweise auf 100 % zurück, oberhalb von etwa 255 USD wird nicht aufgestockt. Untergewichtete kaufen höchstens 15–20 % einer Standardposition in der Zone 245–250 USD. Die Stückzahl richtet sich nach dem Dollarrisiko bei einem Stopp nach 1,5 × ATR (≈232 USD). Eine zweite Tranche von höchstens 10 % gibt es erst nach einem Schluss über 267–272 USD. Absicherung nach Stufen: zwei Schlüsse unter 245 USD → ca. 90 %, zwei Schlüsse unter 240 USD → ca. 70 %, ein Schluss unter 232 USD → ca. 50 %. Horizont bis zu den Q4-Zahlen (voraussichtlich Ende Januar/Anfang Februar).</p>
+<p><strong>Investment Thesis</strong>: Alle drei Analysten kommen auf Hold. Das allein ist kein Grund, sondern das Ergebnis der Abwägung, denn die Belege für beide Seiten wiegen etwa gleich schwer. Für AMZN spricht: Die operative Marge steigt (13,1 %, 13,7 %, 13,9 %), die Bruttomarge liegt stabil bei ~53 %, der operative Cashflow wächst um 19 % zum Vorjahr, das Forward-KGV ist mit 23,5 moderat (PEG 1,15), und der Kurs liegt über dem 50-SMA und dem steigenden 200-SMA. Dagegen spricht: Der Capex stieg im Q3 um 120 % auf 77,3 Mrd. USD, der FCF war drei Quartale negativ (zuletzt ~–34,8 Mrd. USD), die liquiden Mittel fielen von 101,8 auf 55,8 Mrd. USD, und das Umsatzwachstum verlangsamte sich auf 12,1 % bei nur +0,7 % zum Vorquartal. Belege, dass sich die Investitionen auszahlen (AWS-Wachstum, Auftragsbestand), fehlen in den Daten. Charttechnisch: Am 19.11. scheiterte ein Ausbruch (Eröffnung 272,56, Schluss 257,37), der MACD hat nach unten gekreuzt, und der ATR stieg von 6,19 auf 10,38. Der Bulle hat ein gutes Geschäftsmodell auf seiner Seite, der Bär einen unbewiesenen Capex-Return. Für Under- oder Overweight reicht das in keine Richtung.</p>
+<p>Zur Umsetzung liefert der Neutrale die stärksten Argumente. Er zeigt, dass der Trader-Plan in sich nicht stimmig ist: Einstieg bei 248, aber Freigabe erst über 258,5. Bei Doppelbestätigung fällt das Chance-Risiko-Verhältnis unter 1:1. Die 2,4:1 des Aggressiven beruhen auf einem Stopp von knapp 1 ATR (238,5) und einem Ziel genau am mehrfach bestätigten Deckel bei 271. Rechnet man mit 1,5 ATR (~232) und realistisch 265, bleiben ~1,1:1. Deshalb wird die Ausweitung auf 50 % abgelehnt, die 25-%-Grenze ist eine Obergrenze. Den Konservativen widerlegt der Neutrale an zwei Stellen. Erstens ist das Forward-EPS unter dem TTM-EPS weitgehend ein Basiseffekt aus nicht-operativen Gewinnen. Zweitens würde eine Reduktion schon beim ersten Schluss unter 245 bei einem ATR über 10 durch bloßes Rauschen ausgelöst (Schluss am 20.11.: 246,82). Berechtigt bleibt seine Mahnung zur Größenbestimmung über das Dollarrisiko, ebenso der Hinweis auf Gap-Risiken (04.11.: 250,69→266,03) und auf die Abhängigkeit vom Kapitalmarkt (Current Ratio 0,99, ~49 Mrd. USD Finanzierungs-Cashflow). Deshalb wird die Reduktion gestaffelt, mit einer dritten Stufe bei 232.</p>
+<p>Datenlücken: Es fehlen AWS- und Auftragsbestandsdaten, VIX, Renditen (FRED), Reddit-Sentiment und Daten zur impliziten Volatilität für Absicherungen. Der Balken vom 23.11. ist vorläufig, und die genannten 220 Mrd. USD Capex passen nicht sauber zu den ~176 Mrd. USD aus neun Monaten. Signale gelten deshalb nur auf Schlusskursbasis.</p>
+<p>Upgrade auf Overweight, wenn mindestens zwei Bedingungen erfüllt sind: Umsatzwachstum über 12 % mit sequenzieller Beschleunigung; operative Marge über 14 % trotz steigender Abschreibungen; offengelegte AWS-Beschleunigung oder wachsender Auftragsbestand; flacherer Capex bei besserem FCF. Alternativ ein bestätigter Schluss über 272 USD bei hohem Volumen. Downgrade auf Underweight bei: Umsatzwachstum unter 10 %, sinkender operativer Marge, FCF schlechter als –35 Mrd. USD pro Quartal bei weiter steigendem Capex, deutlichen Abwertungen von KI-Beteiligungen (Anthropic) oder einem nachhaltigen Bruch unter 232 USD.</p>
+<p><strong>Price Target</strong>: 271.0</p>
+<p><strong>Time Horizon</strong>: 2-3 Monate (bis zu den Q4-Zahlen Ende Januar/Anfang Februar)</p>
+</section>
+</main>
+<footer class="credit"><a href="https://github.com/TauricResearch/TradingAgents" rel="noopener">TradingAgents</a> powered by <a class="brand" href="https://github.com/TauricResearch" rel="noopener">Tauric Research</a></footer>
+</div>
+<a class="to-top" href="#top">Top</a>
+</body>
+</html>

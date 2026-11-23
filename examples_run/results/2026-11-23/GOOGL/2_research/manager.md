@@ -1,0 +1,19 @@
+**Recommendation**: Underweight
+
+**Rationale**: Beide Seiten haben ordentlich argumentiert, aber der Bär hat die entscheidenden Punkte gewonnen. Der Bulle hat recht damit, dass GOOGL operativ stark ist: 127,6 Mrd. USD Umsatz in Q3 (+24,7 %), ein operatives Ergebnis von +29,9 %, eine Marge von 31,8 % und eine Bilanz ohne Solvenzrisiko. Das bestreitet auch der Bär nicht. Die These vom „fehlbewerteten Wachstum“ hängt aber an drei Stützen, und alle drei hat der Bär widerlegt.
+
+Erstens: Es gibt keine Bewertungsdaten. Die Morgan-Stanley-Zahl (+14 % Gewinn, −6 % eingepreist) bezieht sich auf den Gesamtmarkt und nicht auf GOOGL. Damit bleibt vom Bewertungsargument nur der Kursrückgang. Ein Rückgang von 30 % ist aber keine Sicherheitsmarge, wenn der Ausgangspunkt bei 400 USD möglicherweise einfach teuer war.
+
+Zweitens: Die Kapitulation am 29.10. war keine. Drei Wochen später fiel der Kurs mit 264,22 USD auf ein neues Tief, und das bei hohem Volumen. Dazu kommen fallende Hochs (377, 334, 299), ein Death Cross und ein Kurs unter VWMA, 50-SMA und 200-SMA.
+
+Drittens, und das wiegt am schwersten: Die Kapitalrendite des Wachstums ist ungeklärt. Der Capex steigt weiter (35,7, dann 44,9, dann 51,4 Mrd. USD), der FCF verschlechtert sich (+10,1, dann −5,9, dann −9,1 Mrd. USD). Der operative Cashflow sank in Q3 um 12,6 % gegenüber dem Vorjahr, obwohl der Umsatz um 25 % wuchs. Die inkrementelle operative Marge war im Quartalsvergleich negativ. Außerdem wurden in neun Monaten 115,8 Mrd. USD extern aufgenommen. Eine Guidance, wann der FCF wieder positiv wird, gibt es nicht. Dass die Abschreibungen auf den bisherigen Capex noch weiter in die Marge laufen, ist plausibel.
+
+Makro (94 % Wahrscheinlichkeit für eine Zinserhöhung am 09.12., keine Senkung 2026) und die gemischte Stimmungslage (4 bullische, 4 bärische Posts, Sentiment 4,4/10) stützen eher den Bären.
+
+Warum trotzdem nicht Sell: Das Geschäft ist gesund, die Bilanz trägt, und auf 30 % Abschlag ist eine Gegenbewegung bis 293–299 realistisch. Das Risiko liegt in der Neubewertung vom Cash-Compounder zum kapitalintensiven Infrastrukturbauer, nicht im Zusammenbruch. Daher lautet das Urteil: Untergewichten statt aussteigen.
+
+**Strategic Actions**: 1) Position auf etwa 50–60 % der Standardgewichtung reduzieren, keine Neukäufe. Bestehende Übergewichte bevorzugt in Erholungen zum Widerstand 285,84–287,72 (VWMA/Bollinger-Mitte) bzw. 293–299 abbauen, nicht am Tief verkaufen.
+2) Absicherung: Fällt der Schlusskurs unter 264,22, auf etwa 25–30 % der Standardgewichtung weiter reduzieren. Das nächste Bezugsniveau ist das untere Bollinger-Band bei rund 260, darunter liefern die Daten keine Unterstützung mehr. Wegen der hohen Volatilität (ATR 11,89, etwa 4,2 %) keine engen Stops unter 1,5 ATR setzen.
+3) Bedingungen für eine Hochstufung auf Hold bzw. Overweight: (a) Das Management nennt einen Zeitpunkt, ab dem der FCF wieder positiv wird, oder der Capex flacht ab; (b) die operative Marge stabilisiert sich bei mindestens etwa 31–32 % und die Cash-Konversion verbessert sich; (c) technisch erobert der Kurs VWMA und Bollinger-Mitte auf steigendem Volumen zurück und schließt nachhaltig über 299, danach über dem 50-SMA (320,96). Sind zwei dieser drei Bedingungen erfüllt, die Position schrittweise wieder auf Standardgewicht aufbauen.
+4) Termine im Blick behalten: Fed-Entscheid am 09.12., die nächsten Quartalszahlen (Capex, FCF, Marge), die Entwicklung bei Anthropic und Neoclouds sowie eine Bestätigung oder Widerlegung des TPU-Berichts (MediaTek statt Broadcom).
+5) Datenlücken: KGV, Marktkapitalisierung, Analystenziele, Segmentdaten (Cloud) und die Ursache des Eigenkapitalsprungs in Q2 fehlen. Sobald diese Daten vorliegen, sollte die Bewertungsfrage neu geprüft werden.
