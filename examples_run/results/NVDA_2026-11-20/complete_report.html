@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'">
+<title>NVDA 2026-11-20 Underweight: TradingAgents report</title>
+<style>
+:root {
+  --paper: #fbfbfa; --ink: #1c2126; --muted: #5d6670; --rule: #e2e5e8; --wash: #f2f4f5;
+  --accent: #087a59; --up: #087a59; --down: #b4372f; --level: #5d6670; --edge: #d3d8dc; --mark: #878f97;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131a1f; --ink: #e4e8eb; --muted: #9aa6af; --rule: #263239; --wash: #1a242a;
+    --accent: #14c290; --up: #14c290; --down: #ef6f63; --level: #9aa6af; --edge: #3d4c55; --mark: #66737c;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .masthead .logo [stroke="#363636"] { stroke: var(--muted); }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 17px/1.62 var(--serif); font-kerning: normal;
+}
+.page { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+main h2, main h3 { scroll-margin-top: 1rem; }
+a { color: var(--accent); text-underline-offset: 0.15em; }
+h1, h2, h3, h4 { text-wrap: balance; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.masthead { padding-bottom: 1.75rem; border-bottom: 1px solid var(--rule); }
+/* The logo leads at the top left, where readers look for it, 24px tall (the usual
+   on-screen floor for a wordmark) with at least its height clear below. */
+.masthead .logo { display: block; width: fit-content; margin: 0 0 2.25rem; }
+.masthead .logo svg { display: block; height: 1.5rem; width: auto; }
+.masthead h1 {
+  margin: 0; font: 600 2.6rem/1.1 var(--sans); letter-spacing: -0.02em;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2em 0.5em;
+}
+.masthead .rating { font-weight: 500; }
+.rating.up { color: var(--up); } .rating.down { color: var(--down); } .rating.level { color: var(--level); }
+.rating.review { color: var(--muted); font-style: italic; }
+.masthead .date { margin: 0.55rem 0 1.5rem; font: 1rem/1.4 var(--sans); color: var(--muted); }
+.run { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.45rem 1.25rem;
+  font: 0.85rem/1.5 var(--sans); }
+.run > div { display: contents; }
+.run dt { color: var(--muted); }
+.run dd { margin: 0; overflow-wrap: anywhere; }
+.run .note dd { color: var(--down); }
+.field { display: inline-block; margin: 0 0.15rem 0.15rem 0; padding: 0 0.4rem; border: 1px solid var(--edge);
+  border-radius: 4px; background: var(--wash); font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.run .group { display: inline-block; margin-right: 0.9rem; white-space: nowrap; }
+.run .group > .name { color: var(--muted); margin-right: 0.3rem; }
+.run .then { color: var(--muted); margin: 0 0.2rem; }
+
+/* The sections: listed under the header on narrow screens. On wide ones, a
+   quiet rail centred on the left edge (numerals for the sections, short bars
+   for their agents) that opens into the full list when pointed at or focused. */
+.contents { margin: 2.25rem 0 0; font: 0.9rem/1.45 var(--sans); }
+.contents ul { margin: 0; padding: 0; list-style: none; }
+.contents > ul > li { margin: 0 0 0.75rem; }
+.contents ul ul { margin-top: 0.2rem; padding-left: 1.6rem; font-size: 0.85rem; }
+.contents ul ul li { margin: 0.1rem 0; }
+.contents a { display: flex; align-items: center; gap: 0.6rem; color: var(--muted); text-decoration: none; }
+.contents > ul > li > a { color: var(--ink); }
+.contents .num { min-width: 1.6rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.contents .bar { display: none; }
+.contents a:hover .label, .contents a:focus-visible .label { color: var(--accent); text-decoration: underline; }
+.to-top { position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom));
+  padding: 0.25rem 0.6rem; border: 1px solid var(--edge); border-radius: 4px; background: var(--paper);
+  color: var(--muted); font: 0.8rem/1.4 var(--sans); text-decoration: none; }
+
+@media (min-width: 60rem) {
+  .contents { position: fixed; left: 1rem; top: 50%; transform: translateY(-50%); z-index: 1;
+    max-height: 86vh; overflow-y: auto; overscroll-behavior: contain; margin: 0;
+    padding: 0.7rem 0.9rem; border: 1px solid transparent; border-radius: 6px;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s; }
+  .contents > ul > li { margin: 0 0 0.35rem; }
+  .contents ul ul { margin-top: 0; padding-left: 0; }
+  .contents ul ul li { margin: 0; }
+  /* Marks reach 3:1 contrast and rows 24px, the WCAG 2.2 floors for a control's
+     visual cue and its pointer target. */
+  .contents a { min-height: 1.5rem; }
+  .contents .num { min-width: 1.4rem; }
+  .contents .bar { display: block; flex: none; width: 1.25rem; height: 2px; margin-left: 0.2rem;
+    border-radius: 1px; background: var(--mark); }
+  .contents .label { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+    transition: opacity 0.15s, max-width 0.2s; }
+  .contents:hover, .contents:focus-within { background: var(--paper); border-color: var(--rule);
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.08); }
+  .contents:hover .label, .contents:focus-within .label { max-width: 18rem; opacity: 1; }
+  .contents a:hover .bar, .contents a:focus-visible .bar { background: var(--accent); }
+  .to-top { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contents, .contents .label { transition: none; }
+}
+
+/* The maker's credit: one quiet line at the foot. */
+.credit { margin-top: 4.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+  color: var(--muted); font: 0.8rem/1.4 var(--sans); }
+.credit a { color: inherit; text-decoration: none; }
+.credit a.brand { color: var(--accent); }
+.credit a:hover, .credit a:focus-visible { text-decoration: underline; }
+
+/* Three levels of separation: the five groups, the agents within a group, and
+   breaks an agent draws inside its own text. */
+main h2 {
+  margin: 4.5rem 0 0.25rem; padding-top: 1.5rem; border-top: 2px solid var(--ink);
+  font: 600 1.45rem/1.3 var(--sans); letter-spacing: -0.01em;
+}
+main section:first-child h2 { margin-top: 3rem; }
+main h3 { margin: 2.75rem 0 0.75rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+  font: 600 1.15rem/1.35 var(--sans); color: var(--accent); }
+main h2 + h3 { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
+main h4, main h5, main h6 { margin: 1.75rem 0 0.5rem; font: 600 1rem/1.4 var(--sans); }
+main h5, main h6 { color: var(--muted); }
+main p, main ul, main ol { margin: 0 0 1rem; }
+main li { margin: 0.25rem 0; }
+main strong { font-weight: 650; }
+main blockquote { margin: 1.25rem 0; padding: 0.1rem 0 0.1rem 1rem; border-left: 3px solid var(--rule);
+  color: var(--muted); }
+main code { font: 0.88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--wash); padding: 0.1em 0.3em; border-radius: 3px; }
+main pre { background: var(--wash); padding: 0.9rem 1rem; border-radius: 4px; overflow-x: auto; }
+main pre code { background: none; padding: 0; }
+main hr { width: 3rem; margin: 2rem auto; border: 0; border-top: 1px solid var(--rule); }
+
+.table { overflow-x: auto; margin: 0 0 1.25rem; }
+table { border-collapse: collapse; width: 100%; font: 0.86rem/1.45 var(--sans);
+  font-variant-numeric: tabular-nums; }
+th, td { padding: 0.45rem 0.7rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; border-bottom-color: var(--muted); }
+tbody tr:last-child td { border-bottom: 0; }
+
+@media (max-width: 34rem) {
+  body { font-size: 16px; }
+  .page { padding: 2rem 1rem 3rem; }
+  .masthead h1 { font-size: 2rem; }
+  .masthead .logo svg { height: 1.25rem; }
+  .run { grid-template-columns: 1fr; gap: 0 0; }
+  .run dd { margin-bottom: 0.45rem; }
+  .run .group { white-space: normal; }
+}
+@media print {
+  :root { --paper: #fff; --ink: #000; --muted: #444; --rule: #bbb; --accent: #000; --wash: #f2f2f2;
+    --edge: #bbb; --up: #087a59; --down: #b4372f; --level: #444; }
+  body { font-size: 11pt; }
+  .table { overflow: visible; }
+  .page { max-width: none; padding: 0; }
+  .contents, .to-top { display: none; }
+  main h2 { break-before: page; border-top: 0; margin-top: 0; }
+  main section:first-child h2 { break-before: auto; }
+  main h3, main h4 { break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+  table { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page" id="top">
+<header class="masthead">
+<a class="logo" href="https://tauric.ai" rel="noopener" aria-label="Tauric Research"><svg width="993" height="115" viewBox="0 0 993 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M189.86 95.0459V37.9779H165.924V29.9259H223.74V37.9779H199.804V95.0459H189.86ZM251.026 46.4259C256.071 46.4259 260.178 47.0272 263.345 48.2299C266.514 49.4032 268.89 51.3686 270.474 54.1259C272.058 56.8832 272.85 60.6379 272.85 65.3899V95.0459H264.666L263.961 89.8979H263.434C261.644 91.7752 259.386 93.2419 256.657 94.2979C253.929 95.3246 251.025 95.8379 247.946 95.8379C244.426 95.8379 241.419 95.2952 238.925 94.2099C236.432 93.0952 234.54 91.5406 233.249 89.5459C231.959 87.5512 231.313 85.2046 231.313 82.5059C231.313 78.2526 232.897 74.9672 236.065 72.6499C239.263 70.3032 244.337 68.8219 251.29 68.2059L263.258 67.0179V64.7299C263.258 61.9139 262.774 59.7139 261.806 58.1299C260.838 56.5459 259.371 55.4312 257.406 54.7859C255.47 54.1406 252.888 53.8179 249.662 53.8179C247.432 53.8179 245.012 54.0086 242.401 54.3899C239.82 54.7712 237.341 55.3432 234.965 56.1059V48.8019C237.312 48.0392 239.908 47.4526 242.754 47.0419C245.628 46.6312 248.386 46.4259 251.026 46.4259ZM250.541 89.0619C252.888 89.0619 255.162 88.6512 257.362 87.8299C259.562 86.9792 261.527 85.7179 263.258 84.0459V72.8259L252.038 73.9259C248.136 74.3659 245.35 75.2166 243.678 76.4779C242.005 77.7099 241.169 79.4699 241.169 81.7579C241.169 84.0752 241.947 85.8792 243.501 87.1699C245.056 88.4312 247.403 89.0619 250.541 89.0619ZM313.339 95.8379C307.59 95.8379 303.087 94.2979 299.831 91.2179C296.575 88.1086 294.947 83.2686 294.947 76.6979V47.1739H304.715V76.1699C304.715 80.1886 305.624 83.0779 307.443 84.8379C309.291 86.5979 311.916 87.4779 315.319 87.4779C317.871 87.4779 320.379 86.9939 322.843 86.0259C325.336 85.0286 327.492 83.5766 329.311 81.6699V47.1739H339.079V95.0459H330.983L330.367 89.9419H329.883C327.624 91.8486 325.072 93.3152 322.227 94.3419C319.382 95.3392 316.419 95.8379 313.339 95.8379ZM362.371 47.1739H370.423L371.171 53.2899H371.743C373.474 51.2072 375.703 49.5792 378.431 48.4059C381.188 47.2326 384.063 46.6459 387.055 46.6459C388.756 46.6459 390.355 46.7926 391.851 47.0859V55.8419C390.414 55.5779 388.654 55.4459 386.571 55.4459C383.99 55.4459 381.364 55.9446 378.695 56.9419C376.026 57.9392 373.84 59.4206 372.139 61.3859V95.0459H362.371V47.1739ZM409.069 95.0459V47.1739H418.837V95.0459H409.069ZM413.953 37.8459C411.871 37.8459 410.287 37.3912 409.201 36.4819C408.145 35.5726 407.617 34.2672 407.617 32.5659C407.617 30.8352 408.145 29.5152 409.201 28.6059C410.287 27.6672 411.871 27.1979 413.953 27.1979C416.036 27.1979 417.605 27.6672 418.661 28.6059C419.747 29.5152 420.289 30.8352 420.289 32.5659C420.289 34.2672 419.747 35.5726 418.661 36.4819C417.605 37.3912 416.036 37.8459 413.953 37.8459ZM464.85 95.9259C456.607 95.9259 450.315 93.8432 445.974 89.6779C441.662 85.5126 439.506 79.3526 439.506 71.1979C439.506 63.0139 441.779 56.8392 446.326 52.6739C450.902 48.5086 457.575 46.4259 466.346 46.4259C470.716 46.4259 474.735 46.9246 478.402 47.9219V55.7099C476.378 55.2406 474.486 54.8886 472.726 54.6539C470.966 54.4192 469.118 54.3019 467.182 54.3019C461.168 54.3019 456.71 55.6512 453.806 58.3499C450.931 61.0486 449.494 65.2872 449.494 71.0659C449.494 76.8739 450.858 81.1566 453.586 83.9139C456.343 86.6712 460.42 88.0499 465.818 88.0499C467.695 88.0499 469.616 87.8886 471.582 87.5659C473.547 87.2139 475.82 86.6712 478.402 85.9379V93.7259C474.236 95.1926 469.719 95.9259 464.85 95.9259ZM574.428 95.0459L553.704 69.0859C553.176 69.1152 552.37 69.1299 551.284 69.1299C548.38 69.1299 544.978 68.9832 541.076 68.6899V95.0459H531.308V31.4659C537.967 29.9699 544.846 29.2219 551.944 29.2219C561.595 29.2219 568.752 30.8059 573.416 33.9739C578.08 37.1126 580.412 42.1286 580.412 49.0219C580.412 54.0086 579.004 58.0859 576.188 61.2539C573.402 64.4219 569.266 66.6366 563.78 67.8979L585.648 95.0459H574.428ZM541.076 61.2099C543.071 61.4152 544.816 61.5619 546.312 61.6499C547.838 61.7379 549.627 61.7819 551.68 61.7819C558.427 61.7819 563.34 60.7699 566.42 58.7459C569.5 56.6926 571.04 53.4952 571.04 49.1539C571.04 46.0739 570.395 43.6099 569.104 41.7619C567.843 39.9139 565.863 38.5792 563.164 37.7579C560.495 36.9366 556.975 36.5259 552.604 36.5259C550.404 36.5259 548.424 36.6139 546.664 36.7899C544.904 36.9659 543.042 37.2299 541.076 37.5819V61.2099ZM642.947 74.0139H608.231C608.407 77.4752 609.155 80.2766 610.475 82.4179C611.795 84.5299 613.775 86.0846 616.415 87.0819C619.055 88.0792 622.443 88.5779 626.579 88.5779C630.686 88.5779 635.233 87.9472 640.219 86.6859V93.9459C635.027 95.2659 630.026 95.9259 625.215 95.9259C616.298 95.9259 609.61 93.9166 605.151 89.8979C600.722 85.8499 598.507 79.6166 598.507 71.1979C598.507 65.9179 599.402 61.4299 601.191 57.7339C602.981 54.0379 605.562 51.2366 608.935 49.3299C612.338 47.3939 616.43 46.4259 621.211 46.4259C628.251 46.4259 633.634 48.5819 637.359 52.8939C641.085 57.1766 642.947 63.3659 642.947 71.4619V74.0139ZM621.079 52.8939C616.973 52.8939 613.834 54.1406 611.663 56.6339C609.493 59.0979 608.334 62.9259 608.187 68.1179H633.751C633.634 62.9259 632.519 59.0979 630.407 56.6339C628.295 54.1406 625.186 52.8939 621.079 52.8939ZM677.365 95.9259C671.352 95.9259 665.896 95.2219 660.997 93.8139V86.7299C666.248 88.1966 671.718 88.9299 677.409 88.9299C681.809 88.9299 684.977 88.3432 686.913 87.1699C688.849 85.9672 689.817 84.2219 689.817 81.9339C689.817 80.7019 689.597 79.6899 689.157 78.8979C688.717 78.0766 687.969 77.4019 686.913 76.8739C685.857 76.3166 684.405 75.8912 682.557 75.5979L674.065 74.2779C669.137 73.4859 665.573 71.9899 663.373 69.7899C661.202 67.5899 660.117 64.6419 660.117 60.9459C660.117 56.4579 661.965 52.9232 665.661 50.3419C669.386 47.7312 675.062 46.4259 682.689 46.4259C685.094 46.4259 687.485 46.5872 689.861 46.9099C692.266 47.2032 694.481 47.6432 696.505 48.2299V55.2699C692.046 54.0379 687.456 53.4219 682.733 53.4219C677.893 53.4219 674.476 54.0526 672.481 55.3139C670.486 56.5752 669.489 58.3206 669.489 60.5499C669.489 62.2219 670.002 63.5859 671.029 64.6419C672.056 65.6686 673.889 66.4166 676.529 66.8859L685.021 68.2059C689.92 68.9686 693.513 70.3766 695.801 72.4299C698.089 74.4832 699.233 77.4606 699.233 81.3619C699.233 84.3832 698.412 86.9792 696.769 89.1499C695.156 91.3206 692.706 92.9926 689.421 94.1659C686.165 95.3392 682.146 95.9259 677.365 95.9259ZM760.579 74.0139H725.863C726.039 77.4752 726.787 80.2766 728.107 82.4179C729.427 84.5299 731.407 86.0846 734.047 87.0819C736.687 88.0792 740.075 88.5779 744.211 88.5779C748.317 88.5779 752.864 87.9472 757.851 86.6859V93.9459C752.659 95.2659 747.657 95.9259 742.847 95.9259C733.929 95.9259 727.241 93.9166 722.783 89.8979C718.353 85.8499 716.139 79.6166 716.139 71.1979C716.139 65.9179 717.033 61.4299 718.823 57.7339C720.612 54.0379 723.193 51.2366 726.567 49.3299C729.969 47.3939 734.061 46.4259 738.843 46.4259C745.883 46.4259 751.265 48.5819 754.991 52.8939C758.716 57.1766 760.579 63.3659 760.579 71.4619V74.0139ZM738.711 52.8939C734.604 52.8939 731.465 54.1406 729.295 56.6339C727.124 59.0979 725.965 62.9259 725.819 68.1179H751.383C751.265 62.9259 750.151 59.0979 748.039 56.6339C745.927 54.1406 742.817 52.8939 738.711 52.8939ZM796.986 46.4259C802.032 46.4259 806.138 47.0272 809.306 48.2299C812.474 49.4032 814.85 51.3686 816.434 54.1259C818.018 56.8832 818.81 60.6379 818.81 65.3899V95.0459H810.626L809.922 89.8979H809.394C807.605 91.7752 805.346 93.2419 802.618 94.2979C799.89 95.3246 796.986 95.8379 793.906 95.8379C790.386 95.8379 787.38 95.2952 784.886 94.2099C782.393 93.0952 780.501 91.5406 779.21 89.5459C777.92 87.5512 777.274 85.2046 777.274 82.5059C777.274 78.2526 778.858 74.9672 782.026 72.6499C785.224 70.3032 790.298 68.8219 797.25 68.2059L809.218 67.0179V64.7299C809.218 61.9139 808.734 59.7139 807.766 58.1299C806.798 56.5459 805.332 55.4312 803.366 54.7859C801.43 54.1406 798.849 53.8179 795.622 53.8179C793.393 53.8179 790.973 54.0086 788.362 54.3899C785.781 54.7712 783.302 55.3432 780.926 56.1059V48.8019C783.273 48.0392 785.869 47.4526 788.714 47.0419C791.589 46.6312 794.346 46.4259 796.986 46.4259ZM796.502 89.0619C798.849 89.0619 801.122 88.6512 803.322 87.8299C805.522 86.9792 807.488 85.7179 809.218 84.0459V72.8259L797.998 73.9259C794.097 74.3659 791.31 75.2166 789.638 76.4779C787.966 77.7099 787.13 79.4699 787.13 81.7579C787.13 84.0752 787.908 85.8792 789.462 87.1699C791.017 88.4312 793.364 89.0619 796.502 89.0619ZM841.524 47.1739H849.576L850.324 53.2899H850.896C852.627 51.2072 854.856 49.5792 857.584 48.4059C860.341 47.2326 863.216 46.6459 866.208 46.6459C867.909 46.6459 869.508 46.7926 871.004 47.0859V55.8419C869.567 55.5779 867.807 55.4459 865.724 55.4459C863.143 55.4459 860.517 55.9446 857.848 56.9419C855.179 57.9392 852.993 59.4206 851.292 61.3859V95.0459H841.524V47.1739ZM909.164 95.9259C900.921 95.9259 894.629 93.8432 890.288 89.6779C885.976 85.5126 883.82 79.3526 883.82 71.1979C883.82 63.0139 886.093 56.8392 890.64 52.6739C895.216 48.5086 901.889 46.4259 910.66 46.4259C915.03 46.4259 919.049 46.9246 922.716 47.9219V55.7099C920.692 55.2406 918.8 54.8886 917.04 54.6539C915.28 54.4192 913.432 54.3019 911.496 54.3019C905.482 54.3019 901.024 55.6512 898.12 58.3499C895.245 61.0486 893.808 65.2872 893.808 71.0659C893.808 76.8739 895.172 81.1566 897.9 83.9139C900.657 86.6712 904.734 88.0499 910.132 88.0499C912.009 88.0499 913.93 87.8886 915.896 87.5659C917.861 87.2139 920.134 86.6712 922.716 85.9379V93.7259C918.55 95.1926 914.033 95.9259 909.164 95.9259ZM941.796 23.9419H951.564V52.2779H952.048C954.248 50.3712 956.756 48.9192 959.572 47.9219C962.417 46.9246 965.395 46.4259 968.504 46.4259C974.019 46.4259 978.375 47.9952 981.572 51.1339C984.769 54.2432 986.368 59.0686 986.368 65.6099V95.0459H976.6V66.0939C976.6 62.0459 975.661 59.1566 973.784 57.4259C971.936 55.6952 969.237 54.8299 965.688 54.8299C963.048 54.8299 960.481 55.3286 957.988 56.3259C955.524 57.2939 953.383 58.7312 951.564 60.6379V95.0459H941.796V23.9419Z" fill="#14C290"/>
+<rect x="0.205322" y="14.873" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="14.679" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="14.679" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="86.6055" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="86.6055" y="44.0371" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="101.284" y="29.1787" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="58.7158" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="58.7158" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="87.1592" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="87.1592" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="73.0205" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="73.0205" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="29.3579" y="87.3262" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="71.9265" y="87.3262" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="43.1211" y="101.631" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="57.2478" y="101.631" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="101.284" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+<rect x="15.0187" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="44.3771" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="59.0558" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="73.3605" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="87.6662" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="0.34" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.2668" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="101.624" y="101.971" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="43.4611" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="57.5876" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="15.0187" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="29.6979" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.2668" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.9455" y="0.34" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="72.445" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="86.7506" y="15.213" width="10.0489" height="10.0489" rx="5.02447" stroke="#363636" stroke-width="0.68"/>
+<rect x="100.716" y="14.873" width="10.7289" height="10.7289" rx="5.36447" fill="#14C290"/>
+</svg></a>
+<h1><span class="ticker">NVDA</span> <span class="rating down">Underweight</span></h1>
+<p class="date">Analysis of 2026-11-20</p>
+<dl class="run"><div class="detail"><dt>Generated</dt><dd>2026-11-23 15:19</dd></div><div class="detail"><dt>Deep model</dt><dd><span class="field">anthropic</span> <span class="field">claude-opus-5-5</span></dd></div><div class="detail"><dt>Quick model</dt><dd><span class="field">anthropic</span> <span class="field">claude-sonnet-5-5</span></dd></div><div class="detail"><dt>Analysts</dt><dd><span class="field">market</span> <span class="field">sentiment</span> <span class="field">news</span> <span class="field">fundamentals</span></dd></div><div class="detail"><dt>Debate rounds</dt><dd><span class="group"><span class="name">research</span><span class="field">1</span></span> <span class="group"><span class="name">risk</span><span class="field">1</span></span></dd></div><div class="detail"><dt>Data vendors</dt><dd><span class="group"><span class="name">Prices</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Indicators</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Fundamentals</span><span class="field">sec_edgar</span> <span class="then">→</span> <span class="field">yfinance</span></span> <span class="group"><span class="name">News</span><span class="field">yfinance</span></span> <span class="group"><span class="name">Macro</span><span class="field">fred</span></span> <span class="group"><span class="name">Prediction markets</span><span class="field">polymarket</span></span></dd></div><div class="detail"><dt>Version</dt><dd>TradingAgents 0.7.1</dd></div></dl>
+</header>
+<nav class="contents" aria-label="Sections"><ul><li><a href="#s1"><span class="num">I</span> <span class="label">Analyst Team Reports</span></a><ul><li><a href="#s1-1"><span class="bar"></span> <span class="label">Market Analyst</span></a></li><li><a href="#s1-2"><span class="bar"></span> <span class="label">Sentiment Analyst</span></a></li><li><a href="#s1-3"><span class="bar"></span> <span class="label">News Analyst</span></a></li><li><a href="#s1-4"><span class="bar"></span> <span class="label">Fundamentals Analyst</span></a></li></ul></li><li><a href="#s2"><span class="num">II</span> <span class="label">Research Team Decision</span></a><ul><li><a href="#s2-1"><span class="bar"></span> <span class="label">Bull Researcher</span></a></li><li><a href="#s2-2"><span class="bar"></span> <span class="label">Bear Researcher</span></a></li><li><a href="#s2-3"><span class="bar"></span> <span class="label">Research Manager</span></a></li></ul></li><li><a href="#s3"><span class="num">III</span> <span class="label">Trading Team Plan</span></a><ul><li><a href="#s3-1"><span class="bar"></span> <span class="label">Trader</span></a></li></ul></li><li><a href="#s4"><span class="num">IV</span> <span class="label">Risk Management Team Decision</span></a><ul><li><a href="#s4-1"><span class="bar"></span> <span class="label">Aggressive Analyst</span></a></li><li><a href="#s4-2"><span class="bar"></span> <span class="label">Conservative Analyst</span></a></li><li><a href="#s4-3"><span class="bar"></span> <span class="label">Neutral Analyst</span></a></li></ul></li><li><a href="#s5"><span class="num">V</span> <span class="label">Portfolio Manager Decision</span></a><ul><li><a href="#s5-1"><span class="bar"></span> <span class="label">Portfolio Manager</span></a></li></ul></li></ul></nav>
+<main>
+<section id="s1"><h2>I. Analyst Team Reports</h2><h3 id="s1-1">Market Analyst</h3>
+<h4>NVDA – Technischer Analysebericht (Stand: 20.11.2026)</h4>
+<h5>1. Zusammenfassung</h5>
+<p>NVDA befindet sich in einem Ausverkauf, der sich beschleunigt. Der Schlusskurs vom 20.11.2026 liegt laut verifiziertem Snapshot bei <strong>125,53 USD</strong>. Das Tagestief lag bei 124,50 USD, das Hoch bei 143,73 USD und das Volumen bei rund 626 Mio. Aktien.</p>
+<ul>
+<li>Der Schlusskurs vom 06.10.2026 lag bei 239,24 USD, das Intraday-Hoch an diesem Tag bei 243,37 USD. Seitdem hat der Kurs auf Schlusskursbasis rund 47 % verloren.</li>
+<li>Am 20.11. fiel der Kurs gegenüber dem Vortagesschluss (145,98 USD) um etwa 14 %.</li>
+<li>Die Daten enthalten keine Nachrichten. Den Auslöser der Verkäufe kann ich daher nicht benennen. Das Volumen deutet auf eine fundamentale oder eventgetriebene Neubewertung hin und nicht auf eine ruhige Korrektur.</li>
+</ul>
+<h5>2. Gewählte Indikatoren und Begründung</h5>
+<p>Ich habe 8 sich ergänzende Indikatoren gewählt:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>Indikator</th>
+<th>Zweck in diesem Kontext</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trend (lang)</td>
+<td>close_200_sma</td>
+<td>Strategischer Trendanker</td>
+</tr>
+<tr>
+<td>Trend (mittel)</td>
+<td>close_50_sma</td>
+<td>Mittelfristige Trendrichtung, dynamischer Widerstand</td>
+</tr>
+<tr>
+<td>Trend (kurz)</td>
+<td>close_10_ema</td>
+<td>Schnelle Momentum-Wechsel, Erholungsfilter</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>macd / macds / macdh</td>
+<td>Trendstärke und Beschleunigung (Histogramm)</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>rsi</td>
+<td>Überverkauft-Zustand und Divergenzen</td>
+</tr>
+<tr>
+<td>Volatilität</td>
+<td>boll, boll_ub, boll_lb</td>
+<td>Dehnung des Kurses gegenüber dem 20-Tage-Mittel</td>
+</tr>
+<tr>
+<td>Volatilität</td>
+<td>atr</td>
+<td>Stop-Distanz und Positionsgröße</td>
+</tr>
+<tr>
+<td>Volumen</td>
+<td>vwma</td>
+<td>Bestätigung der Bewegung durch Volumen</td>
+</tr>
+</tbody>
+</table></div>
+<h5>3. Detailanalyse</h5>
+<h6>3.1 Preisverlauf und Volumen</h6>
+<ul>
+<li><strong>Ende Oktober:</strong> Die Aktie notierte noch zwischen etwa 210 und 218 USD. Am 30.10. fiel sie auf 204,64 USD, bei erhöhtem Volumen von rund 168 Mio.</li>
+<li><strong>05.11.:</strong> Der Schlusskurs sank von 200,13 auf 181,60 USD. Das Volumen stieg auf rund 306 Mio. und lag damit klar über den üblichen 80–150 Mio. im Oktober.</li>
+<li><strong>09.11.–11.11.:</strong> Die Volumina lagen bei 463 Mio., 429 Mio. und 339 Mio. Die Schlusskurse waren 178,67, 168,89 und 173,73 USD.</li>
+<li><strong>12.11.:</strong> Die Aktie eröffnete bei 151,01 USD. Der Vortagesschluss lag bei 173,73 USD, es gab also eine deutliche Kurslücke nach unten. Das Volumen von etwa 748 Mio. ist das höchste im gesamten Betrachtungszeitraum seit Mai. Der Schluss lag bei 166,19 USD, deutlich über dem Tagestief von 148,80 USD.</li>
+<li><strong>13.11.–19.11.:</strong> Die Schlusskurse sanken stetig von 162,85 auf 145,98 USD, jeweils bei Volumina von etwa 320–410 Mio.</li>
+<li><strong>20.11.:</strong> Es folgte ein weiterer Einbruch mit Schluss nahe dem Tagestief. Der Schlusskurs liegt im unteren Bereich der Tagesspanne (124,50–143,73 USD). Es gab also keine nennenswerte Erholung im Tagesverlauf.</li>
+</ul>
+<p>Die Verkäufe sind über Wochen von hohem Volumen begleitet. Das spricht für breite, anhaltende Distribution und gegen einen kurzen Schock. Eine klassische Kapitulation (Volumenspitze mit anschließender Stabilisierung) lässt sich aus den Daten noch nicht bestätigen. Der 12.11. mit hohem Volumen hielt nicht, und der Kurs fiel danach weiter.</p>
+<h6>3.2 Gleitende Durchschnitte (Snapshot)</h6>
+<ul>
+<li><strong>close_10_ema: 157,32</strong> – Der Kurs liegt rund 32 USD darunter. Die kurzfristige Dynamik ist klar abwärts gerichtet. Eine Rückeroberung wäre das erste Erholungssignal.</li>
+<li><strong>close_50_sma: 207,00</strong> und <strong>close_200_sma: 203,09</strong> – Der Kurs liegt etwa 38 % unter dem 200er SMA (125,53 gegenüber 203,09). Beide Durchschnitte liegen eng beieinander, und der 50er liegt noch knapp über dem 200er. Ein „Death Cross“ (50er unter 200er) ist daher noch nicht vollzogen, könnte aber bei weiter sinkendem 50er in den kommenden Wochen eintreten. Das Signal käme verzögert, weil der Kurs bereits massiv gefallen ist.</li>
+<li>Beide Durchschnitte liegen weit über dem Kurs. Sie sind mittelfristig keine realistischen Erholungsziele, sondern nur Orientierungsmarken für den Abstand zum Trend.</li>
+</ul>
+<h6>3.3 MACD (Snapshot und Verlauf)</h6>
+<ul>
+<li>MACD <strong>-19,83</strong>, Signal <strong>-15,20</strong>, Histogramm <strong>-4,63</strong>.</li>
+<li>Das Histogramm bewegte sich vom 10.11. bis 19.11. in einer engen negativen Spanne (rund -3,7 bis -4,3). Am 20.11. weitete es sich auf -4,63 aus, dem tiefsten Wert der betrachteten Reihe. Der Abwärtsimpuls hat sich also wieder verstärkt, es gibt keine bullische Divergenz.</li>
+<li>MACD unter Signal und deutlich unter null bestätigt den Abwärtstrend. Als Bodensignal taugt der MACD erst, wenn das Histogramm sich zurückbildet und der MACD die Signallinie von unten kreuzt.</li>
+</ul>
+<h6>3.4 RSI</h6>
+<ul>
+<li>RSI am 20.11.: <strong>15,05</strong>. In der Reihe vom 10.11. bis 20.11. lag er zwischen 19,6 und 28,7. Nur am 10.11. (23,9) und ab 13.11. lag er durchgehend im überverkauften Bereich.</li>
+<li>Der Wert ist extrem überverkauft. Im starken Abwärtstrend kann der RSI aber lange tief bleiben. Er zeigt Erschöpfungspotenzial für eine technische Gegenbewegung, ist aber allein kein Kaufsignal.</li>
+<li>Eine Divergenz liegt nicht vor. RSI und Kurs erreichten gleichzeitig neue Tiefs.</li>
+</ul>
+<h6>3.5 Bollinger-Bänder</h6>
+<ul>
+<li>Mittelband (20er SMA): <strong>181,46</strong>, oberes Band <strong>234,61</strong>, unteres Band <strong>128,31</strong>.</li>
+<li>Der Schlusskurs (125,53) liegt <strong>unter dem unteren Band</strong>. Das Tagestief (124,50) lag ebenfalls darunter.</li>
+<li>Die Bänder sind sehr weit (Differenz oberes zu unterem Band rund 106 USD). Die Volatilität ist also stark gestiegen. Ein Schluss außerhalb des Bandes zeigt statistische Dehnung. Das ist aber im Trend kein Umkehrsignal, denn der Kurs kann am Band „entlangreiten“.</li>
+<li>Die Rückkehr in das Band und ein Anstieg Richtung Mittelband (181) wären die klassische Mean-Reversion-Annahme. Das Mittelband liegt allerdings rund 45 % über dem aktuellen Kurs und ist kurzfristig unrealistisch.</li>
+</ul>
+<h6>3.6 ATR und VWMA</h6>
+<ul>
+<li><strong>ATR: 10,71 USD</strong> (ca. 8,5 % des Kurses). Er stieg vom 19.11. (9,88) auf 10,71 und lag am 10.11. noch bei 8,70. Die tägliche Schwankungsbreite hat sich also deutlich erhöht.</li>
+<li><strong>VWMA: 163,14</strong> am 20.11. (10.11.: 192,06). Er liegt klar über dem Kurs und fällt kontinuierlich. Das volumengewichtete Mittel bestätigt, dass die meisten Transaktionen der letzten Tage deutlich über dem aktuellen Kurs stattfanden. Viele Käufer sitzen damit im Verlust, was Angebot bei Erholungen erzeugen kann.</li>
+</ul>
+<h5>4. Szenarien und handlungsrelevante Erkenntnisse</h5>
+<p>Alle Aussagen sind Interpretationen der Indikatoren. Es gibt keine historisch belegten Unterstützungen. Der Kurs hat im Datenzeitraum (ab Mai 2026) keine Niveaus unter etwa 125 USD getestet. Auf Basis dieser Daten gibt es daher <strong>keine verifizierte Unterstützung</strong>.</p>
+<ol>
+<li><strong>Fortsetzung des Abwärtstrends (Basisfall):</strong> Der Trend ist intakt, das Volumen hoch, und der MACD verstärkt sich nach unten. Neue Tiefs sind möglich, solange keine Stabilisierung sichtbar ist.</li>
+<li><strong>Technische Gegenbewegung:</strong> Der RSI von 15, der Schluss unter dem unteren Band und der Abstand zu den Durchschnitten machen einen kräftigen Rebound wahrscheinlich. Erste Referenzmarken wären die Zone um 143–146 USD (Eröffnung und Vortagesschluss) und danach der 10er EMA bei etwa 157. Das sind Referenzen aus Tageswerten, keine bestätigten Widerstände.</li>
+<li><strong>Bestätigung einer Bodenbildung:</strong> Hierfür sprechen ein Tagesschluss zurück über dem unteren Band (derzeit 128,31), sinkendes Volumen bei steigenden Kursen, ein sich verkleinerndes MACD-Histogramm und eine RSI-Divergenz.</li>
+</ol>
+<p><strong>Risikomanagement:</strong> Mit einem ATR von rund 10,7 USD sind Tagesbewegungen von 10 USD und mehr normal. Enge Stops würden leicht ausgelöst. Positionen sollten deutlich kleiner dimensioniert werden, und Stops sollten ein Mehrfaches des ATR betragen. Wegen der Kurslücken (z. B. 12.11.) kann der Stop außerdem unterschritten werden.</p>
+<p><strong>Fazit:</strong> Der Trend ist klar bärisch, das Momentum extrem überverkauft und die Volatilität sehr hoch. Ein Einstieg gegen den Trend hat ohne Stabilisierungssignal ein ungünstiges Chance-Risiko-Profil. Ein Short-Verkauf nach einem Einbruch von etwa 47 % bei RSI 15 trägt jedoch erhebliches Risiko einer scharfen Gegenbewegung. Aus technischer Sicht ist Abwarten bis zu einer bestätigten Stabilisierung angemessen. Fundamentale und Nachrichtendaten sollten ergänzend geprüft werden, da der Auslöser nicht aus den Kursdaten hervorgeht.</p>
+<h5>5. Übersichtstabelle</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Punkt</th>
+<th>Wert / Beobachtung</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schlusskurs 20.11.2026</td>
+<td>125,53 USD (Tief 124,50, Hoch 143,73)</td>
+<td>Schluss nahe Tagestief, kein Erholungsansatz</td>
+</tr>
+<tr>
+<td>Tagesänderung 20.11.</td>
+<td>ca. -14 % (von 145,98)</td>
+<td>Beschleunigung der Verkäufe</td>
+</tr>
+<tr>
+<td>Rückgang seit 06.10. (Schluss 239,24)</td>
+<td>ca. -47 %</td>
+<td>Trendbruch von historischem Ausmaß in diesem Datensatz</td>
+</tr>
+<tr>
+<td>Volumen 20.11.</td>
+<td>ca. 626 Mio.</td>
+<td>Sehr hoch, keine Beruhigung</td>
+</tr>
+<tr>
+<td>Höchstes Volumen</td>
+<td>12.11.: ca. 748 Mio.</td>
+<td>Kurslücke nach unten, danach keine Stabilisierung</td>
+</tr>
+<tr>
+<td>close_10_ema</td>
+<td>157,32</td>
+<td>Kurzfristig klar bärisch</td>
+</tr>
+<tr>
+<td>close_50_sma / close_200_sma</td>
+<td>207,00 / 203,09</td>
+<td>Kurs rund 38 % unter dem 200er. Death Cross noch nicht vollzogen</td>
+</tr>
+<tr>
+<td>MACD / Signal / Histogramm</td>
+<td>-19,83 / -15,20 / -4,63</td>
+<td>Abwärtsmomentum verstärkt sich</td>
+</tr>
+<tr>
+<td>RSI</td>
+<td>15,05</td>
+<td>Extrem überverkauft, aber keine Divergenz</td>
+</tr>
+<tr>
+<td>Bollinger (unten / Mitte / oben)</td>
+<td>128,31 / 181,46 / 234,61</td>
+<td>Schluss unter dem unteren Band, sehr weite Bänder</td>
+</tr>
+<tr>
+<td>ATR</td>
+<td>10,71 (ca. 8,5 % des Kurses)</td>
+<td>Hohe Volatilität, Positionsgröße reduzieren</td>
+</tr>
+<tr>
+<td>VWMA</td>
+<td>163,14</td>
+<td>Volumengewichteter Durchschnitt weit über dem Kurs, Angebot bei Erholungen möglich</td>
+</tr>
+<tr>
+<td>Verifizierte Unterstützung</td>
+<td>Keine im Datensatz</td>
+<td>Kurs im „Niemandsland“</td>
+</tr>
+<tr>
+<td>Datenabweichungen</td>
+<td>Keine zwischen Snapshot und Einzelindikatoren</td>
+<td>–</td>
+</tr>
+</tbody>
+</table></div>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s1-2">Sentiment Analyst</h3>
+<p><strong>Overall Sentiment:</strong> <strong>Neutral</strong> (Score: 5.0/10)
+<strong>Confidence:</strong> Low</p>
+<p><strong>Sentimentbericht NVDA, 13.11.2026 bis 20.11.2026</strong></p>
+<p><strong>Wichtiger Hinweis zur Datenlage:</strong> Alle drei Quellen waren im Analysezeitraum nicht verfügbar. Es liegen keine inhaltlichen Daten vor. Die Platzhalter besagen ausdrücklich, dass dies keine Abwesenheit von Nachrichten oder Diskussionen über NVDA bedeutet. Es fehlen schlicht die Daten. Das „Neutral“ (5,0) unten ist deshalb ein Platzhalter wegen fehlender Evidenz. Es ist kein gemessenes neutrales Stimmungsbild. Die Konfidenz ist niedrig.</p>
+<p><strong>1. Aufschlüsselung nach Quelle</strong></p>
+<ul>
+<li><strong>Yahoo Finance News:</strong> Nicht verfügbar. Der Dienst liefert nur aktuelle Meldungen, für den Zeitraum kam nichts zurück. Es gibt keine Schlagzeilen und keine institutionelle Einordnung, die ich bewerten könnte.</li>
+<li><strong>StockTwits:</strong> Nicht verfügbar. Es gibt keine Nachrichtenanzahl und kein Bullish/Bearish-Verhältnis, daher auch kein Signal zur Stimmung von Privatanlegern.</li>
+<li><strong>Reddit (r/wallstreetbets, r/stocks, r/investing):</strong> Der Abruf ist fehlgeschlagen. Es gibt keine Beiträge, deren Inhalt ich lesen könnte, und keine Aussage zu einem der drei Subreddits.</li>
+</ul>
+<p><strong>2. Divergenzen und Übereinstimmungen zwischen den Quellen</strong>
+Ohne Daten ist kein Quellenvergleich möglich. Ich kann weder Divergenzen noch Übereinstimmungen zwischen Nachrichten, Retail-Stimmung und Community-Diskussion feststellen.</p>
+<p><strong>3. Dominante Narrative</strong>
+Es lässt sich kein Narrativ aus den Quellen ableiten. Ich nenne bewusst keine Themen wie KI-Nachfrage, Rechenzentren, Wettbewerb oder Exportregeln. Dafür gibt es in diesem Auftrag keine Belege, und sie wären Spekulation.</p>
+<p><strong>4. Katalysatoren und Risiken</strong>
+Aus den vorliegenden Daten ergeben sich keine Katalysatoren und keine Risiken. Ob es Termine wie Quartalszahlen, Produktankündigungen oder Makro-Ereignisse gibt, kann ich nicht beurteilen. Das muss der Trader über andere Quellen prüfen.</p>
+<p><strong>5. Zusammenfassung der Signale</strong></p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Richtung</th>
+<th>Quelle</th>
+<th>Beleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nachrichtenfluss</td>
+<td>Nicht bewertbar</td>
+<td>Yahoo Finance</td>
+<td>Quelle nicht verfügbar</td>
+</tr>
+<tr>
+<td>Retail-Stimmung (Bullish/Bearish)</td>
+<td>Nicht bewertbar</td>
+<td>StockTwits</td>
+<td>Quelle nicht verfügbar, 0 Nachrichten</td>
+</tr>
+<tr>
+<td>Community-Diskussion</td>
+<td>Nicht bewertbar</td>
+<td>Reddit</td>
+<td>Abruf fehlgeschlagen, 0 Beiträge</td>
+</tr>
+<tr>
+<td>Gesamtbild</td>
+<td>Neutral (Platzhalter)</td>
+<td>Alle</td>
+<td>Keine Evidenz vorhanden</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Fazit:</strong> Dieser Bericht liefert keine belastbare Stimmungsaussage zu NVDA. Der Trader sollte ihn nicht als Signal in irgendeine Richtung werten. Er sollte die Entscheidung auf Fundamentaldaten, Technik und neu erhobene Stimmungsdaten stützen. Vergangene Stimmung ist ohnehin kein verlässlicher Indikator für künftige Kurse.</p>
+<h3 id="s1-3">News Analyst</h3>
+<h4>NVDA: Nachrichten- und Makrobericht (13.–20. November 2026)</h4>
+<h5>Wichtige Einschränkung vorab</h5>
+<p>Die meisten Datenquellen sind in dieser Sitzung ausgefallen. Ich habe deshalb keine Zahlen ergänzt oder geschätzt.</p>
+<ul>
+<li><strong>Unternehmensnachrichten zu NVDA:</strong> Nicht verfügbar. Yahoo Finance liefert für den Zeitraum 13.–20.11.2026 nichts. Das heißt nicht, dass es keine Nachrichten gab. Ich kann weder Quartalszahlen noch Guidance, Exportkontrollen, China-Themen oder Analystenänderungen bewerten.</li>
+<li><strong>FRED-Makrodaten</strong> (Leitzins, 10-jährige Treasury-Rendite, VIX, CPI): Nicht verfügbar, weil der API-Schlüssel fehlt. Ich kann keine aktuellen Werte nennen.</li>
+<li><strong>Prediction Markets</strong> (Fed-Zinssenkung, Nvidia-Ereignisse): Für den 20.11.2026 gesperrt. Die Quelle liefert nur Live-Quoten, und das würde Informationen aus der Zukunft in die Analyse tragen.</li>
+</ul>
+<h5>Was die globalen Nachrichten hergeben</h5>
+<p>Die globale Nachrichtensuche lieferte nur wenige und überwiegend schwache Treffer. Sie enthalten nichts direkt zu NVDA.</p>
+<ol>
+<li><strong>Schwacher Risikoappetit:</strong> Der Titel „Weekly Wrap: Crypto Falls As Stocks Struggle“ (CryptoProwl) deutet auf eine schwächere Börsenwoche hin. Krypto fiel, Aktien taten sich schwer. Das ist ein Hinweis auf nachlassende Risikobereitschaft. Ich habe nur die Überschrift gesehen, keine Details, und dieser Hinweis ist sehr dünn belegt.</li>
+<li><strong>Spekulative Wachstumswerte unter Druck:</strong> Archer Aviation fiel um 8 % und rutschte unter 3 USD. EHang verlor 6 %, Joby 3 %. Das spricht für Verkäufe bei spekulativen Titeln. Es ist ein Randsignal und sagt wenig über NVDA.</li>
+<li><strong>Boeing (BA) schwach:</strong> Die Aktie liegt etwa 37 % unter ihrem Hoch. Berichte nennen mögliche weitere Stellenstreichungen und eine verzögerte 737-Max-Produktion. Das betrifft vor allem Industriewerte.</li>
+<li><strong>Institutionelle Käufe:</strong> Ein 19-Mrd.-USD-Fonds hat drei Aktien gekauft (TIKR). Die Namen sind aus der Überschrift nicht ersichtlich, deshalb lässt sich daraus nichts für NVDA ableiten.</li>
+<li><strong>IBM:</strong> IBM bietet „Lightwell“ im Microsoft Marketplace an. Das ist ein kleiner Hinweis auf anhaltende Enterprise-Software- und KI-Aktivität, aber ohne direkten Bezug zu NVDA.</li>
+</ol>
+<h5>Einordnung für NVDA</h5>
+<ul>
+<li><strong>Belegt:</strong> Das Marktumfeld der Woche wirkt eher vorsichtig bis schwach. Die Evidenz dafür ist aber dünn, nämlich Überschriften ohne Kursdaten.</li>
+<li><strong>Nicht belegt:</strong> Es gibt keine Aussage zu NVDA-Katalysatoren, Zinsen, Inflation, Renditen oder Volatilität.</li>
+<li><strong>Typische Einflussfaktoren, hier nicht geprüft:</strong> Dazu zählen die Zahlen und die Guidance zum Quartal (Nvidia berichtet üblicherweise im November), Hyperscaler-Investitionen, Exportbeschränkungen für China, die Fed-Zinserwartungen und die Renditeentwicklung. Ich habe keine Daten, die eine dieser Annahmen für diese Woche bestätigen oder widerlegen.</li>
+</ul>
+<h5>Empfehlung an den nachfolgenden Agenten</h5>
+<ul>
+<li>Kurs-, Technik- und Fundamentaldaten zu NVDA aus anderen Quellen prüfen, vor allem Reaktion auf die letzten Quartalszahlen und Guidance.</li>
+<li>Makrodaten (Fed Funds, 10-jährige Rendite, VIX, CPI) separat beschaffen.</li>
+<li>Aus meinem Material allein ergibt sich kein Handelssignal. Ohne weitere Daten wäre jede Positionierung auf NVDA spekulativ.</li>
+</ul>
+<h5>Zusammenfassung</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Befund</th>
+<th>Datenlage</th>
+<th>Handelsrelevanz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NVDA-Unternehmensnachrichten</td>
+<td>Keine Daten abrufbar</td>
+<td>Nicht verfügbar</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>Leitzins (Fed Funds)</td>
+<td>Kein Wert</td>
+<td>FRED-Schlüssel fehlt</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>10-jährige Treasury-Rendite</td>
+<td>Kein Wert</td>
+<td>FRED-Schlüssel fehlt</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>VIX</td>
+<td>Kein Wert</td>
+<td>FRED-Schlüssel fehlt</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>CPI / Inflation</td>
+<td>Kein Wert</td>
+<td>FRED-Schlüssel fehlt</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>Prediction Markets (Fed, Nvidia)</td>
+<td>Für 20.11.2026 gesperrt</td>
+<td>Nicht verfügbar</td>
+<td>Unbekannt</td>
+</tr>
+<tr>
+<td>Marktstimmung allgemein</td>
+<td>„Stocks struggle“, Krypto schwächer</td>
+<td>Nur Überschrift</td>
+<td>Leicht risikoavers</td>
+</tr>
+<tr>
+<td>Spekulative Wachstumswerte</td>
+<td>Archer −8 %, EHang −6 %, Joby −3 %</td>
+<td>Überschriften</td>
+<td>Randsignal, schwach</td>
+</tr>
+<tr>
+<td>Boeing</td>
+<td>Etwa 37 % unter Hoch, Jobabbau möglich</td>
+<td>Überschriften</td>
+<td>Sektorspezifisch, kaum NVDA-Bezug</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rating</strong>: Hold (nur unter Vorbehalt: Datenlage unzureichend, kein belastbares Signal)</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>HOLD</strong></p>
+<h3 id="s1-4">Fundamentals Analyst</h3>
+<h4>NVDA: Fundamentalanalyse (Stand: 20.11.2026)</h4>
+<h5>0. Datenlage und Einschränkungen</h5>
+<ul>
+<li><strong>Profil und Bewertungskennzahlen:</strong> <code>get_fundamentals</code> liefert für dieses Datum nichts. Marktkapitalisierung, KGV, 52-Wochen-Spanne und Sektor sind gesperrt, weil der Anbieter nur aktuelle Werte ohne historischen Stand führt. Zur Bewertung kann ich daher nichts sagen.</li>
+<li><strong>Insider-Transaktionen:</strong> Sie sind für dieses Datum gesperrt, weil der Anbieter kein Meldedatum ausweist. Ein Insider-Signal gibt es deshalb nicht. Das ist weder positiv noch negativ zu werten.</li>
+<li><strong>Jüngster Abschluss:</strong> Das neueste Quartal endete am <strong>26.07.2026</strong> (Q2 des Geschäftsjahres 2027). Das Quartal bis Ende Oktober 2026 ist in den Daten nicht enthalten. Der Bericht dazu steht vermutlich unmittelbar bevor oder ist noch nicht eingereicht. Das ist ein Ereignisrisiko.</li>
+<li><strong>Lücke:</strong> Das Quartal bis 25.01.2026 (Q4 des Geschäftsjahres 2026) fehlt in der Quartals-GuV. Eine saubere TTM-Summe (Summe der letzten zwölf Monate) lässt sich daher nicht berechnen.</li>
+<li>Die Werte stammen aus SEC-EDGAR-Einreichungen und sind in Mio. USD angegeben. Alle Kennzahlen unten habe ich selbst aus diesen Rohdaten berechnet.</li>
+</ul>
+<h5>1. Gewinn- und Verlustrechnung (Wachstum und Margen)</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Quartal (Ende)</th>
+<th>Umsatz</th>
+<th>Bruttogewinn</th>
+<th>Operatives Ergebnis</th>
+<th>Nettoergebnis</th>
+<th>EPS (verwässert)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>27.07.2025</td>
+<td>46.743</td>
+<td>33.853</td>
+<td>28.440</td>
+<td>26.422</td>
+<td>1,08</td>
+</tr>
+<tr>
+<td>26.10.2025</td>
+<td>57.006</td>
+<td>41.849</td>
+<td>36.010</td>
+<td>31.910</td>
+<td>1,30</td>
+</tr>
+<tr>
+<td>26.04.2026</td>
+<td>81.615</td>
+<td>61.157</td>
+<td>53.536</td>
+<td>58.321</td>
+<td>2,39</td>
+</tr>
+<tr>
+<td>26.07.2026</td>
+<td>96.221</td>
+<td>72.142</td>
+<td>63.734</td>
+<td>59.688</td>
+<td>2,46</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Berechnete Kennzahlen für das jüngste Quartal (bis 26.07.2026):</strong></p>
+<ul>
+<li><strong>Umsatz:</strong> +105,9 % gegenüber dem Vorjahresquartal (96,2 Mrd. gegenüber 46,7 Mrd. USD). Gegenüber dem Vorquartal liegt er bei +17,9 %. Im Vorquartal lag das Plus gegenüber dem Vorjahr bei +85 %. Das Wachstum <strong>beschleunigt</strong> sich also, trotz der enorm gestiegenen Basis.</li>
+<li><strong>Bruttomarge:</strong> ca. 75,0 %. Im Vorquartal waren es 74,9 %, vor einem Jahr 72,4 %. Die Marge ist stabil auf sehr hohem Niveau.</li>
+<li><strong>Operative Marge:</strong> ca. 66,2 %, nach 65,6 % im Vorquartal und 60,8 % vor einem Jahr. Es gibt eine deutliche operative Hebelwirkung.</li>
+<li><strong>Nettomarge:</strong> ca. 62,0 %.</li>
+<li><strong>EPS:</strong> 2,46 USD, +128 % gegenüber dem Vorjahr (1,08 USD).</li>
+<li><strong>Qualität des Ergebnisses:</strong> Im Quartal bis April 2026 lag das Nettoergebnis (58,3 Mrd.) <strong>über</strong> dem operativen Ergebnis (53,5 Mrd.). Das spricht für erhebliche nichtoperative Erträge, zum Beispiel Bewertungsgewinne auf Beteiligungen oder Zinserträge. Im jüngsten Quartal lag das Nettoergebnis mit 59,7 Mrd. wieder unter dem operativen Ergebnis (63,7 Mrd.). Die Quellen der nichtoperativen Posten gehen aus den Daten nicht hervor. Der operative Gewinn ist als Basis verlässlicher als das Nettoergebnis.</li>
+</ul>
+<h5>2. Bilanz (26.07.2026)</h5>
+<ul>
+<li><strong>Bilanzsumme:</strong> 320,3 Mrd. USD. Vor einem Jahr waren es 140,7 Mrd., im Vorquartal 259,5 Mrd. Das ist ein Plus von rund 61 Mrd. in einem Quartal.</li>
+<li><strong>Eigenkapital:</strong> 229,0 Mrd. USD (Vorquartal 195,5 Mrd., Vorjahr 100,1 Mrd.).</li>
+<li><strong>Gesamtverbindlichkeiten:</strong> 91,3 Mrd. USD. Im Vorquartal waren es 64,0 Mrd., vor einem Jahr 40,6 Mrd. Das Plus von 27 Mrd. in einem Quartal ist beachtlich.</li>
+<li><strong>Verschuldungsgrad (Verbindlichkeiten / Eigenkapital):</strong> ca. 0,40. Das ist moderat und stieg von 0,33 im Vorquartal.</li>
+<li><strong>Liquidität:</strong> Das Umlaufvermögen beträgt 197,4 Mrd. und die kurzfristigen Verbindlichkeiten 43,0 Mrd. Die Current Ratio liegt damit bei ca. 4,6. Die Zahlungsmittel allein betragen 22,4 Mrd. (Vorquartal 13,2 Mrd.). Wertpapiere und kurzfristige Anlagen sind in diesem Datensatz nicht separat ausgewiesen.</li>
+<li><strong>Einordnung:</strong> Die Bilanz ist solide und kaum fremdfinanziert. Der Anstieg von Aktiva und Passiva ist aber sehr schnell. Mögliche Treiber sind Vorräte, Forderungen, Lieferverpflichtungen, Beteiligungen oder Leasing. Die Daten erlauben keine genauere Zuordnung. Hier lohnt ein Blick in den 10-Q.</li>
+</ul>
+<h5>3. Cashflow</h5>
+<ul>
+<li><strong>Operativer Cashflow:</strong> Im ersten Halbjahr des Geschäftsjahres 2027 waren es 74,4 Mrd. USD (Vorjahr 42,8 Mrd., +74 %). Abgeleitet für das jüngste Quartal ergeben sich ca. 24,1 Mrd., nach 50,3 Mrd. im Vorquartal.</li>
+<li><strong>Investitionen (Capex):</strong> 4,4 Mrd. im Halbjahr (Vorjahr 3,1 Mrd.). Im jüngsten Quartal waren es ca. 2,7 Mrd.</li>
+<li><strong>Freier Cashflow (operativer Cashflow minus Capex):</strong> Im Halbjahr ca. 70,0 Mrd. Im jüngsten Quartal waren es ca. 21,4 Mrd. Das sind nur rund 22 % des Umsatzes und rund 36 % des Nettoergebnisses.</li>
+<li><strong>Warnsignal:</strong> Der Cashflow des jüngsten Quartals fiel gegenüber dem Vorquartal um mehr als die Hälfte, während der Umsatz um 18 % wuchs. Die Gewinn-zu-Cash-Umwandlung ist schwach. Das deutet auf einen Aufbau von Working Capital hin, also höhere Vorräte und Forderungen. Dazu können nichtzahlungswirksame Gewinne kommen. Das sollte man beobachten.</li>
+<li><strong>Investing- und Financing-Cashflow:</strong> Im Halbjahr lagen sie bei -35,1 Mrd. und -27,5 Mrd. USD. Das entspricht Anlagekäufen oder Beteiligungen sowie Mittelabflüssen an Aktionäre (Aktienrückkäufe und Dividenden). Die Aufschlüsselung liegt nicht vor.</li>
+</ul>
+<h5>4. Historischer Kontext</h5>
+<ul>
+<li>Der Umsatz stieg von ca. 7,2 Mrd. USD (Quartal bis April 2023) auf 96,2 Mrd. (Quartal bis Juli 2026).</li>
+<li>Das ist das Ergebnis des KI-Rechenzentrumszyklus. Die Bruttomarge stieg von rund 65 % auf rund 75 %.</li>
+<li>Die Kennzahlen zeigen keine Anzeichen einer Abschwächung. Das Risiko liegt in der hohen Basis, in der Zyklizität der Nachfrage von Großkunden und in der Cash-Umwandlung.</li>
+</ul>
+<h5>5. Handlungsrelevante Erkenntnisse für Trader</h5>
+<ol>
+<li><strong>Operative Stärke:</strong> Umsatzwachstum von +106 % gegenüber dem Vorjahr, eine operative Marge von 66 % und eine Beschleunigung gegenüber dem Vorquartal sprechen fundamental klar für den Wert.</li>
+<li><strong>Katalysator und Risiko:</strong> Der Bericht für das Quartal bis Oktober 2026 steht an. Die Erwartungen sind nach dieser Entwicklung vermutlich hoch. Selbst gute Zahlen können bei enttäuschendem Ausblick zu Kursschwankungen führen. Über die aktuelle Bewertung und die Analystenschätzungen liegen keine Daten vor.</li>
+<li><strong>Cashflow-Qualität:</strong> Der schwache operative Cashflow im jüngsten Quartal ist der wichtigste Punkt, der der Gewinndynamik widerspricht. Im nächsten Bericht sollte man auf Vorräte, Forderungen und Lieferverpflichtungen achten.</li>
+<li><strong>Bilanz:</strong> Sie ist solide, der Verschuldungsgrad ist aber im Anstieg. Ein starkes Wachstum der Verbindlichkeiten sollte geprüft werden.</li>
+<li><strong>Nichtoperative Erträge:</strong> Die Gewinnzahlen werden teils von Investitionsgewinnen beeinflusst. Als Basis eignet sich das operative Ergebnis.</li>
+<li><strong>Fehlende Informationen:</strong> Bewertung, Insider-Aktivität und das Q4-Quartal des Vorjahres fehlen. Ohne Bewertung ist die Aussage rein fundamental und kein Kaufsignal für jeden Preis.</li>
+</ol>
+<h5>6. Übersichtstabelle</h5>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Bereich</th>
+<th>Kennzahl / Befund</th>
+<th>Wert</th>
+<th>Einschätzung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Umsatz</td>
+<td>Quartal bis 26.07.2026</td>
+<td>96,2 Mrd. USD (+106 % ggü. Vorjahr, +18 % ggü. Vorquartal)</td>
+<td>Sehr stark, beschleunigend</td>
+</tr>
+<tr>
+<td>Bruttomarge</td>
+<td>Quartal bis 26.07.2026</td>
+<td>ca. 75,0 %</td>
+<td>Stabil hoch</td>
+</tr>
+<tr>
+<td>Operative Marge</td>
+<td>Quartal bis 26.07.2026</td>
+<td>ca. 66,2 %</td>
+<td>Positiv, steigend</td>
+</tr>
+<tr>
+<td>Nettoergebnis / EPS</td>
+<td>Quartal bis 26.07.2026</td>
+<td>59,7 Mrd. USD / 2,46 USD</td>
+<td>Stark, EPS +128 %</td>
+</tr>
+<tr>
+<td>Ergebnisqualität</td>
+<td>Nettoergebnis über operativem Ergebnis im Quartal bis April 2026</td>
+<td>58,3 Mrd. gegenüber 53,5 Mrd.</td>
+<td>Nichtoperative Gewinne, Vorsicht</td>
+</tr>
+<tr>
+<td>Bilanzsumme</td>
+<td>26.07.2026</td>
+<td>320,3 Mrd. USD</td>
+<td>Sehr schnelles Wachstum</td>
+</tr>
+<tr>
+<td>Eigenkapital</td>
+<td>26.07.2026</td>
+<td>229,0 Mrd. USD</td>
+<td>Solide</td>
+</tr>
+<tr>
+<td>Verbindlichkeiten</td>
+<td>26.07.2026</td>
+<td>91,3 Mrd. USD (+27 Mrd. ggü. Vorquartal)</td>
+<td>Beobachten</td>
+</tr>
+<tr>
+<td>Verschuldungsgrad</td>
+<td>Verbindlichkeiten / Eigenkapital</td>
+<td>ca. 0,40</td>
+<td>Moderat</td>
+</tr>
+<tr>
+<td>Current Ratio</td>
+<td>Umlaufvermögen / kurzfr. Verbindlichkeiten</td>
+<td>ca. 4,6</td>
+<td>Sehr liquide</td>
+</tr>
+<tr>
+<td>Operativer Cashflow</td>
+<td>Quartal (abgeleitet)</td>
+<td>ca. 24,1 Mrd. USD (Vorquartal 50,3 Mrd.)</td>
+<td>Schwach, Warnsignal</td>
+</tr>
+<tr>
+<td>Freier Cashflow</td>
+<td>Halbjahr / Quartal (abgeleitet)</td>
+<td>ca. 70,0 Mrd. / ca. 21,4 Mrd. USD</td>
+<td>Hoch, aber schwache Gewinnumwandlung zuletzt</td>
+</tr>
+<tr>
+<td>Capex</td>
+<td>Halbjahr</td>
+<td>4,4 Mrd. USD</td>
+<td>Niedrig im Verhältnis zum Umsatz</td>
+</tr>
+<tr>
+<td>Bewertung / Profil</td>
+<td>Marktkapitalisierung, KGV usw.</td>
+<td>Nicht verfügbar</td>
+<td>Datenlücke</td>
+</tr>
+<tr>
+<td>Insider-Transaktionen</td>
+<td>Insiderkäufe und -verkäufe</td>
+<td>Nicht verfügbar</td>
+<td>Datenlücke</td>
+</tr>
+<tr>
+<td>Nächster Katalysator</td>
+<td>Bericht zum Quartal bis Oktober 2026</td>
+<td>Ausstehend</td>
+<td>Ereignisrisiko</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rating</strong>: Buy</p>
+<p>Begründung: Rein fundamental sind Wachstum, Margen und Bilanz hervorragend. Die Einschätzung steht unter dem Vorbehalt der unbekannten Bewertung, des schwachen jüngsten Cashflows und des anstehenden Berichts.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>BUY</strong></p>
+</section><section id="s2"><h2>II. Research Team Decision</h2><h3 id="s2-1">Bull Researcher</h3>
+<p>Bull Analyst: # Bull-Case für NVDA: Der Markt preist ein Szenario ein, das die Zahlen bisher nicht zeigen</p>
+<p>Der Bär hat noch nichts gesagt. Ich nehme seine drei wahrscheinlichsten Argumente deshalb gleich vorweg: „Der Trend ist kaputt“, „Der Cashflow bricht weg“ und „Niemand weiß, was passiert ist“.</p>
+<h5>1. Das Geschäft: Beschleunigung statt Abschwung</h5>
+<p>Die letzten berichteten Zahlen (Quartal bis 26.07.2026) sind schwer mit einer Aktie vereinbar, die 47 % verloren hat:</p>
+<ul>
+<li><strong>Umsatz:</strong> 96,2 Mrd. USD, +106 % gegenüber dem Vorjahr und +18 % gegenüber dem Vorquartal. Das Wachstum beschleunigt sich von +85 % auf +106 %, und das auf einer riesigen Basis.</li>
+<li><strong>Margen:</strong> Die Bruttomarge liegt bei 75 % und die operative Marge bei 66,2 % (vor einem Jahr 60,8 %). Das ist echte operative Hebelwirkung, und es gibt keine Anzeichen von Preisdruck.</li>
+<li><strong>EPS:</strong> 2,46 USD, +128 % gegenüber dem Vorjahr.</li>
+<li><strong>Bilanz:</strong> Das Eigenkapital beträgt 229 Mrd. USD (Vorjahr 100 Mrd.), der Verschuldungsgrad liegt bei 0,40 und die Current Ratio bei 4,6. Das Unternehmen ist kaum fremdfinanziert und hochliquide.</li>
+</ul>
+<p>Zwischen Anfang Oktober und heute hat sich in den vorliegenden Fundamentaldaten nichts verschlechtert. Geändert hat sich der Preis.</p>
+<h5>2. Die Bewertung: ein vorsichtiger Hinweis</h5>
+<p>Eine offizielle Bewertungskennzahl liegt nicht vor, und das räume ich offen ein. Eine grobe Überschlagsrechnung ist aber möglich. Das letzte Quartals-EPS von 2,46 USD auf ein Jahr hochgerechnet ergibt etwa 9,8 USD. Bei 125,53 USD wäre das ein KGV von rund 13 auf Run-Rate-Basis. Bei 239 USD am 06.10. lag es bei etwa 24. Die Rechnung setzt voraus, dass Kurs- und EPS-Daten konsistent sind, was ich nicht separat verifizieren konnte, und sie ist keine Prognose. Für ein Unternehmen mit über 100 % Umsatzwachstum und 66 % operativer Marge wäre ein solcher Multiplikator aber eine extreme Neubewertung nach unten.</p>
+<h5>3. Die Technik: Panik zeigt sich als Dehnung</h5>
+<p>Der technische Bericht ist nüchtern bärisch, enthält aber genau die Merkmale, die Chancen in einem fundamental starken Titel markieren:</p>
+<ul>
+<li><strong>RSI 15,05:</strong> extrem überverkauft.</li>
+<li><strong>Schluss unter dem unteren Bollinger-Band:</strong> 125,53 gegenüber 128,31, also statistisch stark gedehnt.</li>
+<li><strong>Abstand zum 200er SMA:</strong> rund 38 %.</li>
+<li><strong>Volumen:</strong> 748 Mio. Aktien am 12.11. und 626 Mio. am 20.11. Solche Volumina sprechen für forcierte Verkäufe, nicht für ruhige Fundamentalarbeit.</li>
+</ul>
+<p>Auch der Technikbericht warnt vor einem Short-Verkauf nach −47 % bei RSI 15 wegen des „erheblichen Risikos einer scharfen Gegenbewegung“. Nach einer solchen Bewegung liegt das Risiko für Verkäufer inzwischen auf der anderen Seite.</p>
+<h5>4. Die erwarteten Bärenargumente</h5>
+<p><strong>„Der Trend ist intakt, das ist ein fallendes Messer.“</strong> Das stimmt, und ich bestreite es nicht. Eine bestätigte Bodenbildung gibt es noch nicht. Deshalb plädiere ich nicht für einen All-in-Einstieg, sondern für gestaffeltes Aufbauen. Bei einem ATR von 10,7 USD (8,5 % des Kurses) wären kleinere Tranchen, weite Stops und Bestätigungsmarken wie ein Schluss über 128,31 USD sinnvoll. Wer auf ein sauberes Signal wartet, kauft nach einer Erholung von 15 bis 20 % teurer.</p>
+<p><strong>„Der operative Cashflow ist auf rund 24 Mrd. USD gefallen, nach 50 Mrd.“</strong> Das ist der stärkste Einwand, und ich nehme ihn ernst. Folgendes relativiert ihn:</p>
+<ul>
+<li>Im Halbjahr liegt der operative Cashflow bei 74,4 Mrd. USD (+74 %) und der freie Cashflow bei rund 70 Mrd.</li>
+<li>Bei einem Umsatzsprung von 18 % binnen eines Quartals ist ein Aufbau von Vorräten und Forderungen wahrscheinlich. Das würde den Cash vorübergehend binden, ohne die Ertragskraft zu beeinträchtigen. Die Daten erlauben diese Zuordnung allerdings nicht sicher.</li>
+<li>Die Bilanz mit 4,6 Current Ratio und 229 Mrd. Eigenkapital kann das problemlos tragen.</li>
+</ul>
+<p>Ich behaupte also nicht, das Thema sei erledigt. Es ist der Punkt, auf den ich im nächsten Bericht achten würde.</p>
+<p><strong>„Das Nettoergebnis enthielt nichtoperative Gewinne.“</strong> Richtig, im Quartal bis April lag das Nettoergebnis über dem operativen Ergebnis. Im Juli-Quartal war es wieder darunter. Und selbst allein auf operativer Basis (63,7 Mrd. USD in einem Quartal) ist das Bild überragend.</p>
+<p><strong>„Niemand kennt den Auslöser.“</strong> Auch das stimmt: Die Nachrichten- und Stimmungsquellen waren ausgefallen, und ich kenne den Auslöser nicht. Es kann sich um Guidance, Exportregeln, Kundeninvestitionen oder Makro handeln. Das ist das eigentliche Risiko und der Grund, warum ich nur gestaffelt kaufen würde. Entscheidend ist aber: Ohne belegte Verschlechterung der Fundamentaldaten ist ein Kursverlust von 47 % in sechs Wochen eher ein Hinweis auf übertriebene Erwartungsanpassung als auf zerstörte Ertragskraft. Das Ereignisrisiko durch den ausstehenden Bericht zum Oktober-Quartal bleibt bestehen.</p>
+<p><strong>„Überhang durch Käufer im Verlust (VWMA 163).“</strong> Das erzeugt bei Erholungen Angebot, ist aber ein Argument für eine gestaffelte Strategie und nicht gegen die Investment-These. Wer langfristig denkt, kauft ohnehin keinen Rebound-Trade bis 163.</p>
+<h5>5. Fazit</h5>
+<p>Umsatz +106 %, operative Marge 66 %, kaum Schulden, extrem gedehnter Kurs bei RSI 15 und ein überschlägiges KGV um 13: Das ist ein Missverhältnis zwischen Geschäft und Preis. Die Risiken sind der unbekannte Auslöser, der schwache Quartals-Cashflow und der anstehende Bericht. Ihnen begegne ich mit kleinen, gestaffelten Positionen und weiten Stops und nicht mit Abwarten.</p>
+<p>Ich freue mich auf die Entgegnung des Bären, vor allem zur Frage, welche konkrete Verschlechterung er in den Zahlen sieht, die einen Kursverlust von 47 % rechtfertigt.</p>
+<p><strong>Rating</strong>: Buy</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>BUY</strong></p>
+<h3 id="s2-2">Bear Researcher</h3>
+<p>Bear Analyst: # Bear-Case für NVDA: Der Bulle verwechselt einen alten Kassenzettel mit einem Ausblick</p>
+<p>Ich beginne mit den Zugeständnissen des Bullen. Er räumt ein, dass der Trend intakt ist und eine Bodenbildung fehlt. Er nennt den Cashflow den „stärksten Einwand“, kennt den Auslöser des Absturzes nicht und sieht im anstehenden Bericht ein Ereignisrisiko. Das sind vier der fünf zentralen Punkte der Bärenseite. Sein Fazit „Kaufen, nur gestaffelt“ folgt daraus nicht.</p>
+<h5>1. „In den Fundamentaldaten hat sich nichts verschlechtert“ – das ist ein Datumsproblem</h5>
+<p>Der Bulle stützt sich auf das Quartal bis 26.07.2026. Das liegt knapp vier Monate zurück, und die Aktie hat seither zwei Drittel ihrer Bewegung erst im Oktober und November vollzogen. Das Quartal bis Oktober ist in den Daten nicht enthalten. Der Fundamentalbericht nennt es ausdrücklich ein Ereignisrisiko. Nvidia berichtet üblicherweise im November, und wir sind am 20.11.</p>
+<p>Wenn die Datenlage nichts über Oktober sagt, ist „nichts verschlechtert“ keine Feststellung, sondern eine Lücke. Der Bulle fragt, welche konkrete Verschlechterung ich in den Zahlen sehe. Die Frage kehrt die Beweislast um. Der Markt bepreist die Zukunft, und wer nach −47 % kaufen will, muss erklären, warum ein Titel mit solchem Rückenwind so verkauft wird.</p>
+<p>Die Verkäufe sehen nicht nach Rauschen aus:</p>
+<ul>
+<li>Am 12.11. gab es eine Kurslücke von 173,73 auf 151,01 USD bei rund 748 Mio. Aktien, dem höchsten Volumen seit Mai.</li>
+<li>Danach fiel die Aktie vom Schlusskurs 166,19 USD auf 125,53 USD, also nochmals rund 24 %.</li>
+<li>Am 20.11. gab es −14 % bei 626 Mio. Aktien und einen Schluss nahe dem Tagestief.</li>
+</ul>
+<p>Der Bulle liest das 748-Mio.-Volumen als Kapitulation. Der Technikbericht sagt das Gegenteil: Eine Kapitulation mit anschließender Stabilisierung lässt sich nicht bestätigen. Der 12.11. hielt nicht, und die Verkäufe gingen weiter. Das ist Distribution über Wochen, keine Panikspitze.</p>
+<h5>2. Das „KGV von 13“ ist die schwächste Stelle im Bull-Case</h5>
+<p>Der Bulle rechnet das Quartals-EPS von 2,46 USD auf 9,8 USD hoch und kommt bei 125,53 USD auf ein KGV von 13. Dazu habe ich vier Einwände:</p>
+<ul>
+<li><strong>Hochrechnung des Spitzenquartals.</strong> Das Quartal mit +106 % Umsatzwachstum und 66 % operativer Marge wird als Dauerzustand fortgeschrieben. Genau diese Annahme zieht der Markt offenbar in Zweifel. Der Umsatz stieg von 7,2 Mrd. auf 96,2 Mrd. USD, getragen von einem Investitionszyklus weniger Großkunden. Zyklische Titel wirken auf Spitzengewinne immer billig, und ein niedriges Run-Rate-KGV ist gerade bei Zyklikern ein klassisches Warnsignal.</li>
+<li><strong>Qualität des EPS.</strong> Im April-Quartal lag das Nettoergebnis (58,3 Mrd.) über dem operativen Ergebnis (53,5 Mrd.). Selbst im Juli-Quartal liegt das Nettoergebnis (59,7 Mrd.) nur etwa 6 % unter dem operativen Ergebnis (63,7 Mrd.). Bei einer üblichen Steuerquote, die ich hier nur annehme und die nicht in den Daten steht, ergäbe das weiterhin einen spürbaren nichtoperativen Beitrag. Wie nachhaltig der ist, wissen wir nicht.</li>
+<li><strong>Unverifizierte Basis.</strong> Der Bulle schreibt selbst, er habe die Konsistenz von Kurs- und EPS-Daten nicht verifiziert. Marktkapitalisierung, KGV und Analystenschätzungen fehlen komplett.</li>
+<li><strong>Rückwärtsgewandt.</strong> Auch ein KGV von 24 am 06.10. war eine Rückwärtsrechnung. Ob 13 „billig“ ist, hängt allein davon ab, ob die nächsten Quartale dieses Niveau halten. Das ist die offene Frage, und der Bulle beantwortet sie nicht.</li>
+</ul>
+<h5>3. Der Cashflow ist kein Randthema</h5>
+<p>Der Bulle verweist auf das Halbjahr (74,4 Mrd. operativer Cashflow). Das Halbjahr enthält aber das starke April-Quartal mit 50,3 Mrd. und verdeckt die Richtung. Die Zahlen des jüngsten Quartals:</p>
+<ul>
+<li><strong>Operativer Cashflow:</strong> rund 24,1 Mrd. USD, nach 50,3 Mrd. im Vorquartal, also mehr als halbiert, bei +18 % Umsatz.</li>
+<li><strong>Freier Cashflow:</strong> rund 21,4 Mrd., etwa 22 % des Umsatzes und 36 % des Nettoergebnisses. Von 59,7 Mrd. Gewinn kamen nur gut ein Drittel als freier Cash an.</li>
+<li><strong>Bilanz:</strong> Die Bilanzsumme stieg in einem Quartal um rund 61 Mrd. USD, die Verbindlichkeiten um 27 Mrd. (von 64,0 auf 91,3 Mrd.). Die Zahlungsmittel liegen nur bei 22,4 Mrd.</li>
+<li><strong>Investing-Cashflow:</strong> Im Halbjahr flossen 35,1 Mrd. in Anlagen oder Beteiligungen ab.</li>
+</ul>
+<p>Der Bulle vermutet einen „vorübergehenden“ Aufbau von Vorräten und Forderungen. Er räumt aber selbst ein, dass die Daten das nicht belegen. Mögliche Erklärungen sind höhere Forderungen (Kunden zahlen später), Vorräte, Lieferverpflichtungen oder Beteiligungen. Keine davon ist harmlos, wenn der Markt gerade an der Nachhaltigkeit der Nachfrage zweifelt. Dass die Bilanz das „problemlos tragen“ kann, stimmt für die Liquidität. Es beantwortet aber nicht, ob die Gewinne in Cash umgewandelt werden. Das ist das einzige Gegenindiz zur glänzenden GuV, und es wächst im jüngsten Quartal, nicht im Halbjahresdurchschnitt.</p>
+<h5>4. Die Technik: „überdehnt“ ist kein Boden</h5>
+<p>Der Bulle zählt RSI 15, den Schluss unter dem Bollinger-Band und den 38 % Abstand zum 200er SMA als Chancenmerkmale. Das sind Merkmale von Stärke des Abverkaufs, nicht von dessen Ende. Der Technikbericht ist hier eindeutig:</p>
+<ul>
+<li>Es gibt keine RSI-Divergenz. Kurs und RSI machten gleichzeitig neue Tiefs.</li>
+<li>Das MACD-Histogramm erreichte am 20.11. mit −4,63 sein Tief der Reihe. Der Abwärtsimpuls verstärkt sich also.</li>
+<li>Im Datensatz gibt es keine verifizierte Unterstützung. Der Kurs ist im „Niemandsland“.</li>
+<li>Der VWMA liegt bei 163 und fällt. Wer in den letzten Tagen gekauft hat, sitzt im Verlust, und jede Erholung trifft auf Angebot.</li>
+<li>Der 50er SMA liegt noch knapp über dem 200er, ein Death Cross droht also in den nächsten Wochen.</li>
+</ul>
+<p>Ein RSI von 15 heißt nur, dass eine Gegenbewegung wahrscheinlich ist. Ob sie ein Einstieg ist oder eine Verkaufschance, sagt er nicht. Bärenmarktrallys von 10 bis 15 % sind bei diesem Muster normal, und der Technikbericht empfiehlt ausdrücklich Abwarten bis zur bestätigten Stabilisierung, nicht Kaufen.</p>
+<p>Der Bulle schlägt als Bestätigungsmarke einen Schluss über 128,31 USD vor. Das liegt rund 2 % über dem aktuellen Kurs und damit weit innerhalb einer Tagesschwankung (ATR 10,7 USD, also 8,5 %). Das ist kein Bestätigungssignal, sondern Rauschen. Und „weite Stops“ gegen Kurslücken wie am 12.11. (rund 22 USD) schützen schlecht. Wer gestaffelt in einen fallenden Kurs kauft, mittelt nach unten, solange der Kurs weiter fällt.</p>
+<h5>5. Das Argument „Wer wartet, kauft teurer“</h5>
+<p>Das stimmt nur, wenn die Erholung sicher kommt. Wer wartet, kauft zwar nach einem Rebound teurer, vermeidet aber den Fall von 125 auf ein Niveau, das wir nicht kennen. Hinzu kommt die Asymmetrie:</p>
+<ul>
+<li>Nach oben bremst das Angebot der Verlustkäufer (VWMA 163) und das Mittelband bei 181.</li>
+<li>Nach unten gibt es keinen Beleg für ein Auffangniveau.</li>
+<li>Der anstehende Bericht kann beides auslösen, aber der Bulle gibt selbst zu, dass die Erwartungen hoch sind und Guidance den Kurs bewegen kann.</li>
+</ul>
+<p>Ein Investment ohne Kenntnis des Auslösers ist eine Wette auf das Gegenteil dessen, was Millionen Aktien in den letzten Wochen taten. Das kann gutgehen. Als These trägt es nicht.</p>
+<h5>6. Das Umfeld hilft nicht</h5>
+<p>Die Makro- und Sentimentdaten fehlen, das räume ich offen ein. Die wenigen Indizien zeigen aber in eine Richtung: Aktien „struggle“, Krypto fällt, und spekulative Wachstumswerte (Archer −8 %, EHang −6 %) geraten unter Druck. Das ist dünn belegt und kein Beweis. Es spricht aber nicht für ein Umfeld, in dem ein Hochbewertungs-Titel mit konzentrierter Kundenbasis auf schnelles Erholen hoffen darf.</p>
+<h5>Fazit</h5>
+<p>Der Bull-Case beruht auf drei Annahmen: Die vier Monate alten Zahlen gelten weiter, das Spitzenquartal ist der Normalzustand, und der unbekannte Auslöser ist harmlos. Keine davon ist belegt. Dagegen stehen ein halbierter Quartals-Cashflow, eine in einem Quartal um 61 Mrd. USD aufgeblähte Bilanz, ein bisher unbekannter Auslöser und ein Chart ohne Boden, ohne Divergenz und mit wachsendem Abwärtsimpuls.</p>
+<p>Ich schließe nicht aus, dass die Aktie kräftig zurückprallt. Genau deshalb ist ein Short bei RSI 15 riskant. Aber ein kräftiger Rebound ist kein Grund, jetzt zu kaufen. Mein Rat lautet: nicht aufstocken, bestehende Positionen bei Erholungen reduzieren und den Bericht zum Oktober-Quartal abwarten.</p>
+<p><strong>Rating</strong>: Sell</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>SELL</strong></p>
+<h3 id="s2-3">Research Manager</h3>
+<p><strong>Recommendation</strong>: Underweight</p>
+<p><strong>Rationale</strong>: Der Bulle hat die besseren Zahlen, der Bär das bessere Argument zum aktuellen Zeitpunkt. Das letzte berichtete Quartal bis 26.07.2026 ist herausragend: Umsatz +106 %, operative Marge 66 %, kaum Schulden. Ein RSI von 15 macht eine Gegenbewegung wahrscheinlich, deshalb wäre ein Verkauf auf dem Tief schlechtes Timing. Entscheidend sind aber diese Punkte: (1) Die Zahlen sind knapp vier Monate alt, zum Oktober-Quartal liegen keine Daten vor. „Nichts verschlechtert“ ist also eine Datenlücke und keine Feststellung. (2) Der Auslöser des Abverkaufs von 47 % ist unbekannt, und der Verkauf läuft über Wochen bei hohem Volumen. (3) Der operative Cashflow hat sich im Quartal halbiert (50,3 auf 24,1 Mrd. USD) bei +18 % Umsatz, der freie Cashflow beträgt nur gut ein Drittel des Nettogewinns, und die Bilanzsumme wuchs um 61 Mrd. USD. Das ist das einzige harte Gegenindiz, und es betrifft das jüngste Quartal. (4) Das „KGV von 13“ schreibt ein Spitzenquartal fort, Kurs und EPS sind nicht abgeglichen, Konsensschätzungen fehlen. (5) Die Technik zeigt keinen Boden: keine Divergenz, MACD-Histogramm auf neuem Tief, keine belegte Unterstützung, Angebot von Käufern im Verlust bei 151 bis 166 USD. Für ein Sell reicht es nicht, weil die Ertragskraft nicht belegt verschlechtert ist und die Lage extrem überverkauft ist. Der Rat des Bären (nicht aufstocken, bei Erholungen reduzieren, den Bericht abwarten) entspricht inhaltlich Underweight. Es fehlen Nachrichten, Makrodaten, Bewertung, Konsensschätzungen und die Aufschlüsselung des Working Capital.</p>
+<p><strong>Strategic Actions</strong>: 1) Kein Zukauf vor dem Bericht zum Oktober-Quartal. 2) Auf etwa 50 % der Standardallokation reduzieren, gestaffelt in die erwartete Gegenbewegung zwischen rund 140 und 151 USD (Unterkante der Kurslücke vom 12.11.). Ohne Erholung vor dem Bericht höchstens auf etwa 60 % reduzieren, nicht bei RSI 15 verkaufen. 3) Kein Short. 4) Kein Neueinstieg vor dem Bericht. 5) Das Risiko über die Positionsgröße steuern statt über enge Stops, da Kurslücken bei einem ATR von 10,7 USD Stops wirkungslos machen. Optional die Restposition vor dem Bericht mit Puts absichern. 6) Nach dem Bericht: zurück auf Standardgewicht oder Übergewicht, wenn sich der operative Cashflow auf deutlich über 50 % des Nettogewinns normalisiert, Ausblick und Margen bestätigt werden und der Chart sich stabilisiert (höheres Tief, Schluss über etwa 151 USD, drehende MACD). Weiter auf 25 % abbauen oder aussteigen bei enttäuschendem Ausblick, anhaltend schwachem Cashflow oder neuen Tiefs ohne Divergenz.</p>
+</section><section id="s3"><h2>III. Trading Team Plan</h2><h3 id="s3-1">Trader</h3>
+<p><strong>Action</strong>: Sell</p>
+<p><strong>Reasoning</strong>: Der Research-Plan lautet Underweight und entspricht damit einem teilweisen Sell. Die Technik zeigt keinen Boden: MACD-Histogramm auf neuem Tief, keine RSI-Divergenz, keine belegte Unterstützung, hohes Volumen und Angebot oberhalb des Kurses (VWMA 163,14, 10er EMA 157,32). Dazu kommen der unbekannte Auslöser des 47-%-Abverkaufs, die vier Monate alten Fundamentaldaten und der halbierte operative Cashflow. Wegen RSI 15,05 und des Schlusses unter dem unteren Bollinger-Band ist eine scharfe Gegenbewegung wahrscheinlich. Daher wird gestaffelt in die Erholung reduziert, nicht auf dem Tief verkauft und nicht geshortet.</p>
+<p><strong>Entry Price</strong>: 145.0</p>
+<p><strong>Stop Loss</strong>: 166.0</p>
+<p><strong>Position Sizing</strong>: Auf ca. 50 % der Standardallokation reduzieren, gestaffelt in 2–3 Tranchen zwischen 140 und 151 USD. Ohne Erholung vor dem Bericht höchstens auf ca. 60 % reduzieren. Kein Short, kein Zukauf vor dem Oktober-Quartalsbericht. Restposition optional mit Puts absichern. Das Risiko über die Positionsgröße steuern, nicht über enge Stops (ATR 10,71 USD, Kurslückengefahr).</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>SELL</strong></p>
+</section><section id="s4"><h2>IV. Risk Management Team Decision</h2><h3 id="s4-1">Aggressive Analyst</h3>
+<p>Aggressive Analyst: Da noch kein Einwand vorliegt, nehme ich die drei naheliegenden Gegenpositionen vorweg: &quot;Die Fundamentaldaten sind exzellent, also halten oder kaufen&quot;, &quot;Abwarten, wir haben zu wenig Daten&quot; und &quot;Wenn man schon bärisch ist, dann richtig, also shorten&quot;. Der Plan trifft aus meiner Sicht genau die Mitte zwischen diesen Fehlern, und er ist mutiger, als er aussieht.</p>
+<p><strong>Zum Fundamental-Argument (Buy).</strong> Ja, +106 % Umsatz, 66 % operative Marge und eine Current Ratio von 4,6 sind hervorragend. Aber diese Zahlen enden am 26.07.2026 und sind vier Monate alt. Der Markt hat NVDA von 239,24 auf 125,53 USD gedrückt, rund 47 %, und das mit Volumina zwischen 300 und 750 Mio. Aktien pro Tag. Das Gap am 12.11. bei 748 Mio. Stück ist kein Rauschen. Entweder weiß der Markt etwas, das in den alten Zahlen nicht steht, oder er preist eine Normalisierung ein, die die Zahlen nicht zeigen. Der halbierte operative Cashflow, von etwa 50,3 auf 24,1 Mrd. bei +18 % Umsatz, ist ein konkreter Riss in der Erzählung. Dazu kommen die unbekannte Bewertung und der unbekannte Auslöser. Wer hier auf Basis alter Margen kauft oder aussitzt, wettet blind gegen den größten Informationsfluss, den es gibt: den Preis. Mut heißt hier nicht, ein fallendes Messer zu fangen, sondern anzuerkennen, dass der Tape möglicherweise mehr weiß als mein Datensatz.</p>
+<p><strong>Zum Abwarten.</strong> Abwarten wirkt neutral, ist aber eine volle Positionierung. Bei einem ATR von 10,71 USD, also etwa 8,5 % pro Tag, trägt jemand, der nichts tut, jeden Tag ein Risiko von rund einem Zehntel seines Positionswerts. Und die Technik gibt keinen Boden her: Das MACD-Histogramm steht mit -4,63 auf dem Tief der Reihe, es gibt keine RSI-Divergenz, und der Schluss liegt nahe dem Tagestief. Eine verifizierte Unterstützung existiert im Datensatz nicht, der Kurs ist im Niemandsland. Der Plan ist die aktive Antwort darauf: Er reduziert auf etwa 50 % der Standardallokation, gestaffelt in 2–3 Tranchen.</p>
+<p><strong>Zur Kapitulationsfalle.</strong> Ein Konservativer würde sagen, wer nach minus 47 % verkauft, verkauft den Boden. Genau das tut der Plan aber nicht. Der RSI liegt bei 15,05 und der Schluss unter dem unteren Bollinger-Band (128,31), eine scharfe Gegenbewegung ist also wahrscheinlich. Deshalb wird nicht auf dem Tief verkauft, sondern in die Erholung hinein. Die Tranchen zwischen 140 und 151 USD liegen 11 bis 20 % über dem aktuellen Schlusskurs von 125,53. Sie decken sich mit der Zone um 143–146 USD (Eröffnung und Vortagesschluss) und laufen Richtung 10er EMA bei 157,32 und VWMA bei 163,14. Dort sitzen die Käufer, die im Verlust stecken, und dort entsteht das Angebot. Wir bieten also Liquidität an, statt sie bei Panik zu verbrennen. Der Entry von 145 stammt aus dem Schlusskurs vom 19.11., er ist daher eine Erholungsmarke und kein Ausführungspreis für heute. Wer unter etwa 128 USD verkauft, handelt gegen die eigene Logik.</p>
+<p><strong>Zum Short-Argument.</strong> Ein Short nach 47 % Verlust, mit RSI 15 und einem Schluss unter dem Band, wäre das Gegenteil von Mut, nämlich ein Squeeze-Risiko mit begrenztem Gewinn und unbegrenztem Verlust. Der Bericht selbst nennt das erhebliche Risiko einer scharfen Gegenbewegung. Die asymmetrische Wette ist, die Erholung zu verkaufen, ohne gegen sie zu wetten. Wenn der Rebound kommt, haben wir zu besseren Kursen reduziert. Wenn nicht, bleiben wir bei höchstens etwa 60 % der Standardallokation, haben ein Teilrisiko abgebaut und können den Rest mit Puts absichern. Das ist eine bewusste Entscheidung, mit Upside-Beteiligung zu leben, statt sie zu verbieten.</p>
+<p><strong>Zum Stop bei 166.</strong> Dieser Stop ist keine enge Verlustbremse. Die Distanz zu 145 beträgt 21 USD, etwa zwei ATR. Er markiert, wo die These kippt: Ein Schluss über etwa 163–166 USD bedeutet, dass der Kurs den VWMA zurückerobert hat und deutlich über dem 10er EMA liegt. Dann ist das Angebot absorbiert, und das Reduzieren endet. Das Risiko steuert die Positionsgröße, nicht der Stop. Bei Gap-Risiken wie am 12.11. wäre ein enger Stop ohnehin Selbsttäuschung.</p>
+<p><strong>Wo der Plan angreifbar ist.</strong> Erstens ist die Datenlage dünn: Sentiment- und Nachrichtenberichte sind leer, FRED-Daten fehlen, Bewertung und Insider sind unbekannt. Wer daraus ein starkes Signal ableitet, übertreibt, und deshalb ist der Plan auf 50 bis 60 % gestuft und nicht auf null. Zweitens ist der Quartalsbericht im Oktober-Quartal ein echtes Ereignisrisiko in beide Richtungen. Starke Zahlen mit guter Guidance könnten den Kurs aus dem Tal reißen. Darum gibt es keinen Zukauf und keinen Short vor dem Bericht, aber auch keinen Totalverkauf. Drittens bleibt die Restposition volatil. Ohne Kenntnis des tatsächlichen Bestands ist die Faustregel: Die Standardallokation ist die Referenz, und alles über etwa 60 % davon sollte jeder in die Erholungsstärke hinein abbauen.</p>
+<p>Meine Linie ist also, nicht in Panik zu verkaufen, aber auch nicht zu hoffen. Wir nutzen die wahrscheinliche technische Gegenbewegung, um Risiko zu reduzieren, solange der Markt uns dafür bezahlt, und behalten genug Exposure, um bei einer positiven Überraschung dabei zu sein.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>SELL</strong></p>
+<h3 id="s4-2">Conservative Analyst</h3>
+<p>Conservative Analyst: Ich stimme der Richtung zu, nämlich Risiko abbauen und weder kaufen noch shorten. Die Ausführung des Plans ist mir aber zu optimistisch, und genau das ist aus Risikosicht das Problem. Der Aggressive Analyst nennt den Plan &quot;mutig&quot;. Er beruht aber darauf, dass der Markt uns eine Erholung schenkt.</p>
+<p>Der Kern meiner Kritik: Der Plan verkauft nur, wenn der Kurs auf 140 bis 151 USD steigt. Der Schlusskurs liegt bei 125,53 USD. Das sind 11 bis 20 % Anstieg, bevor überhaupt eine Tranche ausgeführt wird. Die Argumente dafür sind RSI 15 und der Schluss unter dem Bollinger-Band. Der Technikbericht sagt aber selbst, dass der Kurs am Band entlangreiten kann, dass keine RSI-Divergenz vorliegt und dass der Schluss nahe dem Tagestief lag. Eine Erholung ist wahrscheinlich, aber nicht sicher. Die Erholung kann bei 135 enden und wieder abdrehen. Dann hat der Plan nichts verkauft, und wir halten die volle Position in einem Markt mit 8,5 % Tagesschwankung. Wer das &quot;nicht hoffen&quot; nennt, übersieht, dass ein Limit-Verkauf oberhalb des Marktes genau eine Hoffnung auf Rebound ist. Das Gap vom 12.11. von 173,73 auf 151,01 USD zeigt, dass man gerade in solchen Phasen nicht ausgeführt wird, wenn man es braucht.</p>
+<p>Dazu kommt das Timing. Der Fundamentalbericht sagt, das Quartal bis Oktober sei nicht enthalten und der Bericht stehe vermutlich unmittelbar bevor. Nvidia berichtet üblicherweise im November. Wir wissen das Datum nicht, es kann also sehr nah sein. Ein Earnings-Gap bei einem Titel, der ohnehin täglich um rund 10 USD schwankt und kurz vorher 47 % verloren hat, ist ein Risiko, das sich nicht über eine Stopp-Order steuern lässt. Der Plan hat deshalb keinen Zeitanker. Ich würde ihn ergänzen: Das Reduktionsziel muss spätestens eine bestimmte Zahl von Handelstagen vor dem Bericht erreicht sein, unabhängig davon, ob die Erholung gekommen ist.</p>
+<p>Zur Formulierung &quot;ohne Erholung höchstens auf ca. 60 % reduzieren&quot;. Das ist für mich der schwächste Satz. Er ist mehrdeutig. Heißt es, man verkauft ohne Erholung nur bis 60 % der Standardallokation, oder man hält dann bis zu 60 %? Wer das falsch liest, trägt 40 % mehr Risiko als gedacht. Ein Plan, der Positionsgröße als Hauptrisikowerkzeug nennt, muss hier eindeutig sein.</p>
+<p>Der Stop bei 166 USD passt für mich nicht zur Logik. Bei einer reinen Reduktion einer Long-Position schützt ein Stopp oberhalb des Kurses nichts. Er signalisiert lediglich, dass man aufhört zu reduzieren. Der Aggressive Analyst sagt das selbst: Er markiert, wo die These kippt. Das ist ein Abbruchkriterium und kein Risikoschutz. Wer ihn als Schutz versteht, verwechselt etwas. Der echte Schutz nach unten fehlt. Es gibt keine Regel, was passiert, wenn der Kurs auf 110 oder 100 USD fällt, denn laut Technikbericht existiert im Datensatz keine verifizierte Unterstützung.</p>
+<p>Die Puts nennt der Plan optional. Ich würde sie einplanen und bewusst prüfen. Nach einem Einbruch wie diesem ist die implizite Volatilität vermutlich sehr hoch. Das weiß ich nicht, die Daten liefern es nicht. Aber dann wäre ein nacktes Put teuer, und besser wäre ein Put-Spread oder ein Collar, damit die Absicherung nicht die Restposition auffrisst. Wichtig ist auch, die Absicherung rechtzeitig vor dem Bericht zu setzen und nicht erst danach.</p>
+<p>Konkret würde ich den Plan so anpassen. Erstens sofort eine kleine erste Tranche, etwa ein Drittel der geplanten Reduktion, zu Marktpreisen oder knapp darüber, damit überhaupt ein Teil des Risikos weg ist. Das ist kein Verkauf auf dem Tief im Panikmodus, sondern eine Versicherungsprämie gegen den Fall, dass die Erholung ausbleibt. Zweitens die übrigen Tranchen gestaffelt bei Erholungsniveaus, aber mit einem Datum als Frist. Drittens eine klare Obergrenze für die Restposition und eine Absicherung, die den Bericht überdeckt.</p>
+<p>Gegenüber dem Fundamental-Buy-Argument bleibe ich vorsichtig, auch wenn die Zahlen stark sind. Das Umsatzplus von 106 % und die operative Marge von 66 % sind vier Monate alt. Der halbierte operative Cashflow ist außerdem abgeleitet, nämlich Halbjahreswert minus Vorquartal, und kein direkt berichteter Wert. Die Verbindlichkeiten stiegen in einem Quartal um 27 Mrd. USD. Die Bewertung kennen wir nicht, ebenso wenig die Insider-Aktivität und den Auslöser des Abverkaufs. Sentiment- und Nachrichtenberichte sind leer, und das ist keine Entwarnung. Wer bei unbekanntem Auslöser kauft, weil die Bilanz solide ist, trägt ein Risiko, das er nicht beziffern kann.</p>
+<p>Und das Abwarten, das der Technikbericht empfiehlt, ist für eine bestehende Position keine Neutralität. Es ist volle Exponierung in Erwartung des Berichts.</p>
+<p>Mein Urteil: Ich bleibe bei Reduktion, aber mit einem Anteil sofort, einer Frist vor dem Bericht, einem eindeutigen Zielgewicht und einer eingeplanten Absicherung. Ohne Kenntnis des tatsächlichen Bestands gilt als Faustregel, dass alles über etwa 60 % der Standardallokation vor dem Bericht abgebaut sein sollte.</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>SELL</strong></p>
+<h3 id="s4-3">Neutral Analyst</h3>
+<p>Neutral Analyst: Ich teile die Richtung beider Kollegen, Risiko abbauen, nicht kaufen, nicht shorten. Beide gehen aber mit ihrer jeweiligen Gewissheit zu weit.</p>
+<p>Zum Aggressiven: Er sagt, man verkaufe nicht auf dem Tief, sondern in die Erholung hinein. Das klingt klug, setzt aber voraus, dass die Erholung kommt und bis 140 bis 151 USD reicht. Der Schlusskurs liegt bei 125,53 USD, der Entry von 145 ist ein veralteter Wert vom 19.11. Der Kurs war am 20.11. im Tageshoch bei 143,73 USD, die unterste Tranche hätte also kurz greifen können. Gehalten hat nichts: Der Tag endete mit minus 14 % nahe dem Tief. Das zeigt, wie schnell Erholungsniveaus verschwinden. Auch &quot;wir bieten Liquidität an&quot; ist eine Hoffnung auf Rebound, nur schöner formuliert. Der RSI von 15 und der Schluss unter dem Band machen eine Gegenbewegung wahrscheinlich, aber der Bericht warnt selbst vor dem Entlangreiten am Band, und es gibt weder Divergenz noch Unterstützung.</p>
+<p>Der Stop bei 166 USD ist als Risikoschutz für eine Long-Position wirkungslos. Der Kollege räumt ein, dass er nur das Ende des Reduzierens markiert. Das ist ein Abbruchkriterium, und der Plan sollte es auch so nennen. Außerdem sollte man beim &quot;tape weiß mehr&quot; vorsichtig sein. Der Preis weiß vielleicht mehr, aber 47 % Abverkauf mit Panikvolumen kann auch Übertreibung sein. Die Fundamentaldaten bis Juli, mit Umsatz plus 106 %, 66 % operativer Marge und Current Ratio 4,6, sind kein Grund zum Kaufen, aber auch kein Grund, die Position panisch abzuwerfen.</p>
+<p>Zum Konservativen: Seine Kritik an der Mehrdeutigkeit der 60 % und am fehlenden Zeitanker ist berechtigt. Seine Lösung, sofort ein Drittel zum Marktpreis zu verkaufen, überzeugt mich weniger. Das wäre genau nach einem Tag mit minus 14 %, 626 Mio. Aktien Volumen und Schluss nahe dem Tief, bei RSI 15. Statistisch ist das die schlechteste Ausführung des ganzen Plans. Er nennt den halbierten Cashflow zudem selbst abgeleitet, also Halbjahreswert minus Vorquartal, und verwendet ihn trotzdem als Argument für Eile. Ein schwacher Cashflow bei schnell wachsendem Umsatz kann auch Working-Capital-Aufbau für Nachfrage sein. Das ist ein Warnsignal, aber kein Beweis. Und &quot;Abwarten ist volle Exponierung&quot; stimmt nur, wenn die Position größer ist, als man tragen kann. Das wissen wir hier nicht, weil wir den Bestand nicht kennen.</p>
+<p>Mein Vorschlag: Erstens eine Risikogrenze statt eines Pauschalverkaufs. Wer eine Position hat, fragt sich, wie viel Verlust er bei weiteren 20 bis 30 % Rückgang tragen kann. Bei einem ATR von 10,7 USD ist ein Kurs von 100 USD in wenigen Tagen denkbar. Nur das, was darüber hinausgeht, wird sofort und ohne Rücksicht auf Rebound abgebaut. Liegt die Position schon bei 60 % der Standardallokation oder darunter, ist sofort nichts nötig. Zweitens die eigentliche Reduktion auf etwa 50 bis 60 % gestaffelt in die Erholung, zum Beispiel erste Tranche bei einem Schluss über dem unteren Band von 128,31, weitere um 140 bis 146 und im Bereich 150 bis 157. Das sind Referenzen aus Tageswerten, keine bestätigten Widerstände. Wer Optionen nutzt, kann statt Limit-Orders Calls in diesen Zonen schreiben. Bei der vermutlich hohen Volatilität gibt das Prämie, aber auch eine Kappung der Aufwärtsbeteiligung.</p>
+<p>Drittens braucht der Plan den Zeitanker. Das Berichtsdatum kennen wir nicht, und es kann sehr nah sein. Es muss vorab geprüft werden. Spätestens wenige Handelstage vorher gilt: Höchstens 60 % der Standardallokation, unabhängig vom Kurs, und die Absicherung steht. Viertens zur Absicherung: Statt eines nackten Puts ein Put-Spread oder ein Collar, dessen Call-Strike in der geplanten Verkaufszone liegt. So wird die Prämie finanziert, ohne den Rebound ganz abzuschneiden. Fünftens soll ein Kursverlauf unter etwa 120 bis 125 USD keine automatische Panik auslösen, aber eine Überprüfung: Gibt es Neuigkeiten, hat sich die Datenlage geändert? Dort gibt es keine verifizierte Unterstützung, also muss die Positionsgröße den Schutz leisten.</p>
+<p>Kein Short und kein Zukauf vor dem Bericht bleiben richtig. Sentiment-, Nachrichten- und Makroberichte waren leer. Das ist keine Entwarnung und kein Alarm, sondern ein Grund, die Größe zu begrenzen und den Auslöser zu recherchieren.</p>
+<p><strong>Rating</strong>: Underweight</p>
+<p>FINAL TRANSACTION PROPOSAL: <strong>SELL</strong></p>
+</section><section id="s5"><h2>V. Portfolio Manager Decision</h2><h3 id="s5-1">Portfolio Manager</h3>
+<p><strong>Rating</strong>: Underweight</p>
+<p><strong>Executive Summary</strong>: NVDA wird auf 50–60 % der Standardallokation untergewichtet. 60 % ist die Obergrenze der Restposition und muss spätestens 2–3 Handelstage vor dem Bericht zum Oktober-Quartal erreicht sein, unabhängig vom Kurs. Das Berichtsdatum muss sofort geprüft werden. Sofort wird nur der Teil verkauft, der einen Rückgang auf etwa 100 USD nicht verkraften würde. Der Rest wird gestaffelt in die Gegenbewegung verkauft: erste Tranche bei einem Schluss über 128,31 bzw. bei 130–135 USD, weitere bei 140–146 und 150–157 USD. Die Restposition wird vor dem Bericht per Put-Spread oder Collar abgesichert (Call-Strike bei 150–157). Kein Zukauf, kein Short. 166 USD ist ein Abbruchkriterium für das Reduzieren, kein Stop.</p>
+<p><strong>Investment Thesis</strong>: Alle drei Risikoanalysten wollen Risiko abbauen, ohne zu shorten. Uneinig sind sie nur bei der Ausführung. Gegen Hold oder Buy spricht: Die starken Zahlen (Umsatz +106 %, operative Marge 66 %, Current Ratio 4,6) enden am 26.07.2026. Der Kurs fiel bei 300–750 Mio. Aktien Tagesvolumen um 47 % von 239,24 auf 125,53 USD, der Auslöser ist unbekannt. Der operative Cashflow hat sich bei +18 % Umsatz auf 24,1 Mrd. USD halbiert (abgeleiteter Wert), die Verbindlichkeiten stiegen um 27 Mrd. USD. Die Technik zeigt keinen Boden: MACD-Histogramm auf dem Tief (-4,63), keine Divergenz, keine Unterstützung. Bei einem ATR von 10,71 USD ist Abwarten volles Exposure. Gegen Sell spricht: RSI 15,05 und ein Schluss unter dem unteren Bollinger-Band machen eine Gegenbewegung wahrscheinlich, eine Verschlechterung der Ertragskraft ist nicht belegt, und der Bericht kann positiv überraschen. Der Konservative hat recht, dass Verkaufsaufträge bei 140–151 USD eine Hoffnung auf Erholung sind (Hoch am 20.11. bei 143,73, dann Schluss mit -14 % nahe dem Tief), dass eine Frist fehlt und dass die 60 %-Regel mehrdeutig ist. Der Neutrale überzeugt beim sofortigen Handeln: Ein Drittel nach einem Tag mit -14 % bei RSI 15 zu verkaufen, wäre die schlechteste Ausführung. Deshalb wird sofort nur abgebaut, was über die Verlusttragfähigkeit hinausgeht, und die erste Tranche liegt näher am Kurs. Der Stop bei 166 USD schützt eine Long-Position nicht. Den Schutz leisten Positionsgröße und Absicherung. Unter 120 USD folgt eine Überprüfung, kein Panikverkauf. Zurück auf Standardgewicht oder Overweight bei einem operativen Cashflow deutlich über 50 % des Nettogewinns, bestätigtem Ausblick und bestätigten Margen sowie einem stabilisierten Chart (höheres Tief, Schluss über 151 USD, drehender MACD). Auf 25 % abbauen oder aussteigen bei schwachem Ausblick oder Cashflow oder neuen Tiefs ohne Divergenz. Es fehlen Nachrichten, Sentiment, Makrodaten, Bewertung, Konsens, Insider-Daten, implizite Volatilität, Berichtsdatum und Working-Capital-Details.</p>
+<p><strong>Price Target</strong>: not provided</p>
+<p><strong>Time Horizon</strong>: Bis kurz nach dem Bericht zum Oktober-Quartal (voraussichtlich wenige Wochen), danach neu bewerten</p>
+</section>
+</main>
+<footer class="credit"><a href="https://github.com/TauricResearch/TradingAgents" rel="noopener">TradingAgents</a> powered by <a class="brand" href="https://github.com/TauricResearch" rel="noopener">Tauric Research</a></footer>
+</div>
+<a class="to-top" href="#top">Top</a>
+</body>
+</html>
