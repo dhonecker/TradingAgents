@@ -10,5 +10,9 @@
   "AAPL@2026-11-23": {
     "rating": "Hold",
     "report": "/root/.tradingagents/logs/reports/AAPL_20261123_155435/complete_report.md"
+  },
+  "MSFT@2026-11-23": {
+    "rating": "Hold",
+    "report": "/root/.tradingagents/logs/reports/MSFT_20261123_155946/complete_report.md"
   }
 }
