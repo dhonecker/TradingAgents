@@ -6,5 +6,9 @@
   "NVDA@2026-11-23": {
     "rating": "Underweight",
     "report": "/root/.tradingagents/logs/reports/NVDA_20261123_154914/complete_report.md"
+  },
+  "AAPL@2026-11-23": {
+    "rating": "Hold",
+    "report": "/root/.tradingagents/logs/reports/AAPL_20261123_155435/complete_report.md"
   }
 }
