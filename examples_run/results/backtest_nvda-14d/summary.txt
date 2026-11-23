@@ -1,0 +1,17 @@
+8 Zellen: 2026-08-03 .. 2026-11-09
+[1/8] NVDA 2026-08-03
+[2/8] NVDA 2026-08-17
+[3/8] NVDA 2026-08-31
+[4/8] NVDA 2026-09-14
+Trader: structured-output invocation failed (You are attempting to use structured output via forced tool calling, which is not supported when `thinking` is enabled or on claude-sonnet-5-5. This method will raise an OutputParserException if tool calls are not generated. Consider `method='json_schema'`, disabling `thinking` where supported, or adjusting your prompt to ensure the tool is called.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ); retrying once as free text
+[5/8] NVDA 2026-09-28
+[6/8] NVDA 2026-10-12
+[7/8] NVDA 2026-10-26
+[8/8] NVDA 2026-11-09
+Resolved cells: 8 · pending: 0
+- Overweight: n=7, called the direction 57%, mean alpha +0.60% vs the benchmark
+- Hold: n=1, no direction claimed, mean alpha -5.60% vs the benchmark
+
+Alpha is measured over 5 trading days from the first close after each analysis date. One model sampling per cell, and text feeds are not archived, so these figures are indicative rather than repeatable.
+Zellen: 8, übersprungen: 0, Log: /root/.tradingagents/logs/backtest/nvda-14d/trading_memory.md, run-id: nvda-14d
