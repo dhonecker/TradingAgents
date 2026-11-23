@@ -24,12 +24,14 @@ import datetime as dt
 import json
 import math
 import os
+import shutil
 from pathlib import Path
 
 import requests
 
 BASE = "https://paper-api.alpaca.markets"
-SIGNALS = Path(__file__).parent / "results" / "signals.json"
+RESULTS = Path(__file__).parent / "results"
+SIGNALS = RESULTS / "signals.json"
 SLOT_FRACTION = {"buy": 1.0, "overweight": 0.75, "underweight": 0.25, "sell": 0.0}
 
 
@@ -66,8 +68,10 @@ def get_signal(ticker, date, signals):
     print(f"Analysiere {ticker} zum {date} ...", flush=True)
     ta = TradingAgentsGraph(debug=False, config=config())
     state, rating = ta.propagate(ticker, date)
-    report = ta.save_reports(state, ticker)
-    signals[key] = {"rating": rating, "report": str(report)}
+    report = Path(ta.save_reports(state, ticker))
+    dest = RESULTS / date / ticker
+    shutil.copytree(report.parent, dest, dirs_exist_ok=True)
+    signals[key] = {"rating": rating, "report": str((dest / report.name).relative_to(RESULTS.parent.parent))}
     SIGNALS.parent.mkdir(parents=True, exist_ok=True)
     SIGNALS.write_text(json.dumps(signals, indent=2, ensure_ascii=False))
     return rating
@@ -96,6 +100,8 @@ def main():
     clock = api("GET", "/v2/clock")
     print(f"\nEquity {equity:,.2f} $, Slot je Ticker {slot:,.2f} $, Markt offen: {clock['is_open']}\n")
 
+    lines = [f"Stichtag {a.date}, Lauf {dt.datetime.now(dt.timezone.utc):%Y-%m-%d %H:%M} UTC",
+             f"Equity {equity:,.2f} $, Cash {float(acct['cash']):,.2f} $, Slot je Ticker {slot:,.2f} $"]
     orders = []
     for t in tickers:
         rating = ratings[t].strip().lower()
@@ -108,19 +114,26 @@ def main():
             if rating == "underweight":
                 target = min(have, target)
         delta = int(target - have)
-        print(f"{t:6} {ratings[t]:12} Kurs {price:9.2f}  Bestand {have:6.0f}  Ziel {target:6.0f}  Order {delta:+d}")
+        line = f"{t:6} {ratings[t]:12} Kurs {price:9.2f}  Bestand {have:6.0f}  Ziel {target:6.0f}  Order {delta:+d}"
+        print(line)
+        lines.append(line)
         if delta:
             orders.append((t, delta))
 
     if a.dry_run or not orders:
-        print("\nKeine Orders gesendet." if not orders else "\nDry-Run: keine Orders gesendet.")
-        return
-    print()
-    for t, delta in orders:
-        o = api("POST", "/v2/orders", json={"symbol": t, "qty": str(abs(delta)),
-                                             "side": "buy" if delta > 0 else "sell",
-                                             "type": "market", "time_in_force": "day"})
-        print(f"Order {o['side']} {o['qty']} {t}: {o['status']} (id {o['id']})")
+        lines.append("Keine Orders gesendet." if not orders else "Dry-Run: keine Orders gesendet.")
+    else:
+        for t, delta in orders:
+            o = api("POST", "/v2/orders", json={"symbol": t, "qty": str(abs(delta)),
+                                                 "side": "buy" if delta > 0 else "sell",
+                                                 "type": "market", "time_in_force": "day"})
+            lines.append(f"Order {o['side']} {o['qty']} {t}: {o['status']} (id {o['id']})")
+    pos = api("GET", "/v2/positions")
+    lines.append("Positionen: " + (", ".join(f"{p['symbol']} {p['qty']} (P/L {float(p['unrealized_pl']):+.2f} $)" for p in pos) or "keine"))
+    print("\n" + "\n".join(lines[-(len(orders) + 2):]))
+    out = RESULTS / a.date / "orders.txt"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
